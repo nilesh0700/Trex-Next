@@ -1,18 +1,37 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // Cleanup function
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="w-full h-14 sm:h-16 lg:h-20 bg-transparent absolute top-0 left-0 z-50">
+    <nav className={`w-full h-14 sm:h-16 lg:h-20 fixed top-0 left-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'backdrop-blur-md bg-white/80 shadow-sm' 
+        : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between items-center h-full">
           {/* Logo */}
@@ -122,7 +141,11 @@ export default function NavBar() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t z-50">
+          <div className={`lg:hidden absolute top-full left-0 w-full shadow-lg border-t z-50 ${
+            isScrolled 
+              ? 'backdrop-blur-md bg-white/90' 
+              : 'bg-white'
+          }`}>
             <div className="px-4 py-6 space-y-4">
               <Link 
                 href="/" 
