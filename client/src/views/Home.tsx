@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero';
 import Statistics from '../components/Statistics';
 import AboutUs from '../components/AboutUs';
+import KeyEventHighlights from '../components/KeyEventHighlights';
 
 export default function Home() {
   return (
@@ -16,6 +17,9 @@ export default function Home() {
 
       {/* About Us Section */}
       <AboutUs />
+
+      {/* Key Event Highlights Section */}
+      <KeyEventHighlights />
       
       {/* Future sections can be added here */}
       {/* 
