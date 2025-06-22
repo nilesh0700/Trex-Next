@@ -7,7 +7,7 @@ export default function Hero() {
       <div className="flex flex-col min-h-screen">
          <div className="flex flex-row h-full">
            {/* Left Section - Responsive Background */}
-           <div className="w-full lg:w-[70%] min-h-[80vh] bg-[#C88652] lg:bg-[#f8f9fa] flex items-center">
+           <div className="w-full lg:w-[70%] min-h-screen sm:min-h-[80vh] bg-[#C88652] lg:bg-[#f8f9fa] flex items-center">
              <div className="px-6 md:px-8 lg:px-12 xl:pl-[163px] xl:pr-[100px] py-8 md:py-12 lg:py-12 xl:py-0 w-full text-center lg:text-left">
                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-[64px] font-bold text-[#264065] leading-tight md:leading-tight lg:leading-tight xl:leading-[76px] mb-6 md:mb-8 lg:mb-6">
                  where regional market<br />
@@ -51,43 +51,43 @@ export default function Hero() {
            </div>
 
                       {/* Stats Section - Hidden on mobile */}
-           <div className="hidden sm:block absolute top-[70vh] left-1/2 lg:left-[35vw] transform -translate-x-1/2 lg:transform-none w-[95%] sm:w-[90%] md:w-[80%] lg:w-[40vw] z-20">
+           <div className="hidden sm:block absolute top-[70vh] left-1/2 lg:left-[35vw] transform -translate-x-1/2 lg:transform-none w-[95%] sm:w-[90%] md:w-[80%] lg:w-[50vw] xl:w-[55vw] z-20">
              <div className="flex w-full p-3 sm:p-4 md:p-6 lg:pt-[1.5vw] lg:pr-[1.5vw] lg:pb-[1.5vw] lg:pl-[1.5vw] gap-2 sm:gap-3 md:gap-6 lg:gap-[2.5vw] justify-center items-start bg-[rgba(255,255,255,0.8)] rounded-[12px] relative mx-auto">
                <div className="flex flex-col gap-1 sm:gap-2 md:gap-4 lg:gap-[1vw] justify-center items-center flex-1 min-w-0">
-                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[3vw] lg:h-[3vw] lg:min-w-[40px] lg:min-h-[40px] lg:max-w-[60px] lg:max-h-[60px] flex items-center justify-center">
+                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[4vw] lg:h-[4vw] xl:w-[4.5vw] xl:h-[4.5vw] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[80px] lg:max-h-[80px] flex items-center justify-center">
                    <img src="/assets/globe.svg" alt="Cities" className="w-full h-full object-contain" />
                  </div>
                  <div className="flex flex-col gap-1 md:gap-2 lg:gap-[0.5vw] items-center text-center">
-                   <span className="text-sm sm:text-base md:text-2xl lg:text-xl xl:text-[clamp(18px,1.5vw,28px)] font-medium text-[#264065]">
+                   <span className="text-sm sm:text-base md:text-2xl lg:text-2xl xl:text-[clamp(20px,2vw,32px)] font-medium text-[#264065]">
                      15+
                    </span>
-                   <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(12px,0.9vw,16px)] font-normal text-[#909090] leading-tight">
+                   <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1.2vw,20px)] font-normal text-[#909090] leading-tight">
                      high-growth Tire 2 & 3 cities
                    </span>
                  </div>
                </div>
                <div className="flex flex-col gap-1 sm:gap-2 md:gap-4 lg:gap-[1vw] justify-center items-center flex-1 min-w-0">
-                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[3vw] lg:h-[3vw] lg:min-w-[40px] lg:min-h-[40px] lg:max-w-[60px] lg:max-h-[60px] flex items-center justify-center">
+                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[4vw] lg:h-[4vw] xl:w-[4.5vw] xl:h-[4.5vw] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[80px] lg:max-h-[80px] flex items-center justify-center">
                    <img src="/assets/badge.svg" alt="Decision Makers" className="w-full h-full object-contain" />
                  </div>
                  <div className="flex flex-col gap-1 md:gap-2 lg:gap-[0.5vw] items-center text-center">
-                   <span className="text-sm sm:text-base md:text-2xl lg:text-xl xl:text-[clamp(18px,1.5vw,28px)] font-medium text-[#264065]">
+                   <span className="text-sm sm:text-base md:text-2xl lg:text-2xl xl:text-[clamp(20px,2vw,32px)] font-medium text-[#264065]">
                      500+
                    </span>
-                   <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(12px,0.9vw,16px)] font-normal text-[#909090] leading-tight">
+                   <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1.2vw,20px)] font-normal text-[#909090] leading-tight">
                      verified decision-makers
                    </span>
                  </div>
                </div>
                <div className="flex flex-col gap-1 sm:gap-2 md:gap-4 lg:gap-[1vw] justify-center items-center flex-1 min-w-0">
-                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[3vw] lg:h-[3vw] lg:min-w-[40px] lg:min-h-[40px] lg:max-w-[60px] lg:max-h-[60px] flex items-center justify-center">
+                 <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[4vw] lg:h-[4vw] xl:w-[4.5vw] xl:h-[4.5vw] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[80px] lg:max-h-[80px] flex items-center justify-center">
                    <img src="/assets/user.svg" alt="Quality" className="w-full h-full object-contain" />
                  </div>
                  <div className="flex flex-col gap-1 md:gap-2 lg:gap-[0.5vw] items-center text-center">
-                   <span className="text-sm sm:text-base md:text-2xl lg:text-xl xl:text-[clamp(18px,1.5vw,28px)] font-medium text-[#264065]">
+                   <span className="text-sm sm:text-base md:text-2xl lg:text-2xl xl:text-[clamp(20px,2vw,32px)] font-medium text-[#264065]">
                      100%
                    </span>
-                   <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(12px,0.9vw,16px)] font-medium text-[#909090] leading-tight">
+                   <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1.2vw,20px)] font-medium text-[#909090] leading-tight">
                      happy customers
                    </span>
                  </div>
