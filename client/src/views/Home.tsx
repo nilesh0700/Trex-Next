@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import Statistics from '../components/Statistics';
 import AboutUs from '../components/AboutUs';
 import KeyEventHighlights from '../components/KeyEventHighlights';
+import MarketExpansion from '../components/MarketExpansion';
 
 export default function Home() {
   return (
@@ -20,6 +21,9 @@ export default function Home() {
 
       {/* Key Event Highlights Section */}
       <KeyEventHighlights />
+
+      {/* Market Expansion Section */}
+      <MarketExpansion />
       
       {/* Future sections can be added here */}
       {/* 

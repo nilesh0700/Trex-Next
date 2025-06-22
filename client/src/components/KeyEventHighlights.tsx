@@ -34,7 +34,7 @@ const KeyEventHighlights = () => {
   return (
     <section className="w-full py-12 sm:py-16 lg:py-20 bg-white relative overflow-hidden">
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Title */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <h2 
