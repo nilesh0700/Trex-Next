@@ -3,7 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 
-export default function AboutUs() {
+interface AboutUsProps {
+  showLearnMore?: boolean;
+}
+
+export default function AboutUs({ showLearnMore = true }: AboutUsProps) {
   return (
     <section className="w-full py-12 sm:py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
       {/* Background Elements */}
@@ -33,21 +37,23 @@ export default function AboutUs() {
             </div>
             
             {/* Learn More Button */}
-            <div className="animate-fadeInUp animation-delay-400">
-              <button className="group bg-[#264065] hover:bg-[#1a2d47] text-white px-8 sm:px-10 py-3 sm:py-4 rounded-xl font-medium text-base sm:text-lg font-['Poppins'] transition-all duration-300 ease-out transform hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#264065]/20">
-                <span className="flex items-center gap-2">
-                  Learn more
-                  <svg 
-                    className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
-              </button>
-            </div>
+            {showLearnMore && (
+              <div className="animate-fadeInUp animation-delay-400">
+                <button className="group bg-[#264065] hover:bg-[#1a2d47] text-white px-8 sm:px-10 py-3 sm:py-4 rounded-xl font-medium text-base sm:text-lg font-['Poppins'] transition-all duration-300 ease-out transform hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#264065]/20">
+                  <span className="flex items-center gap-2">
+                    Learn more
+                    <svg 
+                      className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
           
           {/* Right Image Section */}
