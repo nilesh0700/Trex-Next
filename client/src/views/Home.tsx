@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import Statistics from '../components/Statistics';
+import AboutUs from '../components/AboutUs';
 
 export default function Home() {
   return (
@@ -12,6 +13,9 @@ export default function Home() {
       <section className="bg-white">
         <Statistics />
       </section>
+
+      {/* About Us Section */}
+      <AboutUs />
       
       {/* Future sections can be added here */}
       {/* 
