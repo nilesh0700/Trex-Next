@@ -12,7 +12,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="w-full h-14 sm:h-16 lg:h-20 bg-white shadow-sm relative">
+    <nav className="w-full h-14 sm:h-16 lg:h-20 bg-transparent absolute top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex justify-between items-center h-full">
           {/* Logo */}

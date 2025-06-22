@@ -40,8 +40,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${nunitoSans.variable} antialiased`}
       >
-        <NavBar />
-        {children}
+        <div className="relative">
+          <NavBar />
+          {children}
+        </div>
       </body>
     </html>
   );
