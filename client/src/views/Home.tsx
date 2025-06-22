@@ -4,6 +4,7 @@ import Statistics from '../components/Statistics';
 import AboutUs from '../components/AboutUs';
 import KeyEventHighlights from '../components/KeyEventHighlights';
 import MarketExpansion from '../components/MarketExpansion';
+import EventCTA from '../components/EventCTA';
 
 export default function Home() {
   return (
@@ -24,6 +25,9 @@ export default function Home() {
 
       {/* Market Expansion Section */}
       <MarketExpansion />
+
+      {/* Event CTA Section */}
+      <EventCTA />
       
       {/* Future sections can be added here */}
       {/* 
