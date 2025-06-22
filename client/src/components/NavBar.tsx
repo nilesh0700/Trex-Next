@@ -44,18 +44,24 @@ export default function NavBar() {
               About
             </Link>
             <Link 
-              href="/services" 
+              href="/events" 
               className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
             >
-              Services
+              Events
             </Link>
             <Link 
-              href="/facilities" 
+              href="/blog" 
               className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
             >
-              Facilities
+              Blogs
             </Link>
-            <div className="relative group">
+            <Link 
+              href="/contact" 
+              className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
+            >
+              Contact
+            </Link>
+            {/* <div className="relative group">
               <button className="flex items-center font-['Nunito_Sans'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200">
                 More
                 <svg 
@@ -67,8 +73,7 @@ export default function NavBar() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              {/* Dropdown menu can be added here */}
-            </div>
+            </div> */}
           </div>
 
           {/* Search and Auth Buttons */}
