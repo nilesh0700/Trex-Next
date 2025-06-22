@@ -5,15 +5,15 @@ import Image from 'next/image';
 
 export default function AboutUs() {
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50 relative overflow-hidden">
+    <section className="w-full py-12 sm:py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100/50"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-gray-50/20"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
           
           {/* Left Content Section */}
-          <div className="space-y-6 sm:space-y-8 order-2 lg:order-1">
+          <div className="space-y-6 sm:space-y-8 order-2 lg:order-1 p-6 sm:p-8 lg:p-10 rounded-2xl" style={{backgroundColor: '#FAF8F5'}}>
             {/* Section Header */}
             <div className="space-y-4 sm:space-y-6">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-bold text-[#264065] font-['Poppins'] leading-tight animate-fadeInUp">
@@ -76,7 +76,7 @@ export default function AboutUs() {
                 {/* Image */}
                 <div className="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] relative">
                   <Image
-                    src="/assets/about.png"
+                    src="/assets/buyer-program.jpg"
                     alt="Professional business team - TREX Travel Relations & Exhibitions"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"

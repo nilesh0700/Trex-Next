@@ -25,7 +25,7 @@ export default function Statistics() {
   ];
 
   return (
-    <div className="w-full py-8 sm:py-12 md:py-16 lg:py-20 relative mx-auto">
+    <div className="w-full py-[80px] relative mx-auto">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50/20 via-white to-gray-100/20"></div>
       
@@ -53,7 +53,7 @@ export default function Statistics() {
               <div className="relative z-10 flex flex-col items-center justify-center text-center p-8 sm:p-6 md:p-8 lg:p-6 xl:p-8 min-h-[200px] sm:min-h-[180px] md:min-h-[200px]">
                 {/* Number */}
                 <div className="relative mb-4 sm:mb-3 md:mb-4">
-                  <span className="block text-5xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-medium text-[#264065] group-hover:text-[#C88652] leading-none font-['Poppins'] transition-all duration-500 ease-out transform group-hover:scale-105">
+                  <span className="block text-5xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light text-[#264065] group-hover:text-[#C88652] leading-none font-['Inter'] tracking-tight transition-all duration-500 ease-out transform group-hover:scale-105">
                     {stat.number}
                   </span>
                   {/* Animated underline */}
@@ -73,13 +73,13 @@ export default function Statistics() {
         </div>
 
         {/* Bottom Accent */}
-        <div className="mt-16 md:mt-20 text-center">
+        {/* <div className="mt-16 md:mt-20 text-center">
           <div className="inline-flex items-center space-x-2 text-sm text-[#909090] font-['Poppins']">
             <div className="w-2 h-2 bg-[#264065] rounded-full animate-pulse"></div>
             <span className="font-medium">Trusted by businesses across India</span>
             <div className="w-2 h-2 bg-[#264065] rounded-full animate-pulse"></div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
