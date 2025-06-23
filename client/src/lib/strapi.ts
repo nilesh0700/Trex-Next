@@ -13,9 +13,9 @@ const BASE_URL = getStrapiURL();
 
 // Transform Strapi blog post to frontend-friendly format
 function transformBlogPost(strapiPost: StrapiBlogPost): BlogPost {
-  const imageUrl = strapiPost.featured_image?.data?.url 
-    ? `${BASE_URL}${strapiPost.featured_image.data.url}`
-    : "/assets/default-blog.jpg"; // Fallback image
+  const imageUrl = strapiPost.featured_image?.url 
+    ? `${BASE_URL}${strapiPost.featured_image.url}`
+    : "/assets/networking.jpg"; // Fallback image
 
   return {
     id: strapiPost.id,
@@ -28,18 +28,18 @@ function transformBlogPost(strapiPost: StrapiBlogPost): BlogPost {
     readTime: strapiPost.readTime,
     tags: strapiPost.tags || [],
     image: imageUrl,
-    imageAlt: strapiPost.featured_image?.data?.alternativeText || strapiPost.title,
+    imageAlt: strapiPost.featured_image?.alternativeText || strapiPost.title,
     author: {
-      name: strapiPost.author?.data?.name || "Anonymous",
-      email: strapiPost.author?.data?.email,
-      bio: strapiPost.author?.data?.bio,
-      avatar: strapiPost.author?.data?.avatar?.data?.url 
-        ? `${BASE_URL}${strapiPost.author.data.avatar.data.url}`
+      name: strapiPost.author?.name || "Anonymous",
+      email: strapiPost.author?.email,
+      bio: strapiPost.author?.bio,
+      avatar: strapiPost.author?.avatar?.url 
+        ? `${BASE_URL}${strapiPost.author.avatar.url}`
         : undefined,
     },
     category: {
-      name: strapiPost.category?.data?.name || "Uncategorized",
-      slug: strapiPost.category?.data?.slug || "uncategorized",
+      name: strapiPost.category?.name || "Uncategorized",
+      slug: strapiPost.category?.slug || "uncategorized",
     },
     publishedAt: strapiPost.publishedAt,
     createdAt: strapiPost.createdAt,

@@ -27,9 +27,7 @@ export interface StrapiAuthor {
   name: string;
   email: string;
   bio?: string;
-  avatar?: {
-    data: StrapiImage | null;
-  };
+  avatar?: StrapiImage | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -56,15 +54,9 @@ export interface StrapiBlogPost {
   featured: boolean;
   readTime: string;
   tags: string[];
-  featured_image: {
-    data: StrapiImage | null;
-  };
-  author: {
-    data: StrapiAuthor | null;
-  };
-  category: {
-    data: StrapiCategory | null;
-  };
+  featured_image: StrapiImage | null;
+  author: StrapiAuthor | null;
+  category: StrapiCategory | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
