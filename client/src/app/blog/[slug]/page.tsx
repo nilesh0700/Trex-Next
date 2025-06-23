@@ -2,25 +2,32 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { blogPosts } from '@/lib/blogData';
+import { getBlogPostBySlug, getRelatedBlogPosts, getBlogPosts } from '@/lib/strapi';
+import { BlogPost } from '@/types/strapi';
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = blogPosts.find(p => p.slug === params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  
+  // Fetch blog post and related posts from Strapi
+  const [post, relatedPosts] = await Promise.all([
+    getBlogPostBySlug(slug),
+    getBlogPostBySlug(slug).then(async (currentPost) => {
+      if (currentPost) {
+        return getRelatedBlogPosts(slug, currentPost.category.slug, 3);
+      }
+      return [];
+    }),
+  ]);
 
   if (!post) {
     notFound();
   }
-
-  // Related posts (excluding current post)
-  const relatedPosts = blogPosts
-    .filter(p => p.slug !== params.slug && (p.category === post.category || p.tags.some(tag => post.tags.includes(tag))))
-    .slice(0, 3);
 
   return (
     <main className="min-h-screen">
@@ -44,9 +51,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Post Meta */}
           <div className="flex items-center gap-4 mb-6">
             <span className="bg-[#264065] text-white px-4 py-2 rounded-full text-sm font-medium font-['Poppins']">
-              {post.category}
+              {post.category.name}
             </span>
-            <span className="text-[#6c757d] text-sm font-['Poppins']">{post.date}</span>
+            <span className="text-[#6c757d] text-sm font-['Poppins']">
+              {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </span>
             <span className="text-[#6c757d] text-sm font-['Poppins']">•</span>
             <span className="text-[#6c757d] text-sm font-['Poppins']">{post.readTime}</span>
           </div>
@@ -59,13 +72,29 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Author Info */}
           <div className="flex items-center gap-4 mb-8">
             <div className="w-12 h-12 bg-[#264065] rounded-full flex items-center justify-center">
-              <span className="text-white font-bold font-['Poppins']">
-                {post.author.name.split(' ').map(n => n[0]).join('')}
-              </span>
+              {post.author.avatar ? (
+                <Image
+                  src={post.author.avatar}
+                  alt={post.author.name}
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover"
+                />
+              ) : (
+                <span className="text-white font-bold font-['Poppins']">
+                  {post.author.name.split(' ').map(n => n[0]).join('')}
+                </span>
+              )}
             </div>
             <div>
               <p className="text-[#264065] font-semibold font-['Poppins']">{post.author.name}</p>
-              <p className="text-[#6c757d] text-sm font-['Poppins']">Published on {post.date}</p>
+              <p className="text-[#6c757d] text-sm font-['Poppins']">
+                Published on {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </p>
             </div>
           </div>
 
@@ -73,7 +102,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-2xl overflow-hidden mb-12 shadow-xl">
             <Image
               src={post.image}
-              alt={post.title}
+              alt={post.imageAlt}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
@@ -87,25 +116,36 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="w-full py-12 sm:py-16 md:py-20" style={{backgroundColor: '#ffffff'}}>
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="prose prose-lg max-w-none">
-            <div className="text-[#6c757d] font-['Poppins'] text-lg leading-relaxed space-y-6">
-              {post.content}
+            <div className="text-[#6c757d] font-['Poppins'] text-lg leading-relaxed">
+              {/* Excerpt */}
+              <div className="text-xl font-medium text-[#264065] mb-8 p-6 bg-[#FAF8F5] rounded-xl border-l-4 border-[#C88652]">
+                {post.excerpt}
+              </div>
+              
+              {/* Content - In a real implementation, you'd want to use a rich text renderer */}
+              <div 
+                className="prose prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
             </div>
           </div>
           
           {/* Tags */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <h3 className="text-lg font-semibold text-[#264065] mb-4 font-['Poppins']">Tags</h3>
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="bg-[#FAF8F5] text-[#6c757d] px-3 py-2 rounded-full text-sm font-['Poppins'] hover:bg-[#264065] hover:text-white transition-colors cursor-pointer"
-                >
-                  #{tag}
-                </span>
-              ))}
+          {post.tags.length > 0 && (
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <h3 className="text-lg font-semibold text-[#264065] mb-4 font-['Poppins']">Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-[#FAF8F5] text-[#6c757d] px-3 py-2 rounded-full text-sm font-['Poppins'] hover:bg-[#264065] hover:text-white transition-colors cursor-pointer"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Share Section */}
           <div className="mt-8 pt-8 border-t border-gray-200">
@@ -143,7 +183,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                       <div className="relative h-48">
                         <Image
                           src={relatedPost.image}
-                          alt={relatedPost.title}
+                          alt={relatedPost.imageAlt}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -152,7 +192,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                       <div className="p-6">
                         <div className="flex items-center justify-between mb-3">
                           <span className="bg-[#264065] text-white px-3 py-1 rounded-full text-xs font-medium font-['Poppins']">
-                            {relatedPost.category}
+                            {relatedPost.category.name}
                           </span>
                           <span className="text-[#6c757d] text-xs font-['Poppins']">{relatedPost.readTime}</span>
                         </div>
@@ -186,8 +226,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   );
 }
 
+// Generate static params for all blog posts
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
+  try {
+    const { data: blogPosts } = await getBlogPosts({ pageSize: 100 });
+    return blogPosts.map((post: BlogPost) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
 } 
