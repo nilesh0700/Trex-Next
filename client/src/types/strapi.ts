@@ -44,6 +44,55 @@ export interface StrapiCategory {
   publishedAt: string;
 }
 
+export interface StrapiEventCategory {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  description?: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface StrapiOrganizer {
+  id: number;
+  documentId: string;
+  name: string;
+  email: string;
+  bio?: string;
+  avatar?: StrapiImage | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface StrapiEvent {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  description: string;
+  content: string;
+  featured: boolean;
+  event_date: string;
+  location: string;
+  participants_count: string;
+  registration_link: string;
+  featured_image: StrapiImage | null;
+  overlay_text: string;
+  contact_email: string;
+  contact_time: string;
+  contact_location: string;
+  event_heading: string;
+  event_subheading: string;
+  category: StrapiEventCategory | null;
+  organizer: StrapiOrganizer | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 export interface StrapiBlogPost {
   id: number;
   documentId: string;
@@ -79,6 +128,41 @@ export interface StrapiCollectionResponse<T> extends StrapiResponse<T[]> {}
 export interface StrapiSingleResponse<T> extends StrapiResponse<T> {}
 
 // Frontend-friendly interfaces (transformed from Strapi)
+export interface Event {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  description: string;
+  content: string;
+  featured: boolean;
+  eventDate: string;
+  location: string;
+  participantsCount: string;
+  registrationLink: string;
+  image: string;
+  imageAlt: string;
+  overlayText: string;
+  contactEmail: string;
+  contactTime: string;
+  contactLocation: string;
+  eventHeading: string;
+  eventSubheading: string;
+  category: {
+    name: string;
+    slug: string;
+  };
+  organizer: {
+    name: string;
+    email: string;
+    bio?: string;
+    avatar?: string;
+  };
+  publishedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface BlogPost {
   id: number;
   documentId: string;

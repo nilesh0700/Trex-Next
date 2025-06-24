@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event",
+    "description": "Event content type for managing events"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "event_date": {
+      "type": "datetime"
+    },
+    "location": {
+      "type": "string"
+    },
+    "participants_count": {
+      "type": "string"
+    },
+    "registration_link": {
+      "type": "string"
+    },
+    "featured_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "overlay_text": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "email"
+    },
+    "contact_time": {
+      "type": "string"
+    },
+    "contact_location": {
+      "type": "string"
+    },
+    "event_heading": {
+      "type": "string"
+    },
+    "event_subheading": {
+      "type": "text"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::event-category.event-category",
+      "inversedBy": "events"
+    },
+    "organizer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organizer.organizer",
+      "inversedBy": "events"
+    }
+  }
+} 
