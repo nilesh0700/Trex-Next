@@ -2,8 +2,23 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Event } from '@/types/strapi';
 
-const EventCTA = () => {
+interface EventCTAProps {
+  event: Event;
+}
+
+const EventCTA = ({ event }: EventCTAProps) => {
+  const formatEventDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
   return (
     <section className="w-full py-12 sm:py-16 lg:py-20 bg-white relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -57,9 +72,9 @@ const EventCTA = () => {
                 </span>
               </div>
 
-              {/* Event Title */}
+              {/* Event Title - Use overlay text if available, otherwise use title */}
               <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight">
-                Open Exhibition - Buyers from Tier 3 Cities & Pune
+                {event.overlayText || event.title}
               </h2>
 
               {/* Event Details */}
@@ -72,7 +87,7 @@ const EventCTA = () => {
                     </svg>
                   </div>
                   <span className="text-[#264065] font-semibold text-sm sm:text-base lg:text-lg">
-                    Time: 10:30 - 13:00
+                    Time: {event.contactTime}
                   </span>
                 </div>
 
@@ -84,16 +99,31 @@ const EventCTA = () => {
                     </svg>
                   </div>
                   <span className="text-white font-medium text-sm sm:text-base lg:text-lg">
-                    Pune, Maharashtra
+                    {event.location}
+                  </span>
+                </div>
+
+                {/* Date */}
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 bg-[#264065] rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-white font-medium text-sm sm:text-base lg:text-lg">
+                    {formatEventDate(event.eventDate)}
                   </span>
                 </div>
               </div>
 
               {/* CTA Button */}
               <div className="pt-2 sm:pt-4">
-                <button className="bg-[#264065] hover:bg-[#1a2d47] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                <Link 
+                  href={`/events/${event.slug}`}
+                  className="inline-block bg-[#264065] hover:bg-[#1a2d47] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                >
                   Learn more
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -102,12 +132,13 @@ const EventCTA = () => {
               <div className="relative rounded-2xl overflow-hidden shadow-xl group">
                 {/* Main Image */}
                 <div className="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] relative">
-                  <div 
-                    className="w-full h-full bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-110"
-                    style={{
-                      backgroundImage: `url(/assets/last.png)`
-                    }}
-                  ></div>
+                  <Image
+                    src={event.image}
+                    alt={event.imageAlt}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                  />
                   
                   {/* Overlay for better integration */}
                   <div className="absolute inset-0 bg-gradient-to-l from-[#264065]/20 to-transparent"></div>

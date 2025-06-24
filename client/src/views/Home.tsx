@@ -5,8 +5,13 @@ import AboutUs from '../components/AboutUs';
 import KeyEventHighlights from '../components/KeyEventHighlights';
 import MarketExpansion from '../components/MarketExpansion';
 import EventCTA from '../components/EventCTA';
+import { getFeaturedEvents } from '@/lib/strapi';
 
-export default function Home() {
+export default async function Home() {
+  // Fetch featured events data
+  const featuredEventsData = await getFeaturedEvents(1);
+  const featuredEvent = featuredEventsData.data[0];
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -26,8 +31,8 @@ export default function Home() {
       {/* Market Expansion Section */}
       <MarketExpansion />
 
-      {/* Event CTA Section */}
-      <EventCTA />
+      {/* Event CTA Section - Only show if there's a featured event */}
+      {featuredEvent && <EventCTA event={featuredEvent} />}
       
       {/* Future sections can be added here */}
       {/* 
