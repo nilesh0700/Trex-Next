@@ -2,13 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getEventBySlug, getRelatedEvents } from '@/lib/strapi';
+import { getEventBySlug, getRelatedEvents, getEvents } from '@/lib/strapi';
 import { Event } from '@/types/strapi';
 
 interface EventPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // Event Hero Section
@@ -234,7 +234,7 @@ function RelatedEvents({ events }: { events: Event[] }) {
 
 // Main Event Page Component
 export default async function EventPage({ params }: EventPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
 
   // Fetch event data
   const event = await getEventBySlug(slug);
@@ -264,7 +264,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: EventPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const event = await getEventBySlug(slug);
 
   if (!event) {
@@ -282,4 +282,17 @@ export async function generateMetadata({ params }: EventPageProps) {
       images: [event.image],
     },
   };
+}
+
+// Generate static params for all events
+export async function generateStaticParams() {
+  try {
+    const { data: events } = await getEvents({ pageSize: 100 });
+    return events.map((event: Event) => ({
+      slug: event.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
 } 
