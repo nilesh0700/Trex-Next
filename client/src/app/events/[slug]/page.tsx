@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { getEventBySlug, getRelatedEvents, getEvents } from '@/lib/strapi';
 import { Event } from '@/types/strapi';
 
-interface EventPageProps {
+type EventPageProps = {
   params: Promise<{
     slug: string;
   }>;

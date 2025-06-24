@@ -5,7 +5,7 @@ import PageHeading from '@/components/PageHeading';
 import { getBlogPosts, getBlogCategories } from '@/lib/strapi';
 import { BlogPost } from '@/types/strapi';
 
-interface BlogPageProps {
+type BlogPageProps = {
   searchParams: Promise<{
     page?: string;
     category?: string;

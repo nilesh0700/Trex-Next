@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, getRelatedBlogPosts, getBlogPosts } from '@/lib/strapi';
 import { BlogPost } from '@/types/strapi';
 
-interface BlogPostPageProps {
+type BlogPostPageProps = {
   params: Promise<{
     slug: string;
   }>;
