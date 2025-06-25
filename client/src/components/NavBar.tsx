@@ -162,22 +162,26 @@ export default function NavBar() {
                 About
               </Link>
               <Link 
-                href="/services" 
+                href="/events" 
                 className="block font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Services
+                Events
               </Link>
               <Link 
-                href="/facilities" 
+                href="/blog" 
                 className="block font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Facilities
+                Blogs
               </Link>
-              <button className="block font-['Nunito_Sans'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2 text-left">
-                More
-              </button>
+              <Link 
+                href="/contact" 
+                className="block font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </Link>
               
               <div className="border-t pt-4 space-y-4">
                 <Link 
