@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_shared_pricing_packages",
+  "info": {
+    "displayName": "Pricing Package",
+    "description": "Exhibition space pricing packages"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string",
+      "required": true
+    },
+    "gst": {
+      "type": "string",
+      "default": "+ GST"
+    },
+    "features": {
+      "type": "json",
+      "required": true
+    },
+    "button_text": {
+      "type": "string",
+      "default": "Book Now"
+    },
+    "bg_color": {
+      "type": "string",
+      "default": "bg-white"
+    },
+    "is_popular": {
+      "type": "boolean",
+      "default": false
+    },
+    "text_color": {
+      "type": "string"
+    }
+  }
+} 

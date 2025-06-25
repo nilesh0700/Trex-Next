@@ -8,10 +8,59 @@ import {
   BlogPost,
   StrapiCategory,
   StrapiEvent,
-  Event
+  Event,
+  TargetCity,
+  CityStatistic,
+  PricingPackage,
+  EventFlowItem
 } from "@/types/strapi";
 
 const BASE_URL = getStrapiURL();
+
+// Transform functions for components
+function transformTargetCity(strapiCity: any): TargetCity {
+  return {
+    id: strapiCity.id,
+    name: strapiCity.name,
+    category: strapiCity.category,
+    isHost: strapiCity.is_host
+  };
+}
+
+function transformCityStatistic(strapiStat: any): CityStatistic {
+  return {
+    id: strapiStat.id,
+    city: strapiStat.city,
+    population: strapiStat.population,
+    count: strapiStat.count
+  };
+}
+
+function transformPricingPackage(strapiPackage: any): PricingPackage {
+  return {
+    id: strapiPackage.id,
+    title: strapiPackage.title,
+    subtitle: strapiPackage.subtitle,
+    price: strapiPackage.price,
+    gst: strapiPackage.gst,
+    features: Array.isArray(strapiPackage.features) ? strapiPackage.features : [],
+    buttonText: strapiPackage.button_text,
+    bgColor: strapiPackage.bg_color,
+    isPopular: strapiPackage.is_popular,
+    textColor: strapiPackage.text_color
+  };
+}
+
+function transformEventFlowItem(strapiItem: any): EventFlowItem {
+  return {
+    id: strapiItem.id,
+    time: strapiItem.time,
+    title: strapiItem.title,
+    description: strapiItem.description,
+    day: strapiItem.day,
+    icon: strapiItem.icon
+  };
+}
 
 // Transform Strapi blog post to frontend-friendly format
 function transformBlogPost(strapiPost: StrapiBlogPost): BlogPost {
@@ -87,6 +136,17 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
         ? `${BASE_URL}${strapiEvent.organizer.avatar.url}`
         : undefined,
     },
+    // Transform new component fields
+    targetCities: (strapiEvent.target_cities || []).map(transformTargetCity),
+    cityStatistics: (strapiEvent.city_statistics || []).map(transformCityStatistic),
+    targetMarketsTitle: strapiEvent.target_markets_title || "Target Markets Across India",
+    targetMarketsDescription: strapiEvent.target_markets_description,
+    pricingPackages: (strapiEvent.pricing_packages || []).map(transformPricingPackage),
+    pricingSectionTitle: strapiEvent.pricing_section_title || "Space And Proposal",
+    pricingSectionDescription: strapiEvent.pricing_section_description || "Choose The Perfect Package For Your Networking Goals",
+    eventFlowItems: (strapiEvent.event_flow_items || []).map(transformEventFlowItem),
+    eventFlowTitle: strapiEvent.event_flow_title || "Event Flow",
+    eventFlowDescription: strapiEvent.event_flow_description || "Two Days of Intensive Networking and Business Development",
     publishedAt: strapiEvent.publishedAt,
     createdAt: strapiEvent.createdAt,
     updatedAt: strapiEvent.updatedAt,
@@ -223,17 +283,13 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   }
 }
 
-// Get blog categories
+// Get all blog categories
 export async function getBlogCategories() {
   const url = new URL("/api/categories", BASE_URL);
 
   const queryParams = {
     sort: ["name:asc"],
-    populate: {
-      blogs: {
-        fields: ["id"], // Just count the blogs
-      },
-    },
+    fields: ["name", "slug"],
   };
 
   url.search = qs.stringify(queryParams, { encodeValuesOnly: true });
@@ -244,12 +300,7 @@ export async function getBlogCategories() {
       next: { revalidate: 300 } // Revalidate every 5 minutes
     }) as StrapiCollectionResponse<StrapiCategory>;
 
-    return response.data.map(category => ({
-      id: category.id,
-      name: category.name,
-      slug: category.slug,
-      description: category.description,
-    }));
+    return response.data;
   } catch (error) {
     console.error("Error fetching categories:", error);
     return [];
@@ -268,7 +319,7 @@ export async function getRelatedBlogPosts(
     sort: ["publishedAt:desc"],
     pagination: {
       page: 1,
-      pageSize: limit + 1, // Get one extra to filter out current post
+      pageSize: limit,
     },
     populate: {
       featured_image: {
@@ -287,8 +338,8 @@ export async function getRelatedBlogPosts(
         category: {
           slug: { $eq: categorySlug }
         }
-      }),
-    },
+      })
+    } as any,
   };
 
   url.search = qs.stringify(queryParams, { encodeValuesOnly: true });
@@ -299,16 +350,12 @@ export async function getRelatedBlogPosts(
       next: { revalidate: 60 }
     }) as StrapiCollectionResponse<StrapiBlogPost>;
 
-    return response.data.slice(0, limit).map(transformBlogPost);
+    return response.data.map(transformBlogPost);
   } catch (error) {
-    console.error("Error fetching related posts:", error);
+    console.error("Error fetching related blog posts:", error);
     return [];
   }
 }
-
-// ===========================
-// EVENT API FUNCTIONS
-// ===========================
 
 // Get all events with pagination and filtering
 export async function getEvents(options: {
@@ -325,7 +372,7 @@ export async function getEvents(options: {
     featured,
     category,
     search,
-    sort = "publishedAt:desc"
+    sort = "event_date:desc"
   } = options;
 
   const url = new URL("/api/events", BASE_URL);
@@ -340,6 +387,9 @@ export async function getEvents(options: {
       featured_image: {
         fields: ["url", "alternativeText", "name"],
       },
+      category: {
+        fields: ["name", "slug"],
+      },
       organizer: {
         fields: ["name", "email", "bio"],
         populate: {
@@ -348,9 +398,10 @@ export async function getEvents(options: {
           },
         },
       },
-      category: {
-        fields: ["name", "slug"],
-      },
+      target_cities: "*",
+      city_statistics: "*",
+      pricing_packages: "*",
+      event_flow_items: "*",
     },
     filters: {} as any,
   };
@@ -370,7 +421,7 @@ export async function getEvents(options: {
     queryParams.filters.$or = [
       { title: { $containsi: search } },
       { description: { $containsi: search } },
-      { content: { $containsi: search } },
+      { location: { $containsi: search } },
     ];
   }
 
@@ -379,7 +430,7 @@ export async function getEvents(options: {
   try {
     const response = await fetchAPI(url.href, { 
       method: "GET",
-      next: { revalidate: 60 } // Revalidate every minute
+      next: { revalidate: 60 }
     }) as StrapiCollectionResponse<StrapiEvent>;
 
     return {
@@ -407,6 +458,9 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
       featured_image: {
         fields: ["url", "alternativeText", "name"],
       },
+      category: {
+        fields: ["name", "slug"],
+      },
       organizer: {
         fields: ["name", "email", "bio"],
         populate: {
@@ -415,9 +469,10 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
           },
         },
       },
-      category: {
-        fields: ["name", "slug"],
-      },
+      target_cities: "*",
+      city_statistics: "*",
+      pricing_packages: "*",
+      event_flow_items: "*",
     },
   };
 
@@ -440,16 +495,12 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
   }
 }
 
-// Get featured events (for hero section)
+// Get featured events
 export async function getFeaturedEvents(limit: number = 1) {
-  return getEvents({
-    featured: true,
-    pageSize: limit,
-    sort: "publishedAt:desc"
-  });
+  return getEvents({ featured: true, pageSize: limit });
 }
 
-// Get regular events (non-featured)
+// Get regular events (not featured)
 export async function getRegularEvents(options: {
   page?: number;
   pageSize?: number;
@@ -457,10 +508,7 @@ export async function getRegularEvents(options: {
   search?: string;
   sort?: string;
 } = {}) {
-  return getEvents({
-    ...options,
-    featured: false,
-  });
+  return getEvents({ ...options, featured: false });
 }
 
 // Get related events
@@ -472,20 +520,20 @@ export async function getRelatedEvents(
   const url = new URL("/api/events", BASE_URL);
 
   const queryParams = {
-    sort: ["publishedAt:desc"],
+    sort: ["event_date:desc"],
     pagination: {
       page: 1,
-      pageSize: limit + 1, // Get one extra to filter out current event
+      pageSize: limit,
     },
     populate: {
       featured_image: {
         fields: ["url", "alternativeText", "name"],
       },
-      organizer: {
-        fields: ["name", "email"],
-      },
       category: {
         fields: ["name", "slug"],
+      },
+      organizer: {
+        fields: ["name", "email"],
       },
     },
     filters: {
@@ -494,8 +542,8 @@ export async function getRelatedEvents(
         category: {
           slug: { $eq: categorySlug }
         }
-      }),
-    },
+      })
+    } as any,
   };
 
   url.search = qs.stringify(queryParams, { encodeValuesOnly: true });
@@ -506,7 +554,7 @@ export async function getRelatedEvents(
       next: { revalidate: 60 }
     }) as StrapiCollectionResponse<StrapiEvent>;
 
-    return response.data.slice(0, limit).map(transformEvent);
+    return response.data.map(transformEvent);
   } catch (error) {
     console.error("Error fetching related events:", error);
     return [];

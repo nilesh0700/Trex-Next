@@ -78,6 +78,49 @@
       "relation": "manyToOne",
       "target": "api::organizer.organizer",
       "inversedBy": "events"
+    },
+    "target_cities": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.target-city"
+    },
+    "city_statistics": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.city-statistic"
+    },
+    "target_markets_title": {
+      "type": "string",
+      "default": "Target Markets Across India"
+    },
+    "target_markets_description": {
+      "type": "text"
+    },
+    "pricing_packages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.pricing-package"
+    },
+    "pricing_section_title": {
+      "type": "string",
+      "default": "Space And Proposal"
+    },
+    "pricing_section_description": {
+      "type": "text",
+      "default": "Choose The Perfect Package For Your Networking Goals"
+    },
+    "event_flow_items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.event-flow-item"
+    },
+    "event_flow_title": {
+      "type": "string",
+      "default": "Event Flow"
+    },
+    "event_flow_description": {
+      "type": "text",
+      "default": "Two Days of Intensive Networking and Business Development"
     }
   }
 } 

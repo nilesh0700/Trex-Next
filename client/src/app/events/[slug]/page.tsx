@@ -279,24 +279,25 @@ function WhyExhibitSection() {
 }
 
 // 4. Target Markets Map Section
-function TargetMarketsSection() {
-  const targetCities = [
-    { name: "Pune", category: "Host & Matchmaking Hub", isHost: true },
-    { name: "Nashik", category: "Wine Capital & Insurance Hub", isHost: false },
-    { name: "Kolhapur", category: "Cultural & Business Hub", isHost: false },
-    { name: "Aurangabad", category: "Historical & Industrial", isHost: false },
-    { name: "Nagpur", category: "Geographic Centre of India", isHost: false },
-    { name: "Mumbai", category: "Textile & Agricultural Hub", isHost: false }
+function TargetMarketsSection({ event }: { event: Event }) {
+  // Use CMS data if available, otherwise fall back to defaults
+  const targetCities = event.targetCities.length > 0 ? event.targetCities : [
+    { id: 1, name: "Pune", category: "Host & Matchmaking Hub", isHost: true },
+    { id: 2, name: "Nashik", category: "Wine Capital & Insurance Hub", isHost: false },
+    { id: 3, name: "Kolhapur", category: "Cultural & Business Hub", isHost: false },
+    { id: 4, name: "Aurangabad", category: "Historical & Industrial", isHost: false },
+    { id: 5, name: "Nagpur", category: "Geographic Centre of India", isHost: false },
+    { id: 6, name: "Mumbai", category: "Textile & Agricultural Hub", isHost: false }
   ];
 
-  const cityStats = [
-    { city: "KM City", population: "Jalgaon", count: "50 Kolhapur" },
-    { city: "KM City", population: "230 Solapur", count: "240 Jalna" },
-    { city: "180 Satara", population: "260 Baramal", count: "260 Nandurbar" },
-    { city: "200 Ahmednagar", population: "260 Dharashiv", count: "280 Nandurbar" },
-    { city: "240 Nashik", population: "320 Amravoti", count: "320 Akola" },
-    { city: "240 Aurangabad", population: "350 Mumbai", count: "450 Ratnagiri" },
-    { city: "230 Sangli", population: "", count: "" }
+  const cityStats = event.cityStatistics.length > 0 ? event.cityStatistics : [
+    { id: 1, city: "KM City", population: "Jalgaon", count: "50 Kolhapur" },
+    { id: 2, city: "KM City", population: "230 Solapur", count: "240 Jalna" },
+    { id: 3, city: "180 Satara", population: "260 Baramal", count: "260 Nandurbar" },
+    { id: 4, city: "200 Ahmednagar", population: "260 Dharashiv", count: "280 Nandurbar" },
+    { id: 5, city: "240 Nashik", population: "320 Amravoti", count: "320 Akola" },
+    { id: 6, city: "240 Aurangabad", population: "350 Mumbai", count: "450 Ratnagiri" },
+    { id: 7, city: "230 Sangli", population: "", count: "" }
   ];
 
   return (
@@ -305,8 +306,13 @@ function TargetMarketsSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-[#C88652] mb-6 font-['Poppins']">
-            Target Markets Across India
+            {event.targetMarketsTitle}
           </h2>
+          {event.targetMarketsDescription && (
+            <p className="text-xl text-gray-600 font-['Poppins'] max-w-3xl mx-auto mb-6">
+              {event.targetMarketsDescription}
+            </p>
+          )}
           <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full"></div>
         </div>
 
@@ -315,25 +321,25 @@ function TargetMarketsSection() {
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-[#264065] mb-8 font-['Poppins']">Key Growth Cities</h3>
             
-            {targetCities.map((city, index) => (
-              <div key={index} className={`p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl ${city.isHost ? 'bg-[#264065] text-white' : 'bg-gray-50 hover:bg-gray-100'}`}>
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${city.isHost ? 'bg-[#C88652]' : 'bg-[#264065]'}`}>
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className={`text-lg font-bold font-['Poppins'] ${city.isHost ? 'text-white' : 'text-[#264065]'}`}>
-                      {city.name} {city.isHost && '- Host & Matchmaking Hub'}
-                    </h4>
-                    <p className={`text-sm ${city.isHost ? 'text-blue-200' : 'text-gray-600'} font-['Poppins']`}>
-                      {city.category}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+                         {targetCities.map((city, index) => (
+               <div key={city.id || index} className={`p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl ${city.isHost ? 'bg-[#264065] text-white' : 'bg-gray-50 hover:bg-gray-100'}`}>
+                 <div className="flex items-center gap-4">
+                   <div className={`w-12 h-12 rounded-full flex items-center justify-center ${city.isHost ? 'bg-[#C88652]' : 'bg-[#264065]'}`}>
+                     <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                     </svg>
+                   </div>
+                   <div>
+                     <h4 className={`text-lg font-bold font-['Poppins'] ${city.isHost ? 'text-white' : 'text-[#264065]'}`}>
+                       {city.name} {city.isHost && '- Host & Matchmaking Hub'}
+                     </h4>
+                     <p className={`text-sm ${city.isHost ? 'text-blue-200' : 'text-gray-600'} font-['Poppins']`}>
+                       {city.category}
+                     </p>
+                   </div>
+                 </div>
+               </div>
+             ))}
           </div>
 
           {/* Right Side - Map and Statistics */}
@@ -481,9 +487,11 @@ function WhoShouldExhibitSection() {
 }
 
 // 6. Space and Proposal Section
-function SpaceProposalSection() {
-  const packages = [
+function SpaceProposalSection({ event }: { event: Event }) {
+  // Use CMS data if available, otherwise fall back to defaults
+  const packages = event.pricingPackages.length > 0 ? event.pricingPackages : [
     {
+      id: 1,
       title: "Presentation",
       subtitle: "Capture Attention",
       price: "₹ 50,000",
@@ -576,18 +584,18 @@ function SpaceProposalSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-[#C88652] mb-6 font-['Poppins']">
-            Space And Proposal
+            {event.pricingSectionTitle}
           </h2>
           <p className="text-xl text-[#264065] font-['Poppins']">
-            Choose The Perfect Package For Your Networking Goals
+            {event.pricingSectionDescription}
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full mt-6"></div>
         </div>
 
         {/* Packages Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {packages.map((pkg, index) => (
-            <div key={index} className={`${pkg.bgColor} rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 ${pkg.isPopular ? 'border-[#C88652] relative' : 'border-gray-200 hover:border-[#C88652]'}`}>
+                     {packages.map((pkg, index) => (
+             <div key={pkg.id || index} className={`${pkg.bgColor} rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 ${pkg.isPopular ? 'border-[#C88652] relative' : 'border-gray-200 hover:border-[#C88652]'}`}>
               {pkg.isPopular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-[#264065] text-white px-6 py-2 rounded-full text-sm font-bold font-['Poppins']">
@@ -644,9 +652,11 @@ function SpaceProposalSection() {
 }
 
 // 7. Event Flow Section
-function EventFlowSection() {
-  const eventFlow = [
+function EventFlowSection({ event }: { event: Event }) {
+  // Use CMS data if available, otherwise fall back to defaults
+  const eventFlow = event.eventFlowItems.length > 0 ? event.eventFlowItems : [
     {
+      id: 1,
       time: "13:00 - 15:00 Hrs",
       title: "Registration & Welcome",
       description: "Check-In, Networking Breakfast, And Welcome Reception",
@@ -703,10 +713,10 @@ function EventFlowSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-[#264065] mb-6 font-['Poppins']">
-            Event Flow
+            {event.eventFlowTitle}
           </h2>
           <p className="text-xl text-gray-600 font-['Poppins']">
-            Two Days of Intensive Networking and Business Development
+            {event.eventFlowDescription}
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full mt-6"></div>
         </div>
@@ -718,8 +728,8 @@ function EventFlowSection() {
 
           {/* Timeline Items */}
           <div className="space-y-12">
-            {eventFlow.map((item, index) => (
-              <div key={index} className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                         {eventFlow.map((item, index) => (
+               <div key={item.id || index} className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
                 {/* Content Card */}
                 <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
                   <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200 hover:border-[#C88652]">
@@ -805,16 +815,16 @@ export default async function EventPage({ params }: EventPageProps) {
         <WhyExhibitSection />
         
         {/* 4. Target Markets Map Section */}
-        <TargetMarketsSection />
+        <TargetMarketsSection event={event} />
         
         {/* 5. Who Should Exhibit Section */}
         <WhoShouldExhibitSection />
         
         {/* 6. Space and Proposal Section */}
-        <SpaceProposalSection />
+        <SpaceProposalSection event={event} />
         
         {/* 7. Event Flow Section */}
-        <EventFlowSection />
+        <EventFlowSection event={event} />
       </main>
     );
   } catch (error) {

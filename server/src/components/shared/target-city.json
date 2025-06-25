@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_target_cities",
+  "info": {
+    "displayName": "Target City",
+    "description": "Individual target city information"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "is_host": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+} 

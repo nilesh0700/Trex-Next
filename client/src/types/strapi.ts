@@ -67,6 +67,43 @@ export interface StrapiOrganizer {
   publishedAt: string;
 }
 
+// Component interfaces
+export interface StrapiTargetCity {
+  id: number;
+  name: string;
+  category: string;
+  is_host: boolean;
+}
+
+export interface StrapiCityStatistic {
+  id: number;
+  city: string;
+  population?: string;
+  count?: string;
+}
+
+export interface StrapiPricingPackage {
+  id: number;
+  title: string;
+  subtitle?: string;
+  price: string;
+  gst: string;
+  features: string[];
+  button_text: string;
+  bg_color: string;
+  is_popular: boolean;
+  text_color?: string;
+}
+
+export interface StrapiEventFlowItem {
+  id: number;
+  time: string;
+  title: string;
+  description: string;
+  day: number;
+  icon: string;
+}
+
 export interface StrapiEvent {
   id: number;
   documentId: string;
@@ -88,6 +125,16 @@ export interface StrapiEvent {
   event_subheading: string;
   category: StrapiEventCategory | null;
   organizer: StrapiOrganizer | null;
+  target_cities: StrapiTargetCity[];
+  city_statistics: StrapiCityStatistic[];
+  target_markets_title: string;
+  target_markets_description?: string;
+  pricing_packages: StrapiPricingPackage[];
+  pricing_section_title: string;
+  pricing_section_description: string;
+  event_flow_items: StrapiEventFlowItem[];
+  event_flow_title: string;
+  event_flow_description: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -128,6 +175,42 @@ export interface StrapiCollectionResponse<T> extends StrapiResponse<T[]> {}
 export interface StrapiSingleResponse<T> extends StrapiResponse<T> {}
 
 // Frontend-friendly interfaces (transformed from Strapi)
+export interface TargetCity {
+  id: number;
+  name: string;
+  category: string;
+  isHost: boolean;
+}
+
+export interface CityStatistic {
+  id: number;
+  city: string;
+  population?: string;
+  count?: string;
+}
+
+export interface PricingPackage {
+  id: number;
+  title: string;
+  subtitle?: string;
+  price: string;
+  gst: string;
+  features: string[];
+  buttonText: string;
+  bgColor: string;
+  isPopular: boolean;
+  textColor?: string;
+}
+
+export interface EventFlowItem {
+  id: number;
+  time: string;
+  title: string;
+  description: string;
+  day: number;
+  icon: string;
+}
+
 export interface Event {
   id: number;
   documentId: string;
@@ -158,6 +241,16 @@ export interface Event {
     bio?: string;
     avatar?: string;
   };
+  targetCities: TargetCity[];
+  cityStatistics: CityStatistic[];
+  targetMarketsTitle: string;
+  targetMarketsDescription?: string;
+  pricingPackages: PricingPackage[];
+  pricingSectionTitle: string;
+  pricingSectionDescription: string;
+  eventFlowItems: EventFlowItem[];
+  eventFlowTitle: string;
+  eventFlowDescription: string;
   publishedAt: string;
   createdAt: string;
   updatedAt: string;

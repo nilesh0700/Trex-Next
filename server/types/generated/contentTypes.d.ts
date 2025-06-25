@@ -543,6 +543,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::event-category.event-category'
     >;
+    city_statistics: Schema.Attribute.Component<'shared.city-statistic', true>;
     contact_email: Schema.Attribute.Email;
     contact_location: Schema.Attribute.String;
     contact_time: Schema.Attribute.String;
@@ -552,6 +553,14 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
     event_date: Schema.Attribute.DateTime;
+    event_flow_description: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Two Days of Intensive Networking and Business Development'>;
+    event_flow_items: Schema.Attribute.Component<
+      'shared.event-flow-item',
+      true
+    >;
+    event_flow_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Event Flow'>;
     event_heading: Schema.Attribute.String;
     event_subheading: Schema.Attribute.Text;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -566,9 +575,21 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     >;
     overlay_text: Schema.Attribute.String;
     participants_count: Schema.Attribute.String;
+    pricing_packages: Schema.Attribute.Component<
+      'shared.pricing-package',
+      true
+    >;
+    pricing_section_description: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Choose The Perfect Package For Your Networking Goals'>;
+    pricing_section_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Space And Proposal'>;
     publishedAt: Schema.Attribute.DateTime;
     registration_link: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    target_cities: Schema.Attribute.Component<'shared.target-city', true>;
+    target_markets_description: Schema.Attribute.Text;
+    target_markets_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Target Markets Across India'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

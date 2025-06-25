@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_shared_event_flow_items",
+  "info": {
+    "displayName": "Event Flow Item",
+    "description": "Individual event flow schedule item"
+  },
+  "options": {},
+  "attributes": {
+    "time": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "day": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "max": 7
+    },
+    "icon": {
+      "type": "string",
+      "default": "📝"
+    }
+  }
+} 
