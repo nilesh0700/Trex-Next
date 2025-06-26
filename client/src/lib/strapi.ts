@@ -65,7 +65,9 @@ function transformEventFlowItem(strapiItem: any): EventFlowItem {
 // Transform Strapi blog post to frontend-friendly format
 function transformBlogPost(strapiPost: StrapiBlogPost): BlogPost {
   const imageUrl = strapiPost.featured_image?.url 
-    ? `${BASE_URL}${strapiPost.featured_image.url}`
+    ? (strapiPost.featured_image.url.startsWith('http') 
+        ? strapiPost.featured_image.url 
+        : `${BASE_URL}${strapiPost.featured_image.url}`)
     : "/assets/networking.jpg"; // Fallback image
 
   return {
@@ -85,7 +87,9 @@ function transformBlogPost(strapiPost: StrapiBlogPost): BlogPost {
       email: strapiPost.author?.email,
       bio: strapiPost.author?.bio,
       avatar: strapiPost.author?.avatar?.url 
-        ? `${BASE_URL}${strapiPost.author.avatar.url}`
+        ? (strapiPost.author.avatar.url.startsWith('http') 
+            ? strapiPost.author.avatar.url 
+            : `${BASE_URL}${strapiPost.author.avatar.url}`)
         : undefined,
     },
     category: {
@@ -101,7 +105,9 @@ function transformBlogPost(strapiPost: StrapiBlogPost): BlogPost {
 // Transform Strapi event to frontend-friendly format
 function transformEvent(strapiEvent: StrapiEvent): Event {
   const imageUrl = strapiEvent.featured_image?.url 
-    ? `${BASE_URL}${strapiEvent.featured_image.url}`
+    ? (strapiEvent.featured_image.url.startsWith('http') 
+        ? strapiEvent.featured_image.url 
+        : `${BASE_URL}${strapiEvent.featured_image.url}`)
     : "/assets/event.png"; // Fallback image
 
   return {
@@ -133,7 +139,9 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
       email: strapiEvent.organizer?.email || "",
       bio: strapiEvent.organizer?.bio,
       avatar: strapiEvent.organizer?.avatar?.url 
-        ? `${BASE_URL}${strapiEvent.organizer.avatar.url}`
+        ? (strapiEvent.organizer.avatar.url.startsWith('http') 
+            ? strapiEvent.organizer.avatar.url 
+            : `${BASE_URL}${strapiEvent.organizer.avatar.url}`)
         : undefined,
     },
     // Transform new component fields

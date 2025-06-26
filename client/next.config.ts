@@ -10,8 +10,24 @@ const nextConfig: NextConfig = {
         pathname: "/uploads/**",
       },
       {
+        protocol: "https",
+        hostname: "graceful-chocolate-74cf3f5835.strapiapp.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "graceful-chocolate-74cf3f5835.media.strapiapp.com",
+        pathname: "/**",
+      },
+      {
         protocol: "https", 
-        hostname: "**", // Allow any HTTPS domain for production
+        hostname: "**.strapiapp.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https", 
+        hostname: "**.media.strapiapp.com",
+        pathname: "/**",
       },
     ],
   },
