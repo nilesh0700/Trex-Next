@@ -10,11 +10,11 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile Layout - Stacked */}
           <div className="flex flex-col space-y-6 lg:hidden">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 flex-shrink-0">
-                <Image
-                  src="/assets/currency.svg"
-                  alt="Tourism Support"
+                          <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 flex-shrink-0">
+                  <img
+                    src="/assets/currency.svg"
+                    alt="Tourism Support"
                   width={48}
                   height={48}
                   className="w-full h-full object-contain"
@@ -25,11 +25,11 @@ const Footer = () => {
               </span>
             </div>
             
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 flex-shrink-0">
-                <Image
-                  src="/assets/flight-globe.svg"
-                  alt="Travel Ready"
+                          <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 flex-shrink-0">
+                  <img
+                    src="/assets/flight-globe.svg"
+                    alt="Travel Ready"
                   width={48}
                   height={48}
                   className="w-full h-full object-contain"
@@ -43,11 +43,11 @@ const Footer = () => {
 
           {/* Desktop Layout - Side by side */}
           <div className="hidden lg:flex lg:items-center lg:justify-between lg:relative">
-            <div className="flex items-center space-x-4 flex-1">
-              <div className="w-14 h-14 flex-shrink-0">
-                <Image
-                  src="/assets/currency.svg"
-                  alt="Tourism Support"
+                          <div className="flex items-center space-x-4 flex-1">
+                <div className="w-14 h-14 flex-shrink-0">
+                  <img
+                    src="/assets/currency.svg"
+                    alt="Tourism Support"
                   width={56}
                   height={56}
                   className="w-full h-full object-contain"
@@ -61,11 +61,11 @@ const Footer = () => {
             {/* Center divider */}
             <div className="w-px h-16 bg-gray-400 mx-8"></div>
             
-            <div className="flex items-center space-x-4 flex-1">
-              <div className="w-14 h-14 flex-shrink-0">
-                <Image
-                  src="/assets/flight-globe.svg"
-                  alt="Travel Ready"
+                          <div className="flex items-center space-x-4 flex-1">
+                <div className="w-14 h-14 flex-shrink-0">
+                  <img
+                    src="/assets/flight-globe.svg"
+                    alt="Travel Ready"
                   width={56}
                   height={56}
                   className="w-full h-full object-contain"

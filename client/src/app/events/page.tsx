@@ -45,31 +45,31 @@ function ContactSection({ event }: { event: Event }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           
           {/* Email Block */}
-          <div className="main-container w-full h-[10vh] relative mx-auto my-0">
-            <div className="w-full h-[10vh] rounded-[10px] border-solid border-2 border-[#264065] relative bg-white flex justify-center items-center gap-4 px-4">
-              <Image src="/assets/mail-orange.svg" alt="Email" width={40} height={40}/>
-              <span className="font-['Plus_Jakarta_Sans'] text-lg sm:text-xl md:text-2xl font-bold text-[#034833]">
-                {event.contactEmail}
+                      <div className="main-container w-full h-[10vh] relative mx-auto my-0">
+              <div className="w-full h-[10vh] rounded-[10px] border-solid border-2 border-[#264065] relative bg-white flex justify-center items-center gap-4 px-4">
+                <img src="/assets/mail-orange.svg" alt="Email" width={40} height={40} className="w-10 h-10"/>
+                <span className="font-['Plus_Jakarta_Sans'] text-lg sm:text-xl md:text-2xl font-bold text-[#034833]">
+                  {event.contactEmail}
               </span>
             </div>
           </div>
 
           {/* Time Block */}
-          <div className="main-container w-full h-[10vh] relative mx-auto my-0">
-            <div className="w-full h-[10vh] rounded-[10px] border-solid border-2 border-[#264065] relative bg-white flex justify-center items-center gap-4 px-4">
-              <Image src="/assets/clock-orange.svg" alt="Time" width={40} height={40}/>
-              <span className="font-['Plus_Jakarta_Sans'] text-lg sm:text-xl md:text-2xl font-bold text-[#034833]">
-                {event.contactTime}
+                      <div className="main-container w-full h-[10vh] relative mx-auto my-0">
+              <div className="w-full h-[10vh] rounded-[10px] border-solid border-2 border-[#264065] relative bg-white flex justify-center items-center gap-4 px-4">
+                <img src="/assets/clock-orange.svg" alt="Time" width={40} height={40} className="w-10 h-10"/>
+                <span className="font-['Plus_Jakarta_Sans'] text-lg sm:text-xl md:text-2xl font-bold text-[#034833]">
+                  {event.contactTime}
               </span>
             </div>
           </div>
 
           {/* Location Block */}
-          <div className="main-container w-full h-[10vh] relative mx-auto my-0">
-            <div className="w-full h-[10vh] rounded-[10px] border-solid border-2 border-[#264065] relative bg-white flex justify-center items-center gap-4 px-4">
-              <Image src="/assets/location-orange.svg" alt="Location" width={40} height={40}/>
-              <span className="font-['Plus_Jakarta_Sans'] text-lg sm:text-xl md:text-2xl font-bold text-[#034833]">
-                {event.contactLocation}
+                      <div className="main-container w-full h-[10vh] relative mx-auto my-0">
+              <div className="w-full h-[10vh] rounded-[10px] border-solid border-2 border-[#264065] relative bg-white flex justify-center items-center gap-4 px-4">
+                <img src="/assets/location-orange.svg" alt="Location" width={40} height={40} className="w-10 h-10"/>
+                <span className="font-['Plus_Jakarta_Sans'] text-lg sm:text-xl md:text-2xl font-bold text-[#034833]">
+                  {event.contactLocation}
               </span>
             </div>
           </div>
