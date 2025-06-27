@@ -1,6 +1,6 @@
 import React from 'react';
 import PageHeading from '../components/PageHeading';
-import AboutUs from '@/components/AboutUs';
+import AboutUsDetailed from '@/components/AboutUsDetailed';
 import Teams from '@/components/Teams';
 
 export default function About() {
@@ -9,7 +9,7 @@ export default function About() {
       {/* Page Heading */}
       <PageHeading heading="About Us" />
       
-      <AboutUs showLearnMore={false} />
+      <AboutUsDetailed />
       
       <Teams />
     </main>
