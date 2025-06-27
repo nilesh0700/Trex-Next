@@ -10,8 +10,8 @@ export default function Hero() {
            <div className="w-full lg:w-[70%] min-h-screen sm:min-h-[80vh] bg-[#C88652] lg:bg-[#f8f9fa] flex items-center">
              <div className="px-6 md:px-8 lg:px-12 xl:pl-[163px] xl:pr-[100px] py-8 md:py-12 lg:py-12 xl:py-0 w-full text-center lg:text-left">
                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-[64px] font-bold text-[#264065] leading-tight md:leading-tight lg:leading-tight xl:leading-[76px] mb-6 md:mb-8 lg:mb-6">
-                 where regional market<br />
-                 <span> meets National potential</span>
+               Where regional buyers<br />
+                 <span>meet worldwide sellers</span>
                </h1>
                <p className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-[18px] text-[#6c757d] leading-relaxed md:leading-relaxed lg:leading-relaxed xl:leading-[28px] mb-8 md:mb-10 lg:mb-8 max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-[500px] mx-auto lg:mx-0">
                  To create India's most impactful regional B2B travel Media 

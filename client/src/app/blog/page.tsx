@@ -16,8 +16,8 @@ type BlogPageProps = {
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { page, category, search } = await searchParams;
   
-  // Fetch blog posts and categories from Strapi
-  const [blogData, categories] = await Promise.all([
+  // Fetch filtered blog posts for main content and all posts for sidebar
+  const [blogData, categories, allPostsData] = await Promise.all([
     getBlogPosts({
       page: page ? parseInt(page) : 1,
       pageSize: 9,
@@ -25,11 +25,22 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       search,
     }),
     getBlogCategories(),
+    getBlogPosts({
+      page: 1,
+      pageSize: 50, // Get more posts for sidebar data
+    }),
   ]);
 
   const { data: blogPosts, meta } = blogData;
+  const { data: allPosts } = allPostsData;
   const currentPage = meta.pagination?.page || 1;
   const totalPages = meta.pagination?.pageCount || 1;
+
+  // Debug logging
+  console.log('Current category filter:', category);
+  console.log('Blog posts count:', blogPosts.length);
+  console.log('All posts count:', allPosts.length);
+  console.log('Categories:', categories.map(c => ({ name: c.name, slug: c.slug })));
 
   // Add "All" category for filtering
   const allCategories = [
@@ -37,244 +48,386 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     ...categories,
   ];
 
+  // Get recent posts for sidebar (from all posts, not filtered)
+  const recentPosts = allPosts.slice(0, 4);
+  
+  // Get popular categories (categories with most posts)
+  const popularCategories = categories.slice(0, 6);
+
+  // Featured authors - dynamically generated from ALL blog posts (not filtered)
+  const authorStats = allPosts.reduce((acc, post) => {
+    const authorName = post.author.name;
+    if (!acc[authorName]) {
+      acc[authorName] = {
+        name: authorName,
+        posts: 0,
+        // Add role based on author name or default roles
+        role: authorName === "Krishna Gopalan" ? "Travel Industry Expert" :
+              authorName === "Siddharth Jain" ? "Business Development" :
+              authorName === "Mehboob Shaikh" ? "Marketing Strategist" :
+              "Content Writer"
+      };
+    }
+    acc[authorName].posts++;
+    return acc;
+  }, {} as Record<string, { name: string; posts: number; role: string }>);
+
+  const featuredAuthors = Object.values(authorStats)
+    .filter(author => author.posts > 0)
+    .sort((a, b) => b.posts - a.posts)
+    .slice(0, 5); // Show top 5 authors by post count
+
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
       <PageHeading heading="Blog" />
       
       {/* Blog Content Section */}
-      <div className="w-full py-16 sm:py-20 md:py-24" style={{backgroundColor: '#FAF8F5'}}>
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div className="w-full py-12 md:py-16">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8">
           
-          {/* Section Header */}
-          <div className="text-center mb-12 sm:mb-16 md:mb-20">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#264065] mb-4 sm:mb-6 font-['Poppins']">
-              Latest Insights & Updates
+          {/* Header Section */}
+          {/* <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Latest Articles
             </h2>
-            <p className="text-lg sm:text-xl text-[#6c757d] font-['Poppins'] max-w-3xl mx-auto mb-8">
-              Stay informed with the latest trends, strategies, and success stories from the world of travel trade exhibitions and B2B networking.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover insights, strategies, and stories from the world of travel and business networking.
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#1a2d47] mx-auto rounded-full"></div>
-          </div>
+          </div> */}
 
-          {/* Search Bar */}
-          <div className="max-w-md mx-auto mb-8">
-            <form method="GET" className="relative">
-              <input
-                type="text"
-                name="search"
-                placeholder="Search articles..."
-                defaultValue={search}
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#264065] focus:border-transparent font-['Poppins']"
-              />
-              <button
-                type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#6c757d] hover:text-[#264065]"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </form>
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12 sm:mb-16">
-            {allCategories.map((cat) => (
-              <Link key={cat.id} href={`/blog${cat.slug ? `?category=${cat.slug}` : ''}`}>
-                <button
-                  className={`px-4 py-2 rounded-full text-sm font-medium font-['Poppins'] transition-all duration-300 ${
-                    (category === cat.slug) || (!category && cat.slug === '')
-                      ? 'bg-[#264065] text-white shadow-lg' 
-                      : 'bg-white text-[#6c757d] hover:bg-[#264065] hover:text-white shadow-md hover:shadow-lg'
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              </Link>
-            ))}
-          </div>
-
-          {/* No Results Message */}
-          {blogPosts.length === 0 && (
-            <div className="text-center py-12">
-              <h3 className="text-2xl font-bold text-[#264065] mb-4 font-['Poppins']">
-                No articles found
-              </h3>
-              <p className="text-[#6c757d] font-['Poppins']">
-                {search ? `No articles match your search for "${search}"` : "No articles available in this category"}
-              </p>
-              <Link href="/blog">
-                <button className="mt-4 bg-[#264065] hover:bg-[#C88652] text-white px-6 py-3 rounded-xl font-bold font-['Poppins'] transition-all duration-300">
-                  View All Articles
-                </button>
-              </Link>
-            </div>
-          )}
-
-          {/* Featured Post */}
-          {blogPosts.filter(post => post.featured).slice(0, 1).map((post) => (
-            <div key={post.id} className="mb-16 sm:mb-20">
-              <div className="bg-white rounded-3xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                  <div className="relative h-64 sm:h-80 lg:h-96">
-                    <Image
-                      src={post.image}
-                      alt={post.imageAlt}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-[#C88652] text-white px-3 py-1 rounded-full text-sm font-medium font-['Poppins']">
-                        Featured
-                      </span>
+          {/* Main Content Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+            
+            {/* Main Content */}
+            <div className="lg:col-span-3 mt-[-50px]">
+              
+              {/* Search and Filter Section */}
+              <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-12">
+                {/* Search Bar */}
+                <div className="w-full md:w-96">
+                  <form method="GET" className="relative">
+                    <div className="relative">
+                      <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      <input
+                        type="text"
+                        name="search"
+                        placeholder="Search articles..."
+                        defaultValue={search}
+                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#264065] focus:border-transparent bg-gray-50"
+                      />
                     </div>
-                  </div>
-                  <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="bg-[#264065] text-white px-3 py-1 rounded-full text-sm font-medium font-['Poppins']">
-                        {post.category.name}
-                      </span>
-                      <span className="text-[#6c757d] text-sm font-['Poppins']">
-                        {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </span>
-                      <span className="text-[#6c757d] text-sm font-['Poppins']">•</span>
-                      <span className="text-[#6c757d] text-sm font-['Poppins']">{post.readTime}</span>
-                    </div>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#264065] mb-4 font-['Poppins'] group-hover:text-[#C88652] transition-colors duration-300">
-                      {post.title}
-                    </h3>
-                    <p className="text-[#6c757d] font-['Poppins'] text-base sm:text-lg leading-relaxed mb-6">
-                      {post.excerpt}
-                    </p>
-                    <Link href={`/blog/${post.slug}`}>
-                      <button className="bg-[#264065] hover:bg-[#C88652] text-white px-6 py-3 rounded-xl font-bold font-['Poppins'] transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#264065] focus:ring-opacity-30 self-start">
-                        Read More
+                  </form>
+                </div>
+
+                {/* Category Filter */}
+                <div className="flex flex-wrap gap-2">
+                  {allCategories.slice(0, 5).map((cat) => (
+                    <Link key={cat.id} href={cat.slug ? `/blog?category=${cat.slug}` : '/blog'}>
+                      <button
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                          (category === cat.slug) || (!category && cat.slug === '')
+                            ? 'bg-[#264065] text-white' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {cat.name}
                       </button>
                     </Link>
-                  </div>
+                  ))}
                 </div>
               </div>
-            </div>
-          ))}
 
-          {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-            {blogPosts.filter(post => !post.featured).map((post) => (
-              <article key={post.id} className="group">
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                  <div className="relative h-48 sm:h-56">
-                    <Image
-                      src={post.image}
-                      alt={post.imageAlt}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              {/* No Results Message */}
+              {blogPosts.length === 0 && (
+                <div className="text-center py-16">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
                   </div>
-                  <div className="p-6 sm:p-8">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="bg-[#264065] text-white px-3 py-1 rounded-full text-xs font-medium font-['Poppins']">
-                        {post.category.name}
-                      </span>
-                      <span className="text-[#6c757d] text-xs font-['Poppins']">{post.readTime}</span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-[#264065] mb-3 font-['Poppins'] group-hover:text-[#C88652] transition-colors duration-300 line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-[#6c757d] font-['Poppins'] text-sm sm:text-base leading-relaxed mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-[#264065] rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold font-['Poppins']">
-                            {post.author.name.split(' ').map(n => n[0]).join('')}
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    No articles found
+                  </h3>
+                  <p className="text-gray-600">
+                    {search ? `No articles match your search for "${search}"` : "No articles available in this category"}
+                  </p>
+                  <Link href="/blog">
+                    <button className="mt-4 bg-[#264065] hover:bg-[#1a2d47] text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200">
+                      View All Articles
+                    </button>
+                  </Link>
+                </div>
+              )}
+
+              {/* All Blog Posts with Consistent Styling */}
+              <div className="space-y-12">
+                {blogPosts.map((post) => (
+                  <Link key={post.id} href={`/blog/${post.slug}`} className="block">
+                    <article className="group cursor-pointer">
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
+                        <div className="md:col-span-3">
+                          <div className="flex items-center gap-3 mb-3">
+                            {post.featured && (
+                              <>
+                                <span className="inline-block w-2 h-2 bg-[#264065] rounded-full"></span>
+                                <span className="text-sm font-medium text-[#264065] uppercase tracking-wide">
+                                  Featured
+                                </span>
+                                <span className="text-gray-300">•</span>
+                              </>
+                            )}
+                            <span className="text-sm text-[#264065] font-medium">
+                              {post.category.name}
+                            </span>
+                            <span className="text-gray-300">•</span>
+                            <span className="text-sm text-gray-500">
+                              {new Date(post.publishedAt).toLocaleDateString('en-US', { 
+                                month: 'short', 
+                                day: 'numeric',
+                                year: 'numeric'
+                              })}
+                            </span>
+                          </div>
+                          <h3 className={`font-bold text-gray-900 mb-3 group-hover:text-[#264065] transition-colors duration-200 leading-tight ${
+                            post.featured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'
+                          }`}>
+                            {post.title}
+                          </h3>
+                          <p className="text-gray-600 mb-4 leading-relaxed line-clamp-3">
+                            {post.excerpt}
+                          </p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3 text-sm text-gray-500">
+                              <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center">
+                                  <span className="text-xs font-semibold text-gray-700">
+                                    {post.author.name.split(' ').map(n => n[0]).join('')}
+                                  </span>
+                                </div>
+                                <span>{post.author.name}</span>
+                              </div>
+                              <span>•</span>
+                              <span>{post.readTime}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              {post.tags.slice(0, 2).map((tag, tagIndex) => (
+                                <span key={tagIndex} className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="md:col-span-1">
+                          <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                            <Image
+                              src={post.image}
+                              alt={post.imageAlt}
+                              fill
+                              className="object-cover transition-transform duration-300 group-hover:scale-105"
+                              sizes="(max-width: 768px) 100vw, 25vw"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-16">
+                  {currentPage > 1 && (
+                    <Link href={`/blog?page=${currentPage - 1}${category ? `&category=${category}` : ''}${search ? `&search=${search}` : ''}`}>
+                      <button className="px-4 py-2 text-gray-600 hover:text-[#264065] transition-colors border border-gray-200 rounded-lg hover:border-[#264065]">
+                        ← Previous
+                      </button>
+                    </Link>
+                  )}
+                  
+                  <div className="flex items-center gap-2 mx-4">
+                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                      const pageNum = i + 1;
+                      return (
+                        <Link key={pageNum} href={`/blog?page=${pageNum}${category ? `&category=${category}` : ''}${search ? `&search=${search}` : ''}`}>
+                          <button
+                            className={`w-10 h-10 rounded-lg font-medium transition-colors ${
+                              currentPage === pageNum
+                                ? 'bg-[#264065] text-white'
+                                : 'text-gray-600 hover:bg-gray-100'
+                            }`}
+                          >
+                            {pageNum}
+                          </button>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  
+                  {currentPage < totalPages && (
+                    <Link href={`/blog?page=${currentPage + 1}${category ? `&category=${category}` : ''}${search ? `&search=${search}` : ''}`}>
+                      <button className="px-4 py-2 text-gray-600 hover:text-[#264065] transition-colors border border-gray-200 rounded-lg hover:border-[#264065]">
+                        Next →
+                      </button>
+                    </Link>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-8 space-y-8">
+                
+                {/* Newsletter Signup */}
+                {/* <div className="bg-gray-50 rounded-xl p-6 border">
+                  <h3 className="text-lg font-bold text-gray-900 mb-3">
+                    Stay Updated
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Get the latest travel industry insights delivered weekly.
+                  </p>
+                  <div className="space-y-3">
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#264065] focus:border-transparent text-sm"
+                    />
+                    <button className="w-full bg-[#264065] hover:bg-[#1a2d47] text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-sm">
+                      Subscribe
+                    </button>
+                  </div>
+                </div> */}
+
+                {/* Recent Posts */}
+                <div className="bg-white rounded-xl p-6 border">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
+                    Recent Posts
+                  </h3>
+                  <div className="space-y-4">
+                    {recentPosts.map((post) => (
+                      <Link key={post.id} href={`/blog/${post.slug}`} className="block group">
+                        <div className="flex gap-3">
+                          <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                            <Image
+                              src={post.image}
+                              alt={post.imageAlt}
+                              fill
+                              className="object-cover"
+                              sizes="64px"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-sm font-medium text-gray-900 group-hover:text-[#264065] transition-colors duration-200 line-clamp-2 mb-1">
+                              {post.title}
+                            </h4>
+                            <p className="text-xs text-gray-500">
+                              {new Date(post.publishedAt).toLocaleDateString('en-US', { 
+                                month: 'short', 
+                                day: 'numeric' 
+                              })} • {post.readTime}
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Popular Categories */}
+                <div className="bg-white rounded-xl p-6 border">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
+                    Popular Categories
+                  </h3>
+                  <div className="space-y-2">
+                    {popularCategories.map((cat) => (
+                      <Link key={cat.id} href={`/blog?category=${cat.slug}`} className="block">
+                        <div className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 group">
+                          <span className="text-sm font-medium text-gray-700 group-hover:text-[#264065]">
+                            {cat.name}
+                          </span>
+                          <svg className="w-4 h-4 text-gray-400 group-hover:text-[#264065]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Featured Authors */}
+                <div className="bg-white rounded-xl p-6 border">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
+                    Featured Authors
+                  </h3>
+                  <div className="space-y-4">
+                    {featuredAuthors.map((author, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-[#264065] rounded-full flex items-center justify-center">
+                          <span className="text-white text-sm font-bold">
+                            {author.name.split(' ').map(n => n[0]).join('')}
                           </span>
                         </div>
-                        <span className="text-[#6c757d] text-xs font-['Poppins']">{post.author.name}</span>
+                        <div className="flex-1">
+                          <h4 className="text-sm font-medium text-gray-900">
+                            {author.name}
+                          </h4>
+                          <p className="text-xs text-gray-500">
+                            {author.role} • {author.posts} posts
+                          </p>
+                        </div>
                       </div>
-                      <span className="text-[#6c757d] text-sm font-['Poppins']">
-                        {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                        })}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex flex-wrap gap-1">
-                        {post.tags.slice(0, 2).map((tag, tagIndex) => (
-                          <span key={tagIndex} className="bg-[#FAF8F5] text-[#6c757d] px-2 py-1 rounded text-xs font-['Poppins']">
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-                      <Link href={`/blog/${post.slug}`}>
-                        <button className="text-[#264065] hover:text-[#C88652] font-medium font-['Poppins'] text-sm transition-colors duration-300 flex items-center gap-2 group">
-                          Read More
-                          <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </button>
-                      </Link>
-                    </div>
+                    ))}
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-4 mt-16 sm:mt-20">
-              {currentPage > 1 && (
-                <Link href={`/blog?page=${currentPage - 1}${category ? `&category=${category}` : ''}${search ? `&search=${search}` : ''}`}>
-                  <button className="px-4 py-2 rounded-lg bg-white text-[#264065] border border-[#264065] hover:bg-[#264065] hover:text-white transition-colors font-['Poppins']">
-                    Previous
-                  </button>
-                </Link>
-              )}
-              
-              <span className="text-[#6c757d] font-['Poppins']">
-                Page {currentPage} of {totalPages}
-              </span>
-              
-              {currentPage < totalPages && (
-                <Link href={`/blog?page=${currentPage + 1}${category ? `&category=${category}` : ''}${search ? `&search=${search}` : ''}`}>
-                  <button className="px-4 py-2 rounded-lg bg-[#264065] text-white hover:bg-[#C88652] transition-colors font-['Poppins']">
-                    Next
-                  </button>
-                </Link>
-              )}
-            </div>
-          )}
+                {/* Quick Links */}
+                {/* <div className="bg-white rounded-xl p-6 border">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
+                    Quick Links
+                  </h3>
+                  <div className="space-y-2">
+                    <Link href="/events" className="block">
+                      <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 group">
+                        <svg className="w-4 h-4 text-gray-400 group-hover:text-[#264065]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-sm font-medium text-gray-700 group-hover:text-[#264065]">
+                          Upcoming Events
+                        </span>
+                      </div>
+                    </Link>
+                    <Link href="/contact" className="block">
+                      <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 group">
+                        <svg className="w-4 h-4 text-gray-400 group-hover:text-[#264065]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-sm font-medium text-gray-700 group-hover:text-[#264065]">
+                          Contact Us
+                        </span>
+                      </div>
+                    </Link>
+                    <Link href="/about" className="block">
+                      <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 transition-colors duration-200 group">
+                        <svg className="w-4 h-4 text-gray-400 group-hover:text-[#264065]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm font-medium text-gray-700 group-hover:text-[#264065]">
+                          About Us
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
+                </div> */}
 
-          {/* Newsletter Section */}
-          <div className="mt-20 sm:mt-24">
-            <div className="bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-3xl p-8 sm:p-12 lg:p-16 text-center text-white">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-['Poppins'] mb-4">
-                Stay Updated with Latest Insights
-              </h3>
-              <p className="text-lg sm:text-xl font-['Poppins'] mb-8 opacity-90 max-w-2xl mx-auto">
-                Subscribe to our newsletter and never miss important updates from the travel trade industry.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="flex-1 px-6 py-4 rounded-xl text-[#264065] font-['Poppins'] focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-30"
-                />
-                <button className="bg-[#C88652] hover:bg-[#b6743a] text-white px-8 py-4 rounded-xl font-bold font-['Poppins'] transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-30 whitespace-nowrap">
-                  Subscribe Now
-                </button>
               </div>
             </div>
+
           </div>
+
         </div>
       </div>
     </main>
