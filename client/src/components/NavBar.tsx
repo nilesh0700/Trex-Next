@@ -75,6 +75,12 @@ export default function NavBar() {
               Blogs
             </Link>
             <Link 
+              href="/news" 
+              className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
+            >
+              News
+            </Link>
+            <Link 
               href="/contact" 
               className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
             >
@@ -174,6 +180,13 @@ export default function NavBar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blogs
+              </Link>
+              <Link 
+                href="/news" 
+                className="block font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                News
               </Link>
               <Link 
                 href="/contact" 
