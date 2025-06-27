@@ -158,6 +158,44 @@ export interface StrapiBlogPost {
   publishedAt: string;
 }
 
+// News Content Block interface
+export interface StrapiNewsContentBlock {
+  id: number;
+  type: 'text' | 'image' | 'quote' | 'video';
+  content?: string;
+  image?: StrapiImage | null;
+  image_caption?: string;
+  image_position?: 'left' | 'right' | 'center' | 'full-width';
+  image_size?: 'small' | 'medium' | 'large' | 'full';
+  quote_text?: string;
+  quote_author?: string;
+  video_url?: string;
+  order: number;
+}
+
+export interface StrapiNewsArticle {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featured: boolean;
+  readTime: string;
+  tags: string[];
+  featured_image: StrapiImage | null;
+  gallery_images: StrapiImage[];
+  content_blocks: StrapiNewsContentBlock[];
+  news_category: 'latest-news' | 'business-insights' | 'featured';
+  priority: number;
+  author: StrapiAuthor | null;
+  category: StrapiCategory | null;
+  related_news: StrapiNewsArticle[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 // API Response interfaces
 export interface StrapiResponse<T> {
   data: T;
@@ -278,6 +316,54 @@ export interface BlogPost {
     name: string;
     slug: string;
   };
+  publishedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Frontend-friendly news interfaces
+export interface NewsContentBlock {
+  id: number;
+  type: 'text' | 'image' | 'quote' | 'video';
+  content?: string;
+  image?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+  imagePosition?: 'left' | 'right' | 'center' | 'full-width';
+  imageSize?: 'small' | 'medium' | 'large' | 'full';
+  quoteText?: string;
+  quoteAuthor?: string;
+  videoUrl?: string;
+  order: number;
+}
+
+export interface NewsArticle {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featured: boolean;
+  readTime: string;
+  tags: string[];
+  image: string;
+  imageAlt: string;
+  galleryImages: string[];
+  contentBlocks: NewsContentBlock[];
+  newsCategory: 'latest-news' | 'business-insights' | 'featured';
+  priority: number;
+  author: {
+    name: string;
+    email?: string;
+    bio?: string;
+    avatar?: string;
+  };
+  category: {
+    name: string;
+    slug: string;
+  };
+  relatedNews: NewsArticle[];
   publishedAt: string;
   createdAt: string;
   updatedAt: string;

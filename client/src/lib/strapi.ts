@@ -12,7 +12,11 @@ import {
   TargetCity,
   CityStatistic,
   PricingPackage,
-  EventFlowItem
+  EventFlowItem,
+  StrapiNewsArticle,
+  NewsArticle,
+  StrapiNewsContentBlock,
+  NewsContentBlock
 } from "@/types/strapi";
 
 const BASE_URL = getStrapiURL();
@@ -59,6 +63,79 @@ function transformEventFlowItem(strapiItem: any): EventFlowItem {
     description: strapiItem.description,
     day: strapiItem.day,
     icon: strapiItem.icon
+  };
+}
+
+// Transform Strapi news content block to frontend-friendly format
+function transformNewsContentBlock(strapiBlock: StrapiNewsContentBlock): NewsContentBlock {
+  const imageUrl = strapiBlock.image?.url 
+    ? (strapiBlock.image.url.startsWith('http') 
+        ? strapiBlock.image.url 
+        : `${BASE_URL}${strapiBlock.image.url}`)
+    : undefined;
+
+  return {
+    id: strapiBlock.id,
+    type: strapiBlock.type,
+    content: strapiBlock.content,
+    image: imageUrl,
+    imageAlt: strapiBlock.image?.alternativeText || undefined,
+    imageCaption: strapiBlock.image_caption,
+    imagePosition: strapiBlock.image_position,
+    imageSize: strapiBlock.image_size,
+    quoteText: strapiBlock.quote_text,
+    quoteAuthor: strapiBlock.quote_author,
+    videoUrl: strapiBlock.video_url,
+    order: strapiBlock.order
+  };
+}
+
+// Transform Strapi news article to frontend-friendly format
+function transformNewsArticle(strapiNews: StrapiNewsArticle): NewsArticle {
+  const imageUrl = strapiNews.featured_image?.url 
+    ? (strapiNews.featured_image.url.startsWith('http') 
+        ? strapiNews.featured_image.url 
+        : `${BASE_URL}${strapiNews.featured_image.url}`)
+    : "/assets/networking.jpg"; // Fallback image
+
+  const galleryImages = strapiNews.gallery_images?.map(img => 
+    img.url.startsWith('http') ? img.url : `${BASE_URL}${img.url}`
+  ) || [];
+
+  return {
+    id: strapiNews.id,
+    documentId: strapiNews.documentId,
+    title: strapiNews.title,
+    slug: strapiNews.slug,
+    excerpt: strapiNews.excerpt,
+    content: strapiNews.content,
+    featured: strapiNews.featured,
+    readTime: strapiNews.readTime,
+    tags: strapiNews.tags || [],
+    image: imageUrl,
+    imageAlt: strapiNews.featured_image?.alternativeText || strapiNews.title,
+    galleryImages,
+    contentBlocks: (strapiNews.content_blocks || []).map(transformNewsContentBlock),
+    newsCategory: strapiNews.news_category,
+    priority: strapiNews.priority,
+    author: {
+      name: strapiNews.author?.name || "Anonymous",
+      email: strapiNews.author?.email,
+      bio: strapiNews.author?.bio,
+      avatar: strapiNews.author?.avatar?.url 
+        ? (strapiNews.author.avatar.url.startsWith('http') 
+            ? strapiNews.author.avatar.url 
+            : `${BASE_URL}${strapiNews.author.avatar.url}`)
+        : undefined,
+    },
+    category: {
+      name: strapiNews.category?.name || "Uncategorized",
+      slug: strapiNews.category?.slug || "uncategorized",
+    },
+    relatedNews: (strapiNews.related_news || []).map(transformNewsArticle),
+    publishedAt: strapiNews.publishedAt,
+    createdAt: strapiNews.createdAt,
+    updatedAt: strapiNews.updatedAt,
   };
 }
 
@@ -565,6 +642,309 @@ export async function getRelatedEvents(
     return response.data.map(transformEvent);
   } catch (error) {
     console.error("Error fetching related events:", error);
+    return [];
+  }
+} 
+
+// ============= NEWS FUNCTIONS =============
+
+// Get all news articles with pagination and filtering
+export async function getNewsArticles(options: {
+  page?: number;
+  pageSize?: number;
+  featured?: boolean;
+  category?: string;
+  newsCategory?: 'latest-news' | 'business-insights' | 'featured';
+  search?: string;
+  sort?: string;
+} = {}) {
+  const {
+    page = 1,
+    pageSize = 10,
+    featured,
+    category,
+    newsCategory,
+    search,
+    sort = "publishedAt:desc"
+  } = options;
+
+  const url = new URL("/api/news-articles", BASE_URL);
+
+  const queryParams = {
+    sort: [sort],
+    pagination: {
+      page,
+      pageSize,
+    },
+    populate: {
+      featured_image: {
+        fields: ["url", "alternativeText", "name"],
+      },
+      author: {
+        fields: ["name", "email", "bio"],
+        populate: {
+          avatar: {
+            fields: ["url", "alternativeText"],
+          },
+        },
+      },
+      category: {
+        fields: ["name", "slug"],
+      },
+      content_blocks: {
+        populate: {
+          image: {
+            fields: ["url", "alternativeText"],
+          },
+        },
+      },
+      gallery_images: {
+        fields: ["url", "alternativeText"],
+      },
+      related_news: {
+        populate: {
+          featured_image: {
+            fields: ["url", "alternativeText"],
+          },
+        },
+      },
+    },
+    filters: {} as any,
+  };
+
+  // Add filters
+  if (featured !== undefined) {
+    queryParams.filters.featured = { $eq: featured };
+  }
+
+  if (category) {
+    queryParams.filters.category = {
+      slug: { $eq: category }
+    };
+  }
+
+  if (newsCategory) {
+    queryParams.filters.news_category = { $eq: newsCategory };
+  }
+
+  if (search) {
+    queryParams.filters.$or = [
+      { title: { $containsi: search } },
+      { excerpt: { $containsi: search } },
+      { content: { $containsi: search } },
+    ];
+  }
+
+  url.search = qs.stringify(queryParams, { encodeValuesOnly: true });
+
+  try {
+    const response = await fetchAPI(url.href, { 
+      method: "GET",
+      next: { revalidate: 60 }
+    }) as StrapiCollectionResponse<StrapiNewsArticle>;
+
+    return {
+      data: response.data.map(transformNewsArticle),
+      meta: response.meta,
+    };
+  } catch (error) {
+    console.error("Error fetching news articles:", error);
+    return {
+      data: [],
+      meta: { pagination: { page: 1, pageSize: 0, pageCount: 0, total: 0 } },
+    };
+  }
+}
+
+// Get a single news article by slug
+export async function getNewsArticleBySlug(slug: string): Promise<NewsArticle | null> {
+  const url = new URL("/api/news-articles", BASE_URL);
+
+  const queryParams = {
+    filters: {
+      slug: { $eq: slug },
+    },
+    populate: {
+      featured_image: {
+        fields: ["url", "alternativeText", "name"],
+      },
+      author: {
+        fields: ["name", "email", "bio"],
+        populate: {
+          avatar: {
+            fields: ["url", "alternativeText"],
+          },
+        },
+      },
+      category: {
+        fields: ["name", "slug"],
+      },
+      content_blocks: {
+        populate: {
+          image: {
+            fields: ["url", "alternativeText"],
+          },
+        },
+      },
+      gallery_images: {
+        fields: ["url", "alternativeText"],
+      },
+      related_news: {
+        populate: {
+          featured_image: {
+            fields: ["url", "alternativeText"],
+          },
+          author: {
+            fields: ["name"],
+          },
+          category: {
+            fields: ["name", "slug"],
+          },
+        },
+      },
+    },
+  };
+
+  url.search = qs.stringify(queryParams, { encodeValuesOnly: true });
+
+  try {
+    const response = await fetchAPI(url.href, { 
+      method: "GET",
+      next: { revalidate: 60 }
+    }) as StrapiCollectionResponse<StrapiNewsArticle>;
+
+    if (response.data.length === 0) {
+      return null;
+    }
+
+    return transformNewsArticle(response.data[0]);
+  } catch (error) {
+    console.error("Error fetching news article:", error);
+    return null;
+  }
+}
+
+// Get news articles by category
+export async function getNewsByCategory(category: 'latest-news' | 'business-insights' | 'featured', limit: number = 6) {
+  return getNewsArticles({ newsCategory: category, pageSize: limit });
+}
+
+// Get featured news articles
+export async function getFeaturedNews(limit: number = 4) {
+  return getNewsArticles({ featured: true, pageSize: limit });
+}
+
+// Get related news articles
+export async function getRelatedNews(
+  currentSlug: string, 
+  categorySlug?: string,
+  limit: number = 4
+): Promise<NewsArticle[]> {
+  const url = new URL("/api/news-articles", BASE_URL);
+
+  const queryParams = {
+    sort: ["publishedAt:desc"],
+    pagination: {
+      page: 1,
+      pageSize: limit,
+    },
+    populate: {
+      featured_image: {
+        fields: ["url", "alternativeText", "name"],
+      },
+      category: {
+        fields: ["name", "slug"],
+      },
+      author: {
+        fields: ["name"],
+      },
+    },
+    filters: {
+      slug: { $ne: currentSlug }, // Exclude current article
+      ...(categorySlug && {
+        category: {
+          slug: { $eq: categorySlug }
+        }
+      })
+    } as any,
+  };
+
+  url.search = qs.stringify(queryParams, { encodeValuesOnly: true });
+
+  try {
+    const response = await fetchAPI(url.href, { 
+      method: "GET",
+      next: { revalidate: 60 }
+    }) as StrapiCollectionResponse<StrapiNewsArticle>;
+
+    return response.data.map(transformNewsArticle);
+  } catch (error) {
+    console.error("Error fetching related news:", error);
+    return [];
+  }
+}
+
+// Get news categories with article counts
+export interface NewsCategory {
+  id: number;
+  name: string;
+  slug: string;
+  count: number;
+}
+
+export async function getNewsCategories(): Promise<NewsCategory[]> {
+  try {
+    // First get all categories
+    const categoriesQuery = qs.stringify({
+      populate: "*",
+      sort: ["name:asc"],
+    });
+
+    const categoriesResponse = await fetchAPI(
+      `/categories?${categoriesQuery}`,
+      { method: "GET" }
+    );
+
+    if (!categoriesResponse.data) {
+      return [];
+    }
+
+    // Get category counts from news articles
+    const categoriesWithCounts = await Promise.all(
+      categoriesResponse.data.map(async (category: StrapiCategory) => {
+        const countQuery = qs.stringify({
+          filters: {
+            category: {
+              slug: { $eq: category.slug }
+            }
+          },
+          pagination: {
+            page: 1,
+            pageSize: 1
+          }
+        });
+
+        const countResponse = await fetchAPI(
+          `/news-articles?${countQuery}`,
+          { method: "GET" }
+        );
+
+        return {
+          id: category.id,
+          name: category.name,
+          slug: category.slug,
+          count: countResponse.meta?.pagination?.total || 0
+        };
+      })
+    );
+
+    // Filter out categories with 0 news articles and sort by count
+    return categoriesWithCounts
+      .filter(cat => cat.count > 0)
+      .sort((a, b) => b.count - a.count);
+
+  } catch (error) {
+    console.error("Error fetching news categories:", error);
     return [];
   }
 } 

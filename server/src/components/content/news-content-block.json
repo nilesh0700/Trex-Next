@@ -1,0 +1,51 @@
+{
+  "collectionName": "components_content_news_content_blocks",
+  "info": {
+    "displayName": "News Content Block",
+    "description": "Flexible content block for news articles supporting text and images with positioning"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": ["text", "image", "quote", "video"],
+      "required": true,
+      "default": "text"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "image_caption": {
+      "type": "text"
+    },
+    "image_position": {
+      "type": "enumeration",
+      "enum": ["left", "right", "center", "full-width"],
+      "default": "center"
+    },
+    "image_size": {
+      "type": "enumeration",
+      "enum": ["small", "medium", "large", "full"],
+      "default": "medium"
+    },
+    "quote_text": {
+      "type": "text"
+    },
+    "quote_author": {
+      "type": "string"
+    },
+    "video_url": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer",
+      "default": 1
+    }
+  }
+} 

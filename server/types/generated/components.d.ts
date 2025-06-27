@@ -1,5 +1,33 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ContentNewsContentBlock extends Struct.ComponentSchema {
+  collectionName: 'components_content_news_content_blocks';
+  info: {
+    description: 'Flexible content block for news articles supporting text and images with positioning';
+    displayName: 'News Content Block';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    image: Schema.Attribute.Media<'images'>;
+    image_caption: Schema.Attribute.Text;
+    image_position: Schema.Attribute.Enumeration<
+      ['left', 'right', 'center', 'full-width']
+    > &
+      Schema.Attribute.DefaultTo<'center'>;
+    image_size: Schema.Attribute.Enumeration<
+      ['small', 'medium', 'large', 'full']
+    > &
+      Schema.Attribute.DefaultTo<'medium'>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    quote_author: Schema.Attribute.String;
+    quote_text: Schema.Attribute.Text;
+    type: Schema.Attribute.Enumeration<['text', 'image', 'quote', 'video']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'text'>;
+    video_url: Schema.Attribute.String;
+  };
+}
+
 export interface SharedCityStatistic extends Struct.ComponentSchema {
   collectionName: 'components_shared_city_statistics';
   info: {
@@ -72,6 +100,7 @@ export interface SharedTargetCity extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'content.news-content-block': ContentNewsContentBlock;
       'shared.city-statistic': SharedCityStatistic;
       'shared.event-flow-item': SharedEventFlowItem;
       'shared.pricing-package': SharedPricingPackage;

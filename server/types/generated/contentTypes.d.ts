@@ -405,6 +405,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
+    news: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -486,6 +487,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 100;
       }>;
+    news: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -591,6 +593,71 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     target_markets_title: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Target Markets Across India'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiNewsNews extends Struct.CollectionTypeSchema {
+  collectionName: 'news';
+  info: {
+    description: 'News articles with rich content and multiple image support';
+    displayName: 'News Article';
+    pluralName: 'news-articles';
+    singularName: 'news';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    content_blocks: Schema.Attribute.Component<
+      'content.news-content-block',
+      true
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    excerpt: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    featured_image: Schema.Attribute.Media<'images'>;
+    gallery_images: Schema.Attribute.Media<'images', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::news.news'> &
+      Schema.Attribute.Private;
+    news_category: Schema.Attribute.Enumeration<
+      ['latest-news', 'business-insights', 'featured']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'latest-news'>;
+    priority: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    publishedAt: Schema.Attribute.DateTime;
+    readTime: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'5 min read'>;
+    related_news: Schema.Attribute.Relation<'manyToMany', 'api::news.news'>;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    tags: Schema.Attribute.JSON;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1144,6 +1211,7 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::event-category.event-category': ApiEventCategoryEventCategory;
       'api::event.event': ApiEventEvent;
+      'api::news.news': ApiNewsNews;
       'api::organizer.organizer': ApiOrganizerOrganizer;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
