@@ -8,43 +8,50 @@ const MarketExpansion = () => {
       title: "Tap into a high-growth buyer base in emerging cities of Tier 2 & Tier 3",
       description: "Access untapped markets with high growth potential",
       bgColor: "bg-white",
-      iconUrl: "/assets/graph-up.png"
+      iconUrl: "/assets/graph-up.png",
+      learnMoreLink: "/why-exhibit#high-growth-buyer-base"
     },
     {
       title: "Pre-scheduled Exclusive meetings with Top B2C Producers",
       description: "Connect directly with industry leaders",
       bgColor: "bg-[rgba(38,64,101,0.18)]",
-      iconUrl: "/assets/globe-people.png"
+      iconUrl: "/assets/globe-people.png",
+      learnMoreLink: "/why-exhibit#exclusive-meetings"
     },
     {
       title: "Engage with 500+ verified decision-makers",
       description: "Network with qualified industry professionals",
       bgColor: "bg-white",
-      iconUrl: "/assets/user-tick.png"
+      iconUrl: "/assets/user-tick.png",
+      learnMoreLink: "/why-exhibit#verified-decision-makers"
     },
     {
       title: "Position your brand in a less-saturated, yet high-potential market",
       description: "Stand out in emerging travel markets",
       bgColor: "bg-[rgba(153,195,190,0.33)]",
-      iconUrl: "/assets/hand-speaker.png"
+      iconUrl: "/assets/hand-speaker.png",
+      learnMoreLink: "/why-exhibit#less-saturated-market"
     },
     {
       title: "Be part of a curated, professional event",
       description: "Join an exclusive industry gathering",
       bgColor: "bg-white",
-      iconUrl: "/assets/group.png"
+      iconUrl: "/assets/group.png",
+      learnMoreLink: "/why-exhibit#curated-professional-event"
     },
     {
       title: "Post Exhibition Support, Less said than done",
       description: "Comprehensive follow-up assistance",
       bgColor: "bg-[rgba(38,64,101,0.23)]",
-      iconUrl: "/assets/hand-bond.png"
+      iconUrl: "/assets/hand-bond.png",
+      learnMoreLink: "/why-exhibit#post-exhibition-support"
     },
     {
       title: "Extensive Social Media Campaigns with your Branding in the key regions",
       description: "Amplify your reach through targeted marketing",
       bgColor: "bg-white",
-      iconUrl: "/assets/social.png"
+      iconUrl: "/assets/social.png",
+      learnMoreLink: "/why-exhibit#social-media-campaigns"
     },
     {
       title: "",
@@ -119,7 +126,10 @@ const MarketExpansion = () => {
                     </p>
 
                     {/* Learn More Button */}
-                    <div className="flex items-center gap-2 text-[#264065] group-hover:text-[#C88652] transition-colors duration-300 cursor-pointer">
+                    <a 
+                      href={item.learnMoreLink} 
+                      className="flex items-center gap-2 text-[#264065] group-hover:text-[#C88652] transition-colors duration-300 cursor-pointer hover:underline"
+                    >
                       <span className="text-sm font-semibold">Learn More</span>
                       <svg 
                         className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" 
@@ -128,7 +138,7 @@ const MarketExpansion = () => {
                       >
                         <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                       </svg>
-                    </div>
+                    </a>
 
                     {/* Bottom Indicator Line */}
                     <div className="mt-3 w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-[#264065] to-[#C88652] transition-all duration-500"></div>
@@ -141,15 +151,16 @@ const MarketExpansion = () => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-8 sm:mt-12 lg:mt-16">
-          <button 
-            className="bg-gradient-to-r from-[#264065] to-[#1a2d47] hover:from-[#C88652] hover:to-[#b8763f] text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-full font-medium text-sm sm:text-base lg:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl animate-bounceIn"
+          <a 
+            href="/why-exhibit"
+            className="inline-block bg-gradient-to-r from-[#264065] to-[#1a2d47] hover:from-[#C88652] hover:to-[#b8763f] text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-full font-medium text-sm sm:text-base lg:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl animate-bounceIn"
             style={{
               animationDelay: '1s',
               animationFillMode: 'both'
             }}
           >
             Explore Market Opportunities
-          </button>
+          </a>
         </div>
       </div>
 
