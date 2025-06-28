@@ -7,6 +7,8 @@ import Image from 'next/image';
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
+  const [isMobileMoreOpen, setIsMobileMoreOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -18,11 +20,20 @@ export default function NavBar() {
       setIsScrolled(scrollTop > 10);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.more-dropdown')) {
+        setIsMoreDropdownOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleClickOutside);
     
     // Cleanup function
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, []);
 
@@ -69,34 +80,19 @@ export default function NavBar() {
               Events
             </Link>
             <Link 
-              href="/blog" 
-              className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
-            >
-              Blogs
-            </Link>
-            <Link 
-              href="/news" 
-              className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
-            >
-              News
-            </Link>
-            <Link 
-              href="/faq" 
-              className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
-            >
-              FAQ
-            </Link>
-            <Link 
               href="/contact" 
               className="font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
             >
               Contact
             </Link>
-            {/* <div className="relative group">
-              <button className="flex items-center font-['Nunito_Sans'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200">
+            <div className="relative more-dropdown">
+              <button 
+                onClick={() => setIsMoreDropdownOpen(!isMoreDropdownOpen)}
+                className="flex items-center font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] transition-colors duration-200"
+              >
                 More
                 <svg 
-                  className="ml-1 w-3 h-3 lg:w-4 lg:h-4 transition-transform duration-200 group-hover:rotate-180" 
+                  className={`ml-1 w-3 h-3 lg:w-4 lg:h-4 transition-transform duration-200 ${isMoreDropdownOpen ? 'rotate-180' : ''}`} 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -104,32 +100,59 @@ export default function NavBar() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-            </div> */}
+              
+              {/* More Dropdown */}
+              {isMoreDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <Link 
+                    href="/blog" 
+                    className="block px-4 py-2 font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] hover:bg-gray-50 transition-colors duration-200"
+                    onClick={() => setIsMoreDropdownOpen(false)}
+                  >
+                    Blogs
+                  </Link>
+                  <Link 
+                    href="/news" 
+                    className="block px-4 py-2 font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] hover:bg-gray-50 transition-colors duration-200"
+                    onClick={() => setIsMoreDropdownOpen(false)}
+                  >
+                    News
+                  </Link>
+                  <Link 
+                    href="/faq" 
+                    className="block px-4 py-2 font-['Poppins'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] hover:bg-gray-50 transition-colors duration-200"
+                    onClick={() => setIsMoreDropdownOpen(false)}
+                  >
+                    FAQ
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Search and Auth Buttons */}
           <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
             {/* Search Icon */}
-            <button className="w-6 h-6 lg:w-7 lg:h-7 text-[#264065] hover:text-[#1a2d47] transition-colors duration-200">
+            {/* <button className="w-6 h-6 lg:w-7 lg:h-7 text-[#264065] hover:text-[#1a2d47] transition-colors duration-200">
               <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-            </button>
+            </button> */}
 
             {/* Sign In */}
-            <Link 
+            {/* <Link 
               href="/signin" 
               className="px-3 py-1.5 font-['Nunito_Sans'] text-sm lg:text-base font-medium text-[#264065] hover:text-[#1a2d47] underline transition-colors duration-200"
             >
               Sign In
-            </Link>
+            </Link> */}
 
             {/* Sign Up */}
             <Link 
               href="/signup" 
               className="px-4 py-2 lg:px-5 lg:py-2.5 bg-[#264065] text-white font-['Poppins'] text-sm lg:text-base font-medium rounded-2xl lg:rounded-3xl hover:bg-[#1a2d47] transition-colors duration-200"
             >
-              Sign Up
+              Register
             </Link>
           </div>
 
@@ -181,33 +204,56 @@ export default function NavBar() {
                 Events
               </Link>
               <Link 
-                href="/blog" 
-                className="block font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blogs
-              </Link>
-              <Link 
-                href="/news" 
-                className="block font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                News
-              </Link>
-              <Link 
-                href="/faq" 
-                className="block font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                FAQ
-              </Link>
-              <Link 
                 href="/contact" 
                 className="block font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact
               </Link>
+              
+              {/* Mobile More Section */}
+              <div>
+                <button
+                  onClick={() => setIsMobileMoreOpen(!isMobileMoreOpen)}
+                  className="flex items-center justify-between w-full font-['Poppins'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
+                >
+                  More
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 ${isMobileMoreOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {isMobileMoreOpen && (
+                  <div className="ml-4 mt-2 space-y-2">
+                    <Link 
+                      href="/blog" 
+                      className="block font-['Poppins'] text-[16px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Blogs
+                    </Link>
+                    <Link 
+                      href="/news" 
+                      className="block font-['Poppins'] text-[16px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      News
+                    </Link>
+                    <Link 
+                      href="/faq" 
+                      className="block font-['Poppins'] text-[16px] font-normal text-[#264065] hover:text-[#1a2d47] py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      FAQ
+                    </Link>
+                  </div>
+                )}
+              </div>
               
               <div className="border-t pt-4 space-y-4">
                 <Link 
