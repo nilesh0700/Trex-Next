@@ -1,7 +1,6 @@
 import React from 'react';
 import PageHeading from '../../components/PageHeading';
 import ContactSection from '../../components/ContactSection';
-import FAQ from '../../components/FAQ';
 
 export default function ContactPage() {
   return (
@@ -11,9 +10,6 @@ export default function ContactPage() {
       
       {/* Contact Information & CTA */}
       <ContactSection />
-      
-      {/* FAQ Section */}
-      <FAQ />
     </main>
   );
 } 

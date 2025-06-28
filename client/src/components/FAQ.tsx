@@ -51,12 +51,12 @@ export default function FAQ() {
     <section className="w-full py-16 sm:py-20 md:py-24 lg:py-28 bg-white">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Title */}
-        <div className="text-center mb-12 sm:mb-16 md:mb-20">
+        {/* <div className="text-center mb-12 sm:mb-16 md:mb-20">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#264065] mb-4 sm:mb-6 font-['Poppins']">
             Frequently Asked Questions
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#1a2d47] mx-auto rounded-full"></div>
-        </div>
+        </div> */}
 
         {/* FAQ Items */}
         <div className="space-y-4">
