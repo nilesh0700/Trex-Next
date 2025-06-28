@@ -6,7 +6,7 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-white mt-20">
       {/* Page Heading */}
-      <PageHeading heading="Contact Us" />
+      {/* <PageHeading heading="Contact Us" /> */}
       
       {/* Contact Information & CTA */}
       <ContactSection />
