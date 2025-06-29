@@ -110,6 +110,8 @@ export interface StrapiEvent {
   participants_count: string;
   registration_link: string;
   featured_image: StrapiImage | null;
+  featured_video_url?: string;
+  media_type: 'image' | 'video' | 'video_url';
   overlay_text: string;
   contact_email: string;
   contact_time: string;
@@ -262,6 +264,8 @@ export interface Event {
   registrationLink: string;
   image: string;
   imageAlt: string;
+  videoUrl?: string;
+  mediaType: 'image' | 'video' | 'video_url';
   overlayText: string;
   contactEmail: string;
   contactTime: string;

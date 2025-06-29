@@ -179,6 +179,27 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
         : `${BASE_URL}${strapiEvent.featured_image.url}`)
     : "/assets/event.png"; // Fallback image
 
+  // Extract YouTube video ID from URL for video_url type
+  const getYouTubeVideoId = (url: string): string | null => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
+  // Process video URL for YouTube
+  const processVideoUrl = (url?: string): string | undefined => {
+    if (!url) return undefined;
+    
+    if (strapiEvent.media_type === 'video_url') {
+      const videoId = getYouTubeVideoId(url);
+      if (videoId) {
+        // Return YouTube embed URL with autoplay and loop parameters
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1`;
+      }
+    }
+    return url;
+  };
+
   return {
     id: strapiEvent.id,
     documentId: strapiEvent.documentId,
@@ -193,6 +214,8 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
     registrationLink: strapiEvent.registration_link,
     image: imageUrl,
     imageAlt: strapiEvent.featured_image?.alternativeText || strapiEvent.title,
+    videoUrl: processVideoUrl(strapiEvent.featured_video_url),
+    mediaType: strapiEvent.media_type || 'image',
     overlayText: strapiEvent.overlay_text,
     contactEmail: strapiEvent.contact_email,
     contactTime: strapiEvent.contact_time,
@@ -461,7 +484,7 @@ export async function getEvents(options: {
     },
     populate: {
       featured_image: {
-        fields: ["url", "alternativeText", "name"],
+        fields: ["url", "alternativeText", "name", "mime"],
       },
       category: {
         fields: ["name", "slug"],
@@ -531,7 +554,7 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
     },
     populate: {
       featured_image: {
-        fields: ["url", "alternativeText", "name"],
+        fields: ["url", "alternativeText", "name", "mime"],
       },
       category: {
         fields: ["name", "slug"],
@@ -601,7 +624,7 @@ export async function getRelatedEvents(
     },
     populate: {
       featured_image: {
-        fields: ["url", "alternativeText", "name"],
+        fields: ["url", "alternativeText", "name", "mime"],
       },
       category: {
         fields: ["name", "slug"],

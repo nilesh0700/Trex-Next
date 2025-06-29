@@ -565,11 +565,15 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     event_heading: Schema.Attribute.String;
     event_subheading: Schema.Attribute.Text;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    featured_image: Schema.Attribute.Media<'images'>;
+    featured_image: Schema.Attribute.Media<'images' | 'videos'>;
+    featured_video_url: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     location: Schema.Attribute.String;
+    media_type: Schema.Attribute.Enumeration<['image', 'video', 'video_url']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'image'>;
     organizer: Schema.Attribute.Relation<
       'manyToOne',
       'api::organizer.organizer'

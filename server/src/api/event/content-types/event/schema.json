@@ -47,7 +47,17 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images", "videos"]
+    },
+    "featured_video_url": {
+      "type": "string",
+      "required": false
+    },
+    "media_type": {
+      "type": "enumeration",
+      "enum": ["image", "video", "video_url"],
+      "default": "image",
+      "required": true
     },
     "overlay_text": {
       "type": "string"

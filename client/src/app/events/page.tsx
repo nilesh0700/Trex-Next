@@ -16,15 +16,35 @@ function FeaturedEventSection({ event }: { event: Event }) {
   return (
     <div className="w-full mt-10">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className={`relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl overflow-hidden ${stateStyles.container}`}>
-          {/* Main Background Image */}
-          <Image
-            src={event.image}
-            alt={event.imageAlt}
-            fill
-            className={`object-cover rounded-2xl ${stateStyles.image}`}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-          />
+        <div className={`relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl overflow-hidden bg-black ${stateStyles.container}`}>
+          {/* Media Content - Images, Videos, or YouTube */}
+          {event.mediaType === 'video' && event.image ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`absolute inset-0 w-full h-full object-cover ${stateStyles.image}`}
+            >
+              <source src={event.image} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : event.mediaType === 'video_url' && event.videoUrl ? (
+            <iframe
+              src={event.videoUrl}
+              className={`absolute inset-0 w-full h-full border-0 scale-125 ${stateStyles.image}`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <Image
+              src={event.image}
+              alt={event.imageAlt}
+              fill
+              className={`object-cover ${stateStyles.image}`}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+            />
+          )}
           
           {/* Premium Event State Badge */}
           {actionConfig.badgeText && (
@@ -138,19 +158,46 @@ function EventCard({ event }: { event: Event }) {
         ${stateStyles.container}
       `}>
         
-        {/* Image Section with Fixed Aspect Ratio */}
-        <div className="relative aspect-[16/10] overflow-hidden">
-          <Image
-            src={event.image}
-            alt={event.imageAlt}
-            fill
-            className={`
-              object-cover transition-all duration-700 ease-out
-              group-hover:scale-110 group-hover:brightness-105
-              ${actionConfig.state === 'past' ? 'grayscale group-hover:grayscale-0' : ''}
-            `}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
+        {/* Media Section with Fixed Aspect Ratio */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-black">
+          {event.mediaType === 'video' && event.image ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`
+                absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out
+                group-hover:scale-110 group-hover:brightness-105
+                ${actionConfig.state === 'past' ? 'grayscale group-hover:grayscale-0' : ''}
+              `}
+            >
+              <source src={event.image} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+                     ) : event.mediaType === 'video_url' && event.videoUrl ? (
+            <iframe
+              src={event.videoUrl}
+              className={`
+                absolute inset-0 w-full h-full border-0 scale-125 transition-all duration-700 ease-out
+                ${actionConfig.state === 'past' ? 'grayscale' : ''}
+              `}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <Image
+              src={event.image}
+              alt={event.imageAlt}
+              fill
+              className={`
+                object-cover transition-all duration-700 ease-out
+                group-hover:scale-110 group-hover:brightness-105
+                ${actionConfig.state === 'past' ? 'grayscale group-hover:grayscale-0' : ''}
+              `}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          )}
           
           {/* Subtle Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent opacity-60"></div>
