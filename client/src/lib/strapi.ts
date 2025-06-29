@@ -246,6 +246,7 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
     eventFlowItems: (strapiEvent.event_flow_items || []).map(transformEventFlowItem),
     eventFlowTitle: strapiEvent.event_flow_title || "Event Flow",
     eventFlowDescription: strapiEvent.event_flow_description || "Two Days of Intensive Networking and Business Development",
+    googleMapsEmbedUrl: strapiEvent.google_maps_embed_url,
     publishedAt: strapiEvent.publishedAt,
     createdAt: strapiEvent.createdAt,
     updatedAt: strapiEvent.updatedAt,

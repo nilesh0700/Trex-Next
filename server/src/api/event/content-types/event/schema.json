@@ -126,6 +126,10 @@
     "event_flow_description": {
       "type": "text",
       "default": "Two Days of Intensive Networking and Business Development"
+    },
+    "google_maps_embed_url": {
+      "type": "text",
+      "required": false
     }
   }
 } 

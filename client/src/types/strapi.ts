@@ -129,6 +129,7 @@ export interface StrapiEvent {
   event_flow_items: StrapiEventFlowItem[];
   event_flow_title: string;
   event_flow_description: string;
+  google_maps_embed_url?: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -291,6 +292,7 @@ export interface Event {
   eventFlowItems: EventFlowItem[];
   eventFlowTitle: string;
   eventFlowDescription: string;
+  googleMapsEmbedUrl?: string;
   publishedAt: string;
   createdAt: string;
   updatedAt: string;

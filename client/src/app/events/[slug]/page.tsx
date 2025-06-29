@@ -817,6 +817,155 @@ function EventFlowSection({ event }: { event: Event }) {
   );
 }
 
+// 8. Google Maps Location Section
+function GoogleMapsSection({ event }: { event: Event }) {
+  // Don't render if no Google Maps URL is provided
+  if (!event.googleMapsEmbedUrl) {
+    return null;
+  }
+
+  return (
+    <section className="w-full py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold text-[#264065] mb-6 font-['Poppins']">
+            Event Location
+          </h2>
+          <p className="text-xl text-gray-600 font-['Poppins'] mb-4">
+            Find us at {event.location}
+          </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full"></div>
+        </div>
+
+        {/* Location Info Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {/* Address Card */}
+          <div className="bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-2xl p-8 text-white text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="w-16 h-16 bg-[#C88652] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold mb-3 font-['Poppins']">Location</h3>
+            <p className="text-blue-200 font-['Poppins']">{event.location}</p>
+          </div>
+
+          {/* Contact Card */}
+          <div className="bg-gradient-to-br from-[#C88652] to-[#b8763f] rounded-2xl p-8 text-white text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="w-16 h-16 bg-[#264065] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold mb-3 font-['Poppins']">Contact</h3>
+            <p className="text-orange-100 font-['Poppins']">{event.contactEmail}</p>
+          </div>
+
+          {/* Time Card */}
+          <div className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-8 text-white text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="w-16 h-16 bg-[#C88652] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold mb-3 font-['Poppins']">Timing</h3>
+            <p className="text-gray-300 font-['Poppins']">{event.contactTime}</p>
+          </div>
+        </div>
+
+        {/* Google Maps Embed */}
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+          <div className="bg-gradient-to-r from-[#264065] to-[#1a2d47] p-6 text-white">
+            <h3 className="text-2xl font-bold font-['Poppins'] flex items-center gap-3">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+              </svg>
+              Interactive Map
+            </h3>
+            <p className="text-blue-200 mt-2 font-['Poppins']">
+              Get directions and explore the venue location
+            </p>
+          </div>
+          
+          <div className="relative w-full h-96 md:h-[500px] lg:h-[600px] bg-gray-100">
+            <iframe
+              src={event.googleMapsEmbedUrl}
+              className="absolute inset-0 w-full h-full border-0"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title={`Map showing location of ${event.title}`}
+            />
+          </div>
+
+          {/* Map Footer with Actions */}
+          <div className="p-6 bg-gray-50 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+              <div className="text-center sm:text-left">
+                <h4 className="font-bold text-[#264065] font-['Poppins'] mb-1">Need Directions?</h4>
+                <p className="text-gray-600 text-sm font-['Poppins']">
+                  Click the map to open in Google Maps for turn-by-turn navigation
+                </p>
+              </div>
+              
+              <div className="flex gap-3">
+                <a
+                  href={event.googleMapsEmbedUrl.replace('/embed?', '/dir/?')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#264065] hover:bg-[#1a2d47] text-white px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg font-['Poppins']"
+                >
+                  Get Directions
+                </a>
+                <a
+                  href={`https://www.google.com/maps/search/${encodeURIComponent(event.location)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#C88652] hover:bg-[#b8763f] text-white px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg font-['Poppins']"
+                >
+                  View on Maps
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Location Information */}
+        <div className="mt-12 bg-gradient-to-r from-[#FAF8F5] to-[#F5F3F0] rounded-2xl p-8 border border-gray-200">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-[#264065] mb-4 font-['Poppins']">
+              Planning Your Visit?
+            </h3>
+            <p className="text-gray-600 mb-6 font-['Poppins'] max-w-3xl mx-auto">
+              We recommend arriving 30 minutes early for registration and networking. 
+              Parking and accessibility information will be provided upon registration.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <SmartEventButton
+                eventDate={event.eventDate}
+                eventSlug={event.slug}
+                registrationLink={event.registrationLink}
+                size="lg"
+                className="min-w-[200px]"
+              />
+              
+              <a
+                href={`/contact`}
+                className="bg-white border-2 border-[#264065] text-[#264065] hover:bg-[#264065] hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 font-['Poppins']"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // Main Event Page Component
 export default async function EventPage({ params }: EventPageProps) {
   const resolvedParams = await params;
@@ -855,6 +1004,9 @@ export default async function EventPage({ params }: EventPageProps) {
         
         {/* 7. Event Flow Section */}
         <EventFlowSection event={event} />
+        
+        {/* 8. Google Maps Location Section */}
+        <GoogleMapsSection event={event} />
       </main>
     );
   } catch (error) {
