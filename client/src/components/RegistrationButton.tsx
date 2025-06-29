@@ -1,19 +1,20 @@
 "use client"
 
 import React from 'react';
-import RegistrationModal from './RegistrationModal';
-import { useRegistrationModal } from '@/hooks/useRegistrationModal';
+import { useRegistrationModal } from '@/contexts/RegistrationModalContext';
 
 interface RegistrationButtonProps {
   children: React.ReactNode;
   className?: string;
   variant?: 'primary' | 'secondary' | 'link';
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const RegistrationButton: React.FC<RegistrationButtonProps> = ({ 
   children, 
   className = '', 
-  variant = 'primary' 
+  variant = 'primary',
+  onClick 
 }) => {
   const { isOpen, openModal, closeModal } = useRegistrationModal();
 
@@ -33,16 +34,28 @@ const RegistrationButton: React.FC<RegistrationButtonProps> = ({
     }
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    // Call custom onClick if provided
+    if (onClick) {
+      onClick(e);
+    }
+    
+    // Prevent multiple modals if event was handled
+    if (e.defaultPrevented) {
+      return;
+    }
+    
+    // Open the registration modal
+    openModal();
+  };
+
   return (
-    <>
-      <button
-        onClick={openModal}
-        className={`${getButtonStyles()} ${className}`}
-      >
-        {children}
-      </button>
-      <RegistrationModal isOpen={isOpen} onClose={closeModal} />
-    </>
+    <button
+      onClick={handleClick}
+      className={`${getButtonStyles()} ${className}`}
+    >
+      {children}
+    </button>
   );
 };
 

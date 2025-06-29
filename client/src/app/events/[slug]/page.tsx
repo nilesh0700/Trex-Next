@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import { getEventBySlug, getRelatedEvents, getEvents } from '@/lib/strapi';
 import { Event } from '@/types/strapi';
 import RegistrationButton from '@/components/RegistrationButton';
+import SmartEventButton from '@/components/SmartEventButton';
+import { shouldShowRegistration, getEventActionConfig } from '@/utils/eventUtils';
 
 type EventPageProps = {
   params: Promise<{
@@ -76,10 +78,14 @@ function EventHeader({ event }: { event: Event }) {
             </div>
           </div>
 
-          {/* CTA Button */}
-          <RegistrationButton>
-            Register Now - Secure Your Spot
-          </RegistrationButton>
+          {/* Premium Smart CTA Button */}
+          <SmartEventButton
+            eventDate={event.eventDate}
+            eventSlug={event.slug}
+            registrationLink={event.registrationLink}
+            variant="hero"
+            size="xl"
+          />
         </div>
       </div>
     </div>
@@ -400,7 +406,11 @@ function TargetMarketsSection({ event }: { event: Event }) {
 
                 {/* Call to Action */}
                 <div className="text-center">
-                  <p className="text-blue-200 text-sm font-['Poppins']">Seize your opportunity in India's emerging markets. <RegistrationButton variant="link">Register today.</RegistrationButton></p>
+                  {shouldShowRegistration(event.eventDate) ? (
+                    <p className="text-blue-200 text-sm font-['Poppins']">Seize your opportunity in India's emerging markets. <RegistrationButton variant="link">Register today.</RegistrationButton></p>
+                  ) : (
+                    <p className="text-blue-200 text-sm font-['Poppins']">Event completed. Stay tuned for upcoming opportunities.</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -656,18 +666,14 @@ function SpaceProposalSection({ event }: { event: Event }) {
                 ))}
               </ul>
 
-              <RegistrationButton 
-                className={`w-full py-4 rounded-full font-bold font-['Poppins'] transition-all duration-300 transform hover:scale-105 ${
-                  pkg.isPopular 
-                    ? 'bg-white text-[#C88652] hover:bg-gray-100' 
-                    : pkg.textColor
-                      ? 'bg-[#C88652] text-white hover:bg-[#b8763f]'
-                      : 'bg-[#264065] text-white hover:bg-[#1a2d47]'
-                }`}
-                variant="primary"
-              >
-                {pkg.buttonText}
-              </RegistrationButton>
+              <SmartEventButton
+                eventDate={event.eventDate}
+                eventSlug={event.slug}
+                registrationLink={event.registrationLink}
+                variant="pricing"
+                size="md"
+                className="w-full"
+              />
             </div>
           ))}
         </div>
@@ -797,14 +803,13 @@ function EventFlowSection({ event }: { event: Event }) {
             <p className="text-xl mb-8 text-blue-200 font-['Poppins']">
               Secure your spot at India's premier regional travel networking summit
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <RegistrationButton>
-                Register Now
-              </RegistrationButton>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-[#264065] px-8 py-4 rounded-full text-lg font-bold font-['Poppins'] transition-all duration-300">
-                Download Brochure
-              </button>
-            </div>
+            <SmartEventButton
+              eventDate={event.eventDate}
+              eventSlug={event.slug}
+              registrationLink={event.registrationLink}
+              showSecondaryAction={true}
+              size="lg"
+            />
           </div>
         </div>
       </div>

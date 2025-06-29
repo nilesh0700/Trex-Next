@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Poppins, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { RegistrationModalProvider } from "../contexts/RegistrationModalContext";
+import GlobalRegistrationModal from "../components/GlobalRegistrationModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,12 +43,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${nunitoSans.variable} antialiased`}
       >
-        <div className="relative">
-          <NavBar />
-          {children}
-          <Footer />
-        </div>
+        <RegistrationModalProvider>
+          <div className="relative">
+            <NavBar />
+            {children}
+            <Footer />
+          </div>
+          <GlobalRegistrationModal />
+        </RegistrationModalProvider>
       </body>
     </html>
   );
 }
+
+
