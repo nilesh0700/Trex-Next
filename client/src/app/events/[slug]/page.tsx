@@ -807,8 +807,8 @@ function EventFlowSection({ event }: { event: Event }) {
               eventDate={event.eventDate}
               eventSlug={event.slug}
               registrationLink={event.registrationLink}
-              showSecondaryAction={true}
-              size="lg"
+              showSecondaryAction={false}
+              size="md"
             />
           </div>
         </div>
@@ -948,7 +948,7 @@ function GoogleMapsSection({ event }: { event: Event }) {
                 eventDate={event.eventDate}
                 eventSlug={event.slug}
                 registrationLink={event.registrationLink}
-                size="lg"
+                size="md"
                 className="min-w-[200px]"
               />
               
