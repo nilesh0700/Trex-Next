@@ -1,0 +1,46 @@
+{
+  "kind": "singleType",
+  "collectionName": "registration_configs",
+  "info": {
+    "singularName": "registration-config",
+    "pluralName": "registration-configs",
+    "displayName": "Registration Configuration",
+    "description": "Configure registration URLs for seller and buyer registration"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sellerRegistrationUrl": {
+      "type": "string",
+      "required": true,
+      "default": "https://example.com/seller-registration"
+    },
+    "buyerRegistrationUrl": {
+      "type": "string",
+      "required": true,
+      "default": "https://example.com/buyer-registration"
+    },
+    "sellerRegistrationText": {
+      "type": "string",
+      "required": true,
+      "default": "Register as Seller"
+    },
+    "buyerRegistrationText": {
+      "type": "string",
+      "required": true,
+      "default": "Register as Buyer"
+    },
+    "modalTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Choose Registration Type"
+    },
+    "modalDescription": {
+      "type": "text",
+      "required": false,
+      "default": "Please select how you would like to register for TREX events."
+    }
+  }
+} 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PageHeading from '@/components/PageHeading';
+import RegistrationButton from '@/components/RegistrationButton';
 
 export default function WhyExhibitPage() {
   const marketExpansionDetails = [
@@ -257,9 +258,9 @@ export default function WhyExhibitPage() {
                 Connect with qualified buyers, build strategic partnerships, and grow your business.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button className="w-full sm:w-auto bg-gradient-to-r from-[#264065] to-[#1a2d47] hover:from-[#C88652] hover:to-[#b8763f] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                <RegistrationButton className="w-full sm:w-auto bg-gradient-to-r from-[#264065] to-[#1a2d47] hover:from-[#C88652] hover:to-[#b8763f] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                   Register as Exhibitor
-                </button>
+                </RegistrationButton>
                 <button className="w-full sm:w-auto border-2 border-[#264065] text-[#264065] hover:bg-[#264065] hover:text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium text-base sm:text-lg transition-all duration-300 transform hover:scale-105">
                   Download Brochure
                 </button>

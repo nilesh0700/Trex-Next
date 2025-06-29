@@ -1,4 +1,5 @@
 import React from 'react';
+import RegistrationButton from './RegistrationButton';
 
 export default function Hero() {
   return (
@@ -19,9 +20,9 @@ export default function Hero() {
                  3 cities.
                </p>
                <div className="flex flex-col sm:flex-row items-center lg:items-start lg:justify-start justify-center gap-5 md:gap-6 lg:gap-6 mb-8 md:mb-8 lg:mb-8">
-                 <button className="bg-[#264065] text-white px-8 sm:px-7 md:px-8 lg:px-8 py-4 sm:py-3 md:py-4 rounded-[32px] text-base md:text-lg font-medium hover:bg-[#1a2d47] transition-colors">
+                 <RegistrationButton className="bg-[#264065] text-white px-8 sm:px-7 md:px-8 lg:px-8 py-4 sm:py-3 md:py-4 rounded-[32px] text-base md:text-lg font-medium hover:bg-[#1a2d47] transition-colors">
                    Register Now
-                 </button>
+                 </RegistrationButton>
                  <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
                    <div className="w-[44px] h-[44px] sm:w-[40px] sm:h-[40px] md:w-[44px] md:h-[44px] bg-white rounded-full flex items-center justify-center shadow-md">
                      <svg width="18" height="18" viewBox="0 0 16 16" fill="none">

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import RegistrationButton from './RegistrationButton';
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -147,13 +148,10 @@ export default function NavBar() {
               Sign In
             </Link> */}
 
-            {/* Sign Up */}
-            <Link 
-              href="/signup" 
-              className="px-4 py-2 lg:px-5 lg:py-2.5 bg-[#264065] text-white font-['Poppins'] text-sm lg:text-base font-medium rounded-2xl lg:rounded-3xl hover:bg-[#1a2d47] transition-colors duration-200"
-            >
+            {/* Register */}
+            <RegistrationButton className="px-4 py-2 lg:px-5 lg:py-2.5 bg-[#264065] text-white font-['Poppins'] text-sm lg:text-base font-medium rounded-2xl lg:rounded-3xl hover:bg-[#1a2d47] transition-colors duration-200">
               Register
-            </Link>
+            </RegistrationButton>
           </div>
 
           {/* Mobile Menu Button */}
@@ -263,13 +261,9 @@ export default function NavBar() {
                 >
                   Sign In
                 </Link>
-                <Link 
-                  href="/signup" 
-                  className="block w-fit px-6 py-3 bg-[#264065] text-white font-['Poppins'] text-[18px] font-normal rounded-[32px] hover:bg-[#1a2d47] transition-colors duration-200"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Sign Up
-                </Link>
+                <RegistrationButton className="block w-fit px-6 py-3 bg-[#264065] text-white font-['Poppins'] text-[18px] font-normal rounded-[32px] hover:bg-[#1a2d47] transition-colors duration-200">
+                  Register
+                </RegistrationButton>
               </div>
             </div>
           </div>

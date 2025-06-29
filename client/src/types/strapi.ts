@@ -188,6 +188,20 @@ export interface StrapiNewsArticle {
   publishedAt: string;
 }
 
+export interface StrapiRegistrationConfig {
+  id: number;
+  documentId: string;
+  sellerRegistrationUrl: string;
+  buyerRegistrationUrl: string;
+  sellerRegistrationText: string;
+  buyerRegistrationText: string;
+  modalTitle: string;
+  modalDescription?: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 // API Response interfaces
 export interface StrapiResponse<T> {
   data: T;
@@ -351,4 +365,18 @@ export interface NewsArticle {
   publishedAt: string;
   createdAt: string;
   updatedAt: string;
-} 
+}
+
+export interface RegistrationConfig {
+  id: number;
+  documentId: string;
+  sellerRegistrationUrl: string;
+  buyerRegistrationUrl: string;
+  sellerRegistrationText: string;
+  buyerRegistrationText: string;
+  modalTitle: string;
+  modalDescription?: string;
+  publishedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}

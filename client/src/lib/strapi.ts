@@ -15,7 +15,9 @@ import {
   StrapiNewsArticle,
   NewsArticle,
   StrapiNewsContentBlock,
-  NewsContentBlock
+  NewsContentBlock,
+  StrapiRegistrationConfig,
+  RegistrationConfig
 } from "@/types/strapi";
 
 const BASE_URL = getStrapiURL();
@@ -934,4 +936,42 @@ export async function getNewsCategories(): Promise<NewsCategory[]> {
     console.error("Error fetching news categories:", error);
     return [];
   }
-} 
+}
+
+// Transform Strapi registration config to frontend-friendly format
+function transformRegistrationConfig(strapiConfig: StrapiRegistrationConfig): RegistrationConfig {
+  return {
+    id: strapiConfig.id,
+    documentId: strapiConfig.documentId,
+    sellerRegistrationUrl: strapiConfig.sellerRegistrationUrl,
+    buyerRegistrationUrl: strapiConfig.buyerRegistrationUrl,
+    sellerRegistrationText: strapiConfig.sellerRegistrationText,
+    buyerRegistrationText: strapiConfig.buyerRegistrationText,
+    modalTitle: strapiConfig.modalTitle,
+    modalDescription: strapiConfig.modalDescription,
+    publishedAt: strapiConfig.publishedAt,
+    createdAt: strapiConfig.createdAt,
+    updatedAt: strapiConfig.updatedAt,
+  };
+}
+
+// Get registration configuration
+export async function getRegistrationConfig(): Promise<RegistrationConfig | null> {
+  const url = new URL("/api/registration-config", BASE_URL);
+
+  try {
+    const response = await fetchAPI(url.href, { 
+      method: "GET",
+      next: { revalidate: 300 } // Cache for 5 minutes
+    }) as StrapiSingleResponse<StrapiRegistrationConfig>;
+
+    if (!response.data) {
+      return null;
+    }
+
+    return transformRegistrationConfig(response.data);
+  } catch (error) {
+    console.error("Error fetching registration config:", error);
+    return null;
+  }
+}

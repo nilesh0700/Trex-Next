@@ -696,6 +696,52 @@ export interface ApiOrganizerOrganizer extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiRegistrationConfigRegistrationConfig
+  extends Struct.SingleTypeSchema {
+  collectionName: 'registration_configs';
+  info: {
+    description: 'Configure registration URLs for seller and buyer registration';
+    displayName: 'Registration Configuration';
+    pluralName: 'registration-configs';
+    singularName: 'registration-config';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    buyerRegistrationText: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Register as Buyer'>;
+    buyerRegistrationUrl: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'https://example.com/buyer-registration'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::registration-config.registration-config'
+    > &
+      Schema.Attribute.Private;
+    modalDescription: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Please select how you would like to register for TREX events.'>;
+    modalTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Choose Registration Type'>;
+    publishedAt: Schema.Attribute.DateTime;
+    sellerRegistrationText: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Register as Seller'>;
+    sellerRegistrationUrl: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'https://example.com/seller-registration'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1212,6 +1258,7 @@ declare module '@strapi/strapi' {
       'api::event.event': ApiEventEvent;
       'api::news.news': ApiNewsNews;
       'api::organizer.organizer': ApiOrganizerOrganizer;
+      'api::registration-config.registration-config': ApiRegistrationConfigRegistrationConfig;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

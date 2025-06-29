@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import PageHeading from '../../components/PageHeading';
+import RegistrationButton from '@/components/RegistrationButton';
 import { getFeaturedEvents, getRegularEvents } from '@/lib/strapi';
 import { Event } from '@/types/strapi';
 
@@ -87,16 +88,9 @@ function ContactSection({ event }: { event: Event }) {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-10 sm:mb-12 md:mb-14">
-            {event.registrationLink && (
-              <a 
-                href={event.registrationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#C88652] hover:bg-[#264065] text-white px-8 py-4 rounded-xl text-lg font-bold font-['Poppins'] transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#C88652] focus:ring-opacity-30 shadow-lg hover:shadow-xl"
-              >
-                Register Now
-              </a>
-            )}
+            <RegistrationButton className="bg-[#C88652] hover:bg-[#264065] text-white px-8 py-4 rounded-xl text-lg font-bold font-['Poppins'] transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#C88652] focus:ring-opacity-30 shadow-lg hover:shadow-xl">
+              Register Now
+            </RegistrationButton>
             <Link 
               href={`/events/${event.slug}`}
               className="bg-transparent border-2 border-[#264065] text-[#264065] hover:bg-[#264065] hover:text-white px-8 py-4 rounded-xl text-lg font-bold font-['Poppins'] transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#264065] focus:ring-opacity-30"
