@@ -545,7 +545,6 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::event-category.event-category'
     >;
-    city_statistics: Schema.Attribute.Component<'shared.city-statistic', true>;
     contact_email: Schema.Attribute.Email;
     contact_location: Schema.Attribute.String;
     contact_time: Schema.Attribute.String;

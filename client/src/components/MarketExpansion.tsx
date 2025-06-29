@@ -150,7 +150,7 @@ const MarketExpansion = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-8 sm:mt-12 lg:mt-16">
+        {/* <div className="text-center mt-8 sm:mt-12 lg:mt-16">
           <a 
             href="/why-exhibit"
             className="inline-block bg-gradient-to-r from-[#264065] to-[#1a2d47] hover:from-[#C88652] hover:to-[#b8763f] text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-full font-medium text-sm sm:text-base lg:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl animate-bounceIn"
@@ -161,7 +161,7 @@ const MarketExpansion = () => {
           >
             Explore Market Opportunities
           </a>
-        </div>
+        </div> */}
       </div>
 
       {/* Custom Animations */}

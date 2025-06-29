@@ -10,7 +10,6 @@ import {
   StrapiEvent,
   Event,
   TargetCity,
-  CityStatistic,
   PricingPackage,
   EventFlowItem,
   StrapiNewsArticle,
@@ -28,15 +27,6 @@ function transformTargetCity(strapiCity: any): TargetCity {
     name: strapiCity.name,
     category: strapiCity.category,
     isHost: strapiCity.is_host
-  };
-}
-
-function transformCityStatistic(strapiStat: any): CityStatistic {
-  return {
-    id: strapiStat.id,
-    city: strapiStat.city,
-    population: strapiStat.population,
-    count: strapiStat.count
   };
 }
 
@@ -223,7 +213,6 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
     },
     // Transform new component fields
     targetCities: (strapiEvent.target_cities || []).map(transformTargetCity),
-    cityStatistics: (strapiEvent.city_statistics || []).map(transformCityStatistic),
     targetMarketsTitle: strapiEvent.target_markets_title || "Target Markets Across India",
     targetMarketsDescription: strapiEvent.target_markets_description,
     pricingPackages: (strapiEvent.pricing_packages || []).map(transformPricingPackage),
@@ -484,7 +473,6 @@ export async function getEvents(options: {
         },
       },
       target_cities: "*",
-      city_statistics: "*",
       pricing_packages: "*",
       event_flow_items: "*",
     },
@@ -555,7 +543,6 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
         },
       },
       target_cities: "*",
-      city_statistics: "*",
       pricing_packages: "*",
       event_flow_items: "*",
     },

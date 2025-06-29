@@ -84,11 +84,6 @@
       "repeatable": true,
       "component": "shared.target-city"
     },
-    "city_statistics": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.city-statistic"
-    },
     "target_markets_title": {
       "type": "string",
       "default": "Target Markets Across India"

@@ -171,43 +171,50 @@ function WhyExhibitSection() {
       title: "Tap into a high-growth buyer base in emerging cities of Tier 2 & Tier 3",
       description: "Access untapped markets with high growth potential",
       bgColor: "bg-white",
-      iconUrl: "/assets/graph-up.png"
+      iconUrl: "/assets/graph-up.png",
+      learnMoreLink: "/why-exhibit#high-growth-buyer-base"
     },
     {
       title: "Pre-scheduled Exclusive meetings with Top B2C Producers",
       description: "Connect directly with industry leaders",
       bgColor: "bg-[rgba(38,64,101,0.18)]",
-      iconUrl: "/assets/globe-people.png"
+      iconUrl: "/assets/globe-people.png",
+      learnMoreLink: "/why-exhibit#exclusive-meetings"
     },
     {
       title: "Engage with 500+ verified decision-makers",
       description: "Network with qualified industry professionals",
       bgColor: "bg-white",
-      iconUrl: "/assets/user-tick.png"
+      iconUrl: "/assets/user-tick.png",
+      learnMoreLink: "/why-exhibit#verified-decision-makers"
     },
     {
       title: "Position your brand in a less-saturated, yet high-potential market",
       description: "Stand out in emerging travel markets",
       bgColor: "bg-[rgba(153,195,190,0.33)]",
-      iconUrl: "/assets/hand-speaker.png"
+      iconUrl: "/assets/hand-speaker.png",
+      learnMoreLink: "/why-exhibit#less-saturated-market"
     },
     {
       title: "Be part of a curated, professional event",
       description: "Join an exclusive industry gathering",
       bgColor: "bg-white",
-      iconUrl: "/assets/group.png"
+      iconUrl: "/assets/group.png",
+      learnMoreLink: "/why-exhibit#curated-professional-event"
     },
     {
       title: "Post Exhibition Support, Less said than done",
       description: "Comprehensive follow-up assistance",
       bgColor: "bg-[rgba(38,64,101,0.23)]",
-      iconUrl: "/assets/hand-bond.png"
+      iconUrl: "/assets/hand-bond.png",
+      learnMoreLink: "/why-exhibit#post-exhibition-support"
     },
     {
       title: "Extensive Social Media Campaigns with your Branding in the key regions",
       description: "Amplify your reach through targeted marketing",
       bgColor: "bg-white",
-      iconUrl: "/assets/social.png"
+      iconUrl: "/assets/social.png",
+      learnMoreLink: "/why-exhibit#social-media-campaigns"
     }
   ];
 
@@ -259,7 +266,7 @@ function WhyExhibitSection() {
                 <p className="text-sm text-[#6c757d] leading-relaxed mb-4 opacity-100 font-['Poppins']">
                   {item.description}
                 </p>
-                <div className="flex items-center gap-2 text-[#264065] group-hover:text-[#C88652] transition-colors duration-300 cursor-pointer">
+                <Link href={item.learnMoreLink} className="flex items-center gap-2 text-[#264065] group-hover:text-[#C88652] transition-colors duration-300 cursor-pointer">
                   <span className="text-sm font-semibold">Learn More</span>
                   <svg 
                     className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" 
@@ -268,7 +275,7 @@ function WhyExhibitSection() {
                   >
                     <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
-                </div>
+                </Link>
               </div>
             </div>
           ))}
@@ -288,16 +295,6 @@ function TargetMarketsSection({ event }: { event: Event }) {
     { id: 4, name: "Aurangabad", category: "Historical & Industrial", isHost: false },
     { id: 5, name: "Nagpur", category: "Geographic Centre of India", isHost: false },
     { id: 6, name: "Mumbai", category: "Textile & Agricultural Hub", isHost: false }
-  ];
-
-  const cityStats = event.cityStatistics.length > 0 ? event.cityStatistics : [
-    { id: 1, city: "KM City", population: "Jalgaon", count: "50 Kolhapur" },
-    { id: 2, city: "KM City", population: "230 Solapur", count: "240 Jalna" },
-    { id: 3, city: "180 Satara", population: "260 Baramal", count: "260 Nandurbar" },
-    { id: 4, city: "200 Ahmednagar", population: "260 Dharashiv", count: "280 Nandurbar" },
-    { id: 5, city: "240 Nashik", population: "320 Amravoti", count: "320 Akola" },
-    { id: 6, city: "240 Aurangabad", population: "350 Mumbai", count: "450 Ratnagiri" },
-    { id: 7, city: "230 Sangli", population: "", count: "" }
   ];
 
   return (
@@ -342,11 +339,11 @@ function TargetMarketsSection({ event }: { event: Event }) {
              ))}
           </div>
 
-          {/* Right Side - Map and Statistics */}
+          {/* Right Side - Industry Insights & Impact */}
           <div className="relative">
-            {/* Map Placeholder - You can replace this with actual map image */}
             <div className="bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-2xl p-8 text-white relative overflow-hidden">
-              <div className="absolute inset-0 opacity-20">
+              {/* Animated Background */}
+              <div className="absolute inset-0 opacity-10">
                 <svg viewBox="0 0 200 200" className="w-full h-full">
                   <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5">
                     <animateTransform attributeName="transform" type="rotate" dur="10s" values="0 100 100;360 100 100" repeatCount="indefinite"/>
@@ -354,31 +351,62 @@ function TargetMarketsSection({ event }: { event: Event }) {
                   <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3">
                     <animateTransform attributeName="transform" type="rotate" dur="15s" values="360 100 100;0 100 100" repeatCount="indefinite"/>
                   </circle>
+                  <circle cx="100" cy="100" r="20" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2">
+                    <animateTransform attributeName="transform" type="rotate" dur="8s" values="0 100 100;360 100 100" repeatCount="indefinite"/>
+                  </circle>
                 </svg>
               </div>
               
               <div className="relative z-10">
-                <h4 className="text-2xl font-bold mb-6 font-['Poppins'] text-center">Maharashtra Coverage</h4>
+                <div className="text-center mb-8">
+                  {/* <div className="w-16 h-16 bg-[#C88652] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div> */}
+                  <h4 className="text-3xl font-bold font-['Poppins']">TREX Impact</h4>
+                  <p className="text-blue-200 text-sm font-['Poppins']">Connecting Travel Industry Nationwide</p>
+                </div>
                 
-                {/* City Statistics */}
+                {/* Key Metrics */}
                 <div className="grid grid-cols-2 gap-4 mb-8">
-                  {cityStats.slice(0, 6).map((stat, index) => (
-                    <div key={index} className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-                      <p className="text-xs text-blue-200 font-['Poppins']">{stat.city}</p>
-                      <p className="text-sm font-semibold font-['Poppins']">{stat.population}</p>
-                      <p className="text-xs text-blue-200 font-['Poppins']">{stat.count}</p>
-                    </div>
-                  ))}
+                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">500+</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Decision Makers</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">200+</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Exhibitors</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">15+</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">States Covered</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">85%</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Success Rate</p>
+                  </div>
                 </div>
 
-                {/* Coverage Stats */}
-                <div className="text-center">
-                  <div className="bg-[#C88652] rounded-full px-6 py-3 inline-block mb-4">
-                    <span className="text-lg font-bold font-['Poppins']">15+ Cities Coverage</span>
+                {/* Market Insights */}
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse"></div>
+                    <p className="text-sm font-['Poppins']">Tier 2/3 cities showing 40% faster growth</p>
                   </div>
-                  <p className="text-sm text-blue-200 font-['Poppins']">
-                    Connecting major business hubs across Maharashtra
-                  </p>
+                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse animation-delay-500"></div>
+                    <p className="text-sm font-['Poppins']">Regional markets driving 60% of new bookings</p>
+                  </div>
+                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse animation-delay-1000"></div>
+                    <p className="text-sm font-['Poppins']">B2B events generating 3x higher ROI</p>
+                  </div>
+                </div>
+
+                {/* Call to Action */}
+                <div className="text-center">
+                  <p className="text-blue-200 text-sm font-['Poppins']">Seize your opportunity in India's emerging markets. <Link href="/register" className=" font-medium">Register today.</Link></p>
                 </div>
               </div>
             </div>
@@ -470,7 +498,7 @@ function WhoShouldExhibitSection() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16">
+        {/* <div className="text-center mt-16">
           <div className="bg-gradient-to-r from-[#264065] to-[#1a2d47] rounded-2xl p-12 text-white">
             <h3 className="text-3xl font-bold mb-4 font-['Poppins']">Ready to Connect with Your Next Business Partners?</h3>
             <p className="text-xl mb-8 text-blue-200 font-['Poppins']">
@@ -480,7 +508,7 @@ function WhoShouldExhibitSection() {
               Book Your Exhibition Space
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

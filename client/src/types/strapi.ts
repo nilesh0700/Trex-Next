@@ -75,13 +75,6 @@ export interface StrapiTargetCity {
   is_host: boolean;
 }
 
-export interface StrapiCityStatistic {
-  id: number;
-  city: string;
-  population?: string;
-  count?: string;
-}
-
 export interface StrapiPricingPackage {
   id: number;
   title: string;
@@ -126,7 +119,6 @@ export interface StrapiEvent {
   category: StrapiEventCategory | null;
   organizer: StrapiOrganizer | null;
   target_cities: StrapiTargetCity[];
-  city_statistics: StrapiCityStatistic[];
   target_markets_title: string;
   target_markets_description?: string;
   pricing_packages: StrapiPricingPackage[];
@@ -220,13 +212,6 @@ export interface TargetCity {
   isHost: boolean;
 }
 
-export interface CityStatistic {
-  id: number;
-  city: string;
-  population?: string;
-  count?: string;
-}
-
 export interface PricingPackage {
   id: number;
   title: string;
@@ -280,7 +265,6 @@ export interface Event {
     avatar?: string;
   };
   targetCities: TargetCity[];
-  cityStatistics: CityStatistic[];
   targetMarketsTitle: string;
   targetMarketsDescription?: string;
   pricingPackages: PricingPackage[];

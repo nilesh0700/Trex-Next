@@ -110,6 +110,9 @@ const KeyEventHighlights = () => {
               animationDelay: '1s',
               animationFillMode: 'both'
             }}
+            onClick={() => {
+              window.location.href = "/events";
+            }}
           >
             Learn More About Our Events
           </button>

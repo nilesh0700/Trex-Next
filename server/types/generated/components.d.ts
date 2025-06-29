@@ -28,19 +28,6 @@ export interface ContentNewsContentBlock extends Struct.ComponentSchema {
   };
 }
 
-export interface SharedCityStatistic extends Struct.ComponentSchema {
-  collectionName: 'components_shared_city_statistics';
-  info: {
-    description: 'Statistical information about cities';
-    displayName: 'City Statistic';
-  };
-  attributes: {
-    city: Schema.Attribute.String & Schema.Attribute.Required;
-    count: Schema.Attribute.String;
-    population: Schema.Attribute.String;
-  };
-}
-
 export interface SharedEventFlowItem extends Struct.ComponentSchema {
   collectionName: 'components_shared_event_flow_items';
   info: {
@@ -101,7 +88,6 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.news-content-block': ContentNewsContentBlock;
-      'shared.city-statistic': SharedCityStatistic;
       'shared.event-flow-item': SharedEventFlowItem;
       'shared.pricing-package': SharedPricingPackage;
       'shared.target-city': SharedTargetCity;
