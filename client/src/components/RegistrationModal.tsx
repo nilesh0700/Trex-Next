@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import { getRegistrationConfig, RegistrationConfig } from '@/lib/strapi';
+import { getRegistrationConfig } from '@/lib/strapi';
+import { RegistrationConfig } from '@/types/strapi';
 
 interface RegistrationModalProps {
   isOpen: boolean;
