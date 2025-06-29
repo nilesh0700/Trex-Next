@@ -79,7 +79,7 @@ export interface StrapiPricingPackage {
   id: number;
   title: string;
   subtitle?: string;
-  price: string;
+  price?: string;
   gst: string;
   features: string[];
   button_text: string;
@@ -233,7 +233,7 @@ export interface PricingPackage {
   id: number;
   title: string;
   subtitle?: string;
-  price: string;
+  price?: string;
   gst: string;
   features: string[];
   buttonText: string;

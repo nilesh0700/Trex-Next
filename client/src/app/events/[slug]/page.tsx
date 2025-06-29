@@ -574,7 +574,6 @@ function SpaceProposalSection({ event }: { event: Event }) {
     {
       title: "Table Space 2X (Day 1+2)",
       subtitle: "Enhanced Presence",
-      price: "₹ 1,90,000",
       gst: "+ GST",
       features: [
         "2 Tables On Both Days",
@@ -591,7 +590,6 @@ function SpaceProposalSection({ event }: { event: Event }) {
     {
       title: "Premier Exhibitor (Day 1+2)",
       subtitle: "Premium Partner",
-      price: "₹ 2,75,000",
       gst: "+ GST",
       features: [
         "Prominent Branding On Key Spaces At All Banners",
@@ -643,14 +641,16 @@ function SpaceProposalSection({ event }: { event: Event }) {
                 <p className={`text-sm mb-6 font-['Poppins'] ${pkg.textColor ? 'text-blue-200' : 'text-gray-600'}`}>
                   {pkg.subtitle}
                 </p>
-                <div className="mb-6">
-                  <span className={`text-4xl font-bold font-['Poppins'] ${pkg.textColor || 'text-[#264065]'}`}>
-                    {pkg.price}
-                  </span>
-                  <span className={`text-lg ml-2 font-['Poppins'] ${pkg.textColor ? 'text-blue-200' : 'text-gray-600'}`}>
-                    {pkg.gst}
-                  </span>
-                </div>
+                {pkg.price && (
+                  <div className="mb-6">
+                    <span className={`text-4xl font-bold font-['Poppins'] ${pkg.textColor || 'text-[#264065]'}`}>
+                      {pkg.price}
+                    </span>
+                    <span className={`text-lg ml-2 font-['Poppins'] ${pkg.textColor ? 'text-blue-200' : 'text-gray-600'}`}>
+                      {pkg.gst}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <ul className="space-y-4 mb-8">
@@ -659,7 +659,7 @@ function SpaceProposalSection({ event }: { event: Event }) {
                     <svg className={`w-5 h-5 mt-0.5 flex-shrink-0 ${pkg.textColor ? 'text-white' : 'text-[#C88652]'}`} fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
-                    <span className={`text-sm font-['Poppins'] ${pkg.textColor ? 'text-blue-100' : 'text-gray-600'}`}>
+                    <span className={`text-base font-['Poppins'] ${pkg.textColor ? 'text-blue-100' : 'text-gray-600'}`}>
                       {feature}
                     </span>
                   </li>

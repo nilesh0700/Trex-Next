@@ -64,7 +64,7 @@ export interface SharedPricingPackage extends Struct.ComponentSchema {
     features: Schema.Attribute.JSON & Schema.Attribute.Required;
     gst: Schema.Attribute.String & Schema.Attribute.DefaultTo<'+ GST'>;
     is_popular: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    price: Schema.Attribute.String & Schema.Attribute.Required;
+    price: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
     text_color: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;

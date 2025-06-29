@@ -84,13 +84,13 @@ const SmartEventButton: React.FC<SmartEventButtonProps> = ({
       case 'sm':
         return 'px-5 py-2.5 text-sm';
       case 'md':
-        return 'px-6 py-3.5 text-sm';
+        return 'px-6 py-3.5 text-base';
       case 'lg':
-        return 'px-8 py-4 text-base';
+        return 'px-8 py-4 text-lg';
       case 'xl':
-        return 'px-10 py-5 text-lg';
+        return 'px-10 py-5 text-xl';
       default:
-        return 'px-6 py-3.5 text-sm';
+        return 'px-6 py-3.5 text-base';
     }
   };
 

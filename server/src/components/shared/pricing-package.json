@@ -14,8 +14,7 @@
       "type": "string"
     },
     "price": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "gst": {
       "type": "string",
