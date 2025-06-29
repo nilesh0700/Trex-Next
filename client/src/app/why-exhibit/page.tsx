@@ -247,7 +247,7 @@ export default function WhyExhibitPage() {
         ))}
 
         {/* Call to Action */}
-        <section className="min-h-[80vh] flex items-center justify-center py-8 sm:py-12 lg:py-16">
+        {/* <section className="min-h-[80vh] flex items-center justify-center py-8 sm:py-12 lg:py-16">
           <div className="bg-white rounded-3xl shadow-lg w-full max-w-6xl border border-gray-200">
             <div className="p-6 sm:p-8 lg:p-12 xl:p-16 text-center">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#264065] mb-4 sm:mb-6">
@@ -267,7 +267,7 @@ export default function WhyExhibitPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </main>
   );

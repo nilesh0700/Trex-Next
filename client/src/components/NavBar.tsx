@@ -254,13 +254,13 @@ export default function NavBar() {
               </div>
               
               <div className="border-t pt-4 space-y-4">
-                <Link 
+                {/* <Link 
                   href="/signin" 
                   className="block font-['Nunito_Sans'] text-[18px] font-normal text-[#264065] hover:text-[#1a2d47] underline py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Sign In
-                </Link>
+                </Link> */}
                 <RegistrationButton className="block w-fit px-6 py-3 bg-[#264065] text-white font-['Poppins'] text-[18px] font-normal rounded-[32px] hover:bg-[#1a2d47] transition-colors duration-200">
                   Register
                 </RegistrationButton>
