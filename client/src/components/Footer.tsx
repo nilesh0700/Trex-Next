@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -114,16 +114,16 @@ const Footer = () => {
                 </div>
                 
                 <p className="text-[#264065] text-sm lg:text-base mb-6 leading-relaxed">
-                  Corporate business typically refers to large-scale financial enterprises or organizations
+                To create India's most impactful regional B2B travel Media enterprise, focused on unlocking the potential of Tier 2 and Tier 3 cities.
                 </p>
                 
                 <div className="flex space-x-3 mb-6">
                   <a 
                     href="#" 
                     className="w-10 h-10 bg-[#264065] hover:bg-[#1a2d47] rounded-full flex items-center justify-center transition-colors duration-300"
-                    aria-label="Facebook"
+                    aria-label="Youtube"
                   >
-                    <FaFacebookF className="text-white text-base" />
+                    <FaYoutube className="text-white text-base" />
                   </a>
                   <a 
                     href="#" 
@@ -132,13 +132,13 @@ const Footer = () => {
                   >
                     <FaInstagram className="text-white text-base" />
                   </a>
-                  <a 
+                  {/* <a 
                     href="#" 
                     className="w-10 h-10 bg-[#264065] hover:bg-[#1a2d47] rounded-full flex items-center justify-center transition-colors duration-300"
                     aria-label="Twitter"
                   >
                     <FaTwitter className="text-white text-base" />
-                  </a>
+                  </a> */}
                   <a 
                     href="#" 
                     className="w-10 h-10 bg-[#264065] hover:bg-[#1a2d47] rounded-full flex items-center justify-center transition-colors duration-300"
@@ -273,7 +273,8 @@ const Footer = () => {
                         <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                       </svg>
                       <p className="text-[#264065] text-sm lg:text-base leading-relaxed">
-                        123 Business Street, City, State 12345
+                      Gera Gardens Condominium
+                      7 A/1, Koregaon Park, Pune, Maharashtra 411001
                       </p>
                     </div>
                     
@@ -282,7 +283,7 @@ const Footer = () => {
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
                       <p className="text-[#264065] text-sm lg:text-base">
-                        +1 (555) 123-4567
+                      +91 98113 30099
                       </p>
                     </div>
                     
@@ -292,7 +293,7 @@ const Footer = () => {
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                       </svg>
                       <p className="text-[#264065] text-sm lg:text-base break-words">
-                        info@trexbusiness.com
+                        team@trexevents.com
                       </p>
                     </div>
                   </div>
@@ -304,7 +305,7 @@ const Footer = () => {
             <div className="mt-12 pt-8 border-t border-gray-300">
               <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
                 <p className="text-[#264065] text-sm text-center sm:text-left">
-                  © {new Date().getFullYear()} TREX Business. All rights reserved.
+                  © {new Date().getFullYear()} TREX Events. All rights reserved.
                 </p>
                 <div className="flex space-x-6 text-sm">
                   <a href="/privacy-policy" className="text-[#264065] hover:text-[#1a2d47] transition-colors duration-200">
