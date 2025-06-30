@@ -156,10 +156,11 @@ function EventCard({ event }: { event: Event }) {
         transition-all duration-500 ease-out
         transform hover:-translate-y-1 hover:scale-[1.02]
         ${stateStyles.container}
+        flex flex-col
       `}>
         
         {/* Media Section with Fixed Aspect Ratio */}
-        <div className="relative aspect-[16/10] overflow-hidden bg-black">
+        <div className="relative aspect-[16/10] overflow-hidden bg-black flex-shrink-0">
           {event.mediaType === 'video' && event.image ? (
             <video
               autoPlay
@@ -217,11 +218,11 @@ function EventCard({ event }: { event: Event }) {
           )}
         </div>
         
-        {/* Content Section with Fixed Structure */}
-        <div className="p-6 flex flex-col h-[calc(100%-theme(spacing.64))]">
+        {/* Content Section with Flexible Structure */}
+        <div className="p-6 flex flex-col flex-grow min-h-0">
           
           {/* Title Section */}
-          <div className="mb-4">
+          <div className="mb-4 flex-shrink-0">
             <h3 className={`
               text-xl font-bold font-['Poppins'] leading-tight mb-2
               transition-colors duration-300 line-clamp-2
@@ -239,12 +240,12 @@ function EventCard({ event }: { event: Event }) {
             </h3>
           </div>
 
-          {/* Event Details */}
-          <div className="space-y-3 mb-6 flex-grow">
+          {/* Event Details - Flexible Space */}
+          <div className="space-y-3 mb-4 flex-grow">
             {/* Date */}
             <div className="flex items-center gap-3">
               <div className={`
-                w-8 h-8 rounded-lg flex items-center justify-center
+                w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
                 ${actionConfig.state === 'past' ? 'bg-slate-100' : 'bg-[#C88652]/10'}
               `}>
                 <svg className={`w-4 h-4 ${actionConfig.state === 'past' ? 'text-slate-400' : 'text-[#C88652]'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -262,7 +263,7 @@ function EventCard({ event }: { event: Event }) {
             {/* Participants */}
             <div className="flex items-center gap-3">
               <div className={`
-                w-8 h-8 rounded-lg flex items-center justify-center
+                w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
                 ${actionConfig.state === 'past' ? 'bg-slate-100' : 'bg-[#264065]/10'}
               `}>
                 <svg className={`w-4 h-4 ${actionConfig.state === 'past' ? 'text-slate-400' : 'text-[#264065]'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -279,7 +280,7 @@ function EventCard({ event }: { event: Event }) {
           </div>
           
           {/* CTA Section - Always at Bottom */}
-          <div className="mt-auto pt-4 border-t border-slate-100">
+          <div className="mt-auto pt-4 border-t border-slate-100 flex-shrink-0">
             <SmartEventButton
               eventDate={event.eventDate}
               eventSlug={event.slug}

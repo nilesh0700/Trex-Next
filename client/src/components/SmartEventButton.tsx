@@ -271,10 +271,10 @@ const SmartEventButton: React.FC<SmartEventButtonProps> = ({
 
   return (
     <>
-      <div className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center ${className}`}>
+      <div className={`${variant === 'card' ? 'w-full' : 'flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center'} ${variant === 'card' ? '' : className}`}>
         {/* Primary Action */}
         {(variant === 'pricing' && actionConfig.state === 'upcoming') || (showRegistration && actionConfig.primaryAction.variant === 'register' && variant !== 'pricing') ? (
-          <RegistrationButton className={getButtonStyles(true)}>
+          <RegistrationButton className={variant === 'card' ? `${getButtonStyles(true)} ${className}` : getButtonStyles(true)}>
             <span className="font-medium tracking-wide">
               {customText || (variant === 'pricing' ? 'Enquire' : actionConfig.primaryAction.text)}
             </span>
@@ -282,7 +282,7 @@ const SmartEventButton: React.FC<SmartEventButtonProps> = ({
         ) : (
           <button
             onClick={handlePrimaryAction}
-            className={getButtonStyles(true)}
+            className={variant === 'card' ? `${getButtonStyles(true)} ${className}` : getButtonStyles(true)}
             disabled={forceDisabled || (variant === 'pricing' && actionConfig.state !== 'upcoming')}
           >
             <span className="font-medium tracking-wide">

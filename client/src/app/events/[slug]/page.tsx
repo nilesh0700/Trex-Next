@@ -623,9 +623,9 @@ function SpaceProposalSection({ event }: { event: Event }) {
         </div>
 
         {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 auto-rows-fr">
                      {packages.map((pkg, index) => (
-             <div key={pkg.id || index} className={`${pkg.bgColor} rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 ${pkg.isPopular ? 'border-[#C88652] relative' : 'border-gray-200 hover:border-[#C88652]'}`}>
+             <div key={pkg.id || index} className={`${pkg.bgColor} rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 ${pkg.isPopular ? 'border-[#C88652] relative' : 'border-gray-200 hover:border-[#C88652]'} flex flex-col h-full`}>
               {pkg.isPopular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-[#264065] text-white px-6 py-2 rounded-full text-sm font-bold font-['Poppins']">
@@ -634,7 +634,7 @@ function SpaceProposalSection({ event }: { event: Event }) {
                 </div>
               )}
               
-              <div className="text-center mb-8">
+              <div className="text-center mb-8 flex-shrink-0">
                 <h3 className={`text-2xl font-bold mb-2 font-['Poppins'] ${pkg.textColor || 'text-[#264065]'}`}>
                   {pkg.title}
                 </h3>
@@ -653,7 +653,7 @@ function SpaceProposalSection({ event }: { event: Event }) {
                 )}
               </div>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-4 mb-8 flex-grow">
                 {pkg.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start gap-3">
                     <svg className={`w-5 h-5 mt-0.5 flex-shrink-0 ${pkg.textColor ? 'text-white' : 'text-[#C88652]'}`} fill="currentColor" viewBox="0 0 20 20">
@@ -666,14 +666,16 @@ function SpaceProposalSection({ event }: { event: Event }) {
                 ))}
               </ul>
 
-              <SmartEventButton
-                eventDate={event.eventDate}
-                eventSlug={event.slug}
-                registrationLink={event.registrationLink}
-                variant="pricing"
-                size="md"
-                className="w-full"
-              />
+              <div className="mt-auto pt-4 flex-shrink-0">
+                <SmartEventButton
+                  eventDate={event.eventDate}
+                  eventSlug={event.slug}
+                  registrationLink={event.registrationLink}
+                  variant="pricing"
+                  size="md"
+                  className="w-full"
+                />
+              </div>
             </div>
           ))}
         </div>
