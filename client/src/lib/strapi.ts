@@ -179,6 +179,12 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
         : `${BASE_URL}${strapiEvent.featured_image.url}`)
     : "/assets/event.png"; // Fallback image
 
+  const heroImageUrl = strapiEvent.event_hero_image?.url 
+    ? (strapiEvent.event_hero_image.url.startsWith('http') 
+        ? strapiEvent.event_hero_image.url 
+        : `${BASE_URL}${strapiEvent.event_hero_image.url}`)
+    : undefined; // No fallback for hero image
+
   // Extract YouTube video ID from URL for video_url type
   const getYouTubeVideoId = (url: string): string | null => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -214,6 +220,8 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
     registrationLink: strapiEvent.registration_link,
     image: imageUrl,
     imageAlt: strapiEvent.featured_image?.alternativeText || strapiEvent.title,
+    heroImage: heroImageUrl,
+    heroImageAlt: strapiEvent.event_hero_image?.alternativeText || strapiEvent.title,
     videoUrl: processVideoUrl(strapiEvent.featured_video_url),
     mediaType: strapiEvent.media_type || 'image',
     overlayText: strapiEvent.overlay_text,
@@ -487,6 +495,9 @@ export async function getEvents(options: {
       featured_image: {
         fields: ["url", "alternativeText", "name", "mime"],
       },
+      event_hero_image: {
+        fields: ["url", "alternativeText", "name", "mime"],
+      },
       category: {
         fields: ["name", "slug"],
       },
@@ -555,6 +566,9 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
     },
     populate: {
       featured_image: {
+        fields: ["url", "alternativeText", "name", "mime"],
+      },
+      event_hero_image: {
         fields: ["url", "alternativeText", "name", "mime"],
       },
       category: {

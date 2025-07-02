@@ -49,6 +49,13 @@
       "required": false,
       "allowedTypes": ["images", "videos"]
     },
+    "event_hero_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Hero image displayed in the event page header section"
+    },
     "featured_video_url": {
       "type": "string",
       "required": false

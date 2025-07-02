@@ -130,8 +130,16 @@ function EventHeader({ event }: { event: Event }) {
               {/* Main Image Container */}
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#264065] to-[#1a2d47] shadow-2xl">
                 
-                {/* Event Image */}
-                {event.image ? (
+                {/* Event Hero Image */}
+                {event.heroImage ? (
+                  <Image
+                    src={event.heroImage}
+                    alt={event.heroImageAlt || event.title}
+                    fill
+                    className="object-cover transition-all duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                  />
+                ) : event.image ? (
                   <Image
                     src={event.image}
                     alt={event.imageAlt || event.title}
@@ -178,7 +186,7 @@ function EventHeader({ event }: { event: Event }) {
                   </div>
                   <div>
                     <p className="text-xs text-slate-500 font-medium font-['Poppins']">Expected</p>
-                    <p className="text-sm font-bold text-slate-700 font-['Poppins']">{event.participantsCount}+ Attendees</p>
+                    <p className="text-sm font-bold text-slate-700 font-['Poppins']">{event.participantsCount} Attendees</p>
                   </div>
                 </div>
               </div>
