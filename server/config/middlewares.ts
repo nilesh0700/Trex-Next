@@ -7,13 +7,7 @@ export default [
     config: {
       enabled: true,
       headers: '*',
-      origin: [
-        '*',
-        'http://localhost:3000',
-        'http://localhost:1337',
-        'https://trex-next.vercel.app',
-        'https://graceful-chocolate-74cf3f5835.strapiapp.com'
-      ],
+      origin: ['*'],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
     }
   },

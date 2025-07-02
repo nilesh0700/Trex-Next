@@ -30,7 +30,6 @@ const EventCTA = ({ event }: EventCTAProps) => {
             alt=""
             width={140}
             height={140}
-            // className="w-full h-full"
           />
         </div>
         
@@ -65,9 +64,9 @@ const EventCTA = ({ event }: EventCTAProps) => {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center p-6 sm:p-8 lg:p-12">
             {/* Left Content */}
             <div className="space-y-4 sm:space-y-6">
-              {/* Event Badge */}
+              {/* Event Badge - Made more professional */}
               <div className="inline-block">
-                <span className="bg-[#264065] text-white px-4 py-2 rounded-full text-sm sm:text-base font-semibold">
+                <span className="bg-white/15 backdrop-blur-sm border border-white/20 text-[#264065] px-4 py-2 rounded-lg text-sm font-medium tracking-wide">
                   Upcoming Event
                 </span>
               </div>
@@ -116,13 +115,16 @@ const EventCTA = ({ event }: EventCTAProps) => {
                 </div>
               </div>
 
-              {/* CTA Button */}
+              {/* CTA Button - Made more professional */}
               <div className="pt-2 sm:pt-4">
                 <Link 
                   href={`/events/${event.slug}`}
-                  className="inline-block bg-[#264065] hover:bg-[#1a2d47] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-[#264065] px-6 py-3 rounded-lg font-medium text-sm transition-all duration-300 group"
                 >
                   Learn more
+                  <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </Link>
               </div>
             </div>
@@ -130,7 +132,7 @@ const EventCTA = ({ event }: EventCTAProps) => {
             {/* Right Media */}
             <div className="relative order-first lg:order-last">
               <div className="relative rounded-2xl overflow-hidden shadow-xl group">
-                                {/* Main Media Content */}
+                {/* Main Media Content */}
                 <div className="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] relative bg-black">
                   {event.mediaType === 'video' && event.image ? (
                     <video
@@ -165,13 +167,13 @@ const EventCTA = ({ event }: EventCTAProps) => {
                 </div>
 
                 {/* Plus Icon Overlay */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
