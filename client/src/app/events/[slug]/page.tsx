@@ -479,140 +479,140 @@ function WhyExhibitSection() {
 }
 
 // 4. Target Markets Map Section
-function TargetMarketsSection({ event }: { event: Event }) {
-  // Use CMS data if available, otherwise fall back to defaults
-  const targetCities = event.targetCities.length > 0 ? event.targetCities : [
-    { id: 1, name: "Pune", category: "Host & Matchmaking Hub", isHost: true },
-    { id: 2, name: "Nashik", category: "Wine Capital & Insurance Hub", isHost: false },
-    { id: 3, name: "Kolhapur", category: "Cultural & Business Hub", isHost: false },
-    { id: 4, name: "Aurangabad", category: "Historical & Industrial", isHost: false },
-    { id: 5, name: "Nagpur", category: "Geographic Centre of India", isHost: false },
-    { id: 6, name: "Mumbai", category: "Textile & Agricultural Hub", isHost: false }
-  ];
+// function TargetMarketsSection({ event }: { event: Event }) {
+//   // Use CMS data if available, otherwise fall back to defaults
+//   const targetCities = event.targetCities.length > 0 ? event.targetCities : [
+//     { id: 1, name: "Pune", category: "Host & Matchmaking Hub", isHost: true },
+//     { id: 2, name: "Nashik", category: "Wine Capital & Insurance Hub", isHost: false },
+//     { id: 3, name: "Kolhapur", category: "Cultural & Business Hub", isHost: false },
+//     { id: 4, name: "Aurangabad", category: "Historical & Industrial", isHost: false },
+//     { id: 5, name: "Nagpur", category: "Geographic Centre of India", isHost: false },
+//     { id: 6, name: "Mumbai", category: "Textile & Agricultural Hub", isHost: false }
+//   ];
 
-  return (
-    <section className="w-full py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#C88652] mb-6 font-['Poppins']">
-            {event.targetMarketsTitle}
-          </h2>
-          {event.targetMarketsDescription && (
-            <p className="text-xl text-gray-600 font-['Poppins'] max-w-3xl mx-auto mb-6">
-              {event.targetMarketsDescription}
-            </p>
-          )}
-          <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full"></div>
-        </div>
+//   return (
+//     <section className="w-full py-20 bg-white">
+//       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+//         {/* Section Header */}
+//         <div className="text-center mb-16">
+//           <h2 className="text-4xl sm:text-5xl font-bold text-[#C88652] mb-6 font-['Poppins']">
+//             {event.targetMarketsTitle}
+//           </h2>
+//           {event.targetMarketsDescription && (
+//             <p className="text-xl text-gray-600 font-['Poppins'] max-w-3xl mx-auto mb-6">
+//               {event.targetMarketsDescription}
+//             </p>
+//           )}
+//           <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full"></div>
+//         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side - City Categories */}
-          <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-[#264065] mb-8 font-['Poppins']">Key Growth Cities</h3>
+//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+//           {/* Left Side - City Categories */}
+//           <div className="space-y-6">
+//             <h3 className="text-2xl font-bold text-[#264065] mb-8 font-['Poppins']">Key Growth Cities</h3>
             
-                         {targetCities.map((city, index) => (
-               <div key={city.id || index} className={`p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl ${city.isHost ? 'bg-[#264065] text-white' : 'bg-gray-50 hover:bg-gray-100'}`}>
-                 <div className="flex items-center gap-4">
-                   <div className={`w-12 h-12 rounded-full flex items-center justify-center ${city.isHost ? 'bg-[#C88652]' : 'bg-[#264065]'}`}>
-                     <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                     </svg>
-                   </div>
-                   <div>
-                     <h4 className={`text-lg font-bold font-['Poppins'] ${city.isHost ? 'text-white' : 'text-[#264065]'}`}>
-                       {city.name} {city.isHost && '- Host & Matchmaking Hub'}
-                     </h4>
-                     <p className={`text-sm ${city.isHost ? 'text-blue-200' : 'text-gray-600'} font-['Poppins']`}>
-                       {city.category}
-                     </p>
-                   </div>
-                 </div>
-               </div>
-             ))}
-          </div>
+//                          {targetCities.map((city, index) => (
+//                <div key={city.id || index} className={`p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl ${city.isHost ? 'bg-[#264065] text-white' : 'bg-gray-50 hover:bg-gray-100'}`}>
+//                  <div className="flex items-center gap-4">
+//                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${city.isHost ? 'bg-[#C88652]' : 'bg-[#264065]'}`}>
+//                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+//                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+//                      </svg>
+//                    </div>
+//                    <div>
+//                      <h4 className={`text-lg font-bold font-['Poppins'] ${city.isHost ? 'text-white' : 'text-[#264065]'}`}>
+//                        {city.name} {city.isHost && '- Host & Matchmaking Hub'}
+//                      </h4>
+//                      <p className={`text-sm ${city.isHost ? 'text-blue-200' : 'text-gray-600'} font-['Poppins']`}>
+//                        {city.category}
+//                      </p>
+//                    </div>
+//                  </div>
+//                </div>
+//              ))}
+//           </div>
 
-          {/* Right Side - Industry Insights & Impact */}
-          <div className="relative">
-            <div className="bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-2xl p-8 text-white relative overflow-hidden">
-              {/* Animated Background */}
-              <div className="absolute inset-0 opacity-10">
-                <svg viewBox="0 0 200 200" className="w-full h-full">
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5">
-                    <animateTransform attributeName="transform" type="rotate" dur="10s" values="0 100 100;360 100 100" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3">
-                    <animateTransform attributeName="transform" type="rotate" dur="15s" values="360 100 100;0 100 100" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="100" cy="100" r="20" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2">
-                    <animateTransform attributeName="transform" type="rotate" dur="8s" values="0 100 100;360 100 100" repeatCount="indefinite"/>
-                  </circle>
-                </svg>
-              </div>
+//           {/* Right Side - Industry Insights & Impact */}
+//           <div className="relative">
+//             <div className="bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-2xl p-8 text-white relative overflow-hidden">
+//               {/* Animated Background */}
+//               <div className="absolute inset-0 opacity-10">
+//                 <svg viewBox="0 0 200 200" className="w-full h-full">
+//                   <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5">
+//                     <animateTransform attributeName="transform" type="rotate" dur="10s" values="0 100 100;360 100 100" repeatCount="indefinite"/>
+//                   </circle>
+//                   <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3">
+//                     <animateTransform attributeName="transform" type="rotate" dur="15s" values="360 100 100;0 100 100" repeatCount="indefinite"/>
+//                   </circle>
+//                   <circle cx="100" cy="100" r="20" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2">
+//                     <animateTransform attributeName="transform" type="rotate" dur="8s" values="0 100 100;360 100 100" repeatCount="indefinite"/>
+//                   </circle>
+//                 </svg>
+//               </div>
               
-              <div className="relative z-10">
-                <div className="text-center mb-8">
-                  {/* <div className="w-16 h-16 bg-[#C88652] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div> */}
-                  <h4 className="text-3xl font-bold font-['Poppins']">TREX Impact</h4>
-                  <p className="text-blue-200 text-sm font-['Poppins']">Connecting Travel Industry Nationwide</p>
-                </div>
+//               <div className="relative z-10">
+//                 <div className="text-center mb-8">
+//                   {/* <div className="w-16 h-16 bg-[#C88652] rounded-full flex items-center justify-center mx-auto mb-4">
+//                     <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+//                       <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+//                     </svg>
+//                   </div> */}
+//                   <h4 className="text-3xl font-bold font-['Poppins']">TREX Impact</h4>
+//                   <p className="text-blue-200 text-sm font-['Poppins']">Connecting Travel Industry Nationwide</p>
+//                 </div>
                 
-                {/* Key Metrics */}
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
-                    <div className="text-2xl font-bold text-[#C88652] mb-1">500+</div>
-                    <p className="text-xs text-blue-200 font-['Poppins']">Decision Makers</p>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
-                    <div className="text-2xl font-bold text-[#C88652] mb-1">200+</div>
-                    <p className="text-xs text-blue-200 font-['Poppins']">Exhibitors</p>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
-                    <div className="text-2xl font-bold text-[#C88652] mb-1">15+</div>
-                    <p className="text-xs text-blue-200 font-['Poppins']">States Covered</p>
-                  </div>
-                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
-                    <div className="text-2xl font-bold text-[#C88652] mb-1">85%</div>
-                    <p className="text-xs text-blue-200 font-['Poppins']">Success Rate</p>
-                  </div>
-                </div>
+//                 {/* Key Metrics */}
+//                 <div className="grid grid-cols-2 gap-4 mb-8">
+//                   <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+//                     <div className="text-2xl font-bold text-[#C88652] mb-1">500+</div>
+//                     <p className="text-xs text-blue-200 font-['Poppins']">Decision Makers</p>
+//                   </div>
+//                   <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+//                     <div className="text-2xl font-bold text-[#C88652] mb-1">200+</div>
+//                     <p className="text-xs text-blue-200 font-['Poppins']">Exhibitors</p>
+//                   </div>
+//                   <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+//                     <div className="text-2xl font-bold text-[#C88652] mb-1">15+</div>
+//                     <p className="text-xs text-blue-200 font-['Poppins']">States Covered</p>
+//                   </div>
+//                   <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+//                     <div className="text-2xl font-bold text-[#C88652] mb-1">85%</div>
+//                     <p className="text-xs text-blue-200 font-['Poppins']">Success Rate</p>
+//                   </div>
+//                 </div>
 
-                {/* Market Insights */}
-                <div className="space-y-4 mb-6">
-                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
-                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse"></div>
-                    <p className="text-sm font-['Poppins']">Tier 2/3 cities showing 40% faster growth</p>
-                  </div>
-                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
-                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse animation-delay-500"></div>
-                    <p className="text-sm font-['Poppins']">Regional markets driving 60% of new bookings</p>
-                  </div>
-                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
-                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse animation-delay-1000"></div>
-                    <p className="text-sm font-['Poppins']">B2B events generating 3x higher ROI</p>
-                  </div>
-                </div>
+//                 {/* Market Insights */}
+//                 <div className="space-y-4 mb-6">
+//                   <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+//                     <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse"></div>
+//                     <p className="text-sm font-['Poppins']">Tier 2/3 cities showing 40% faster growth</p>
+//                   </div>
+//                   <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+//                     <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse animation-delay-500"></div>
+//                     <p className="text-sm font-['Poppins']">Regional markets driving 60% of new bookings</p>
+//                   </div>
+//                   <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+//                     <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse animation-delay-1000"></div>
+//                     <p className="text-sm font-['Poppins']">B2B events generating 3x higher ROI</p>
+//                   </div>
+//                 </div>
 
-                {/* Call to Action */}
-                <div className="text-center">
-                  {shouldShowRegistration(event.eventDate) ? (
-                    <p className="text-blue-200 text-sm font-['Poppins']">Seize your opportunity in India's emerging markets. <RegistrationButton variant="link">Register today.</RegistrationButton></p>
-                  ) : (
-                    <p className="text-blue-200 text-sm font-['Poppins']">Event completed. Stay tuned for upcoming opportunities.</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+//                 {/* Call to Action */}
+//                 <div className="text-center">
+//                   {shouldShowRegistration(event.eventDate) ? (
+//                     <p className="text-blue-200 text-sm font-['Poppins']">Seize your opportunity in India's emerging markets. <RegistrationButton variant="link">Register today.</RegistrationButton></p>
+//                   ) : (
+//                     <p className="text-blue-200 text-sm font-['Poppins']">Event completed. Stay tuned for upcoming opportunities.</p>
+//                   )}
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 // 5. Who Should Exhibit Section
 function WhoShouldExhibitSection() {
@@ -1189,7 +1189,7 @@ export default async function EventPage({ params }: EventPageProps) {
         <WhyExhibitSection />
         
         {/* 4. Target Markets Map Section */}
-        <TargetMarketsSection event={event} />
+        {/* <TargetMarketsSection event={event} /> */}
         
         {/* 5. Who Should Exhibit Section */}
         <WhoShouldExhibitSection />
