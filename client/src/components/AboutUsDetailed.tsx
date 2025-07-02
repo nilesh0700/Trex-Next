@@ -163,20 +163,20 @@ export default function AboutUsDetailed() {
         {/* Stats Section */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           <div className="text-center p-6 bg-white rounded-xl shadow-sm border animate-fadeInUp animation-delay-600">
-            <div className="text-3xl font-bold text-[#264065] font-['Poppins'] mb-2">50+</div>
-            <div className="text-[#6c757d] text-sm font-['Poppins']">Cities Covered</div>
+            <div className="text-3xl font-bold text-[#264065] font-['Poppins'] mb-2">300+</div>
+            <div className="text-[#6c757d] text-sm font-['Poppins']">Regional Buyers</div>
           </div>
           <div className="text-center p-6 bg-white rounded-xl shadow-sm border animate-fadeInUp animation-delay-700">
-            <div className="text-3xl font-bold text-[#264065] font-['Poppins'] mb-2">1000+</div>
-            <div className="text-[#6c757d] text-sm font-['Poppins']">Business Connections</div>
+            <div className="text-3xl font-bold text-[#264065] font-['Poppins'] mb-2">100+</div>
+            <div className="text-[#6c757d] text-sm font-['Poppins']">Exhibitors</div>
           </div>
           <div className="text-center p-6 bg-white rounded-xl shadow-sm border animate-fadeInUp animation-delay-800">
-            <div className="text-3xl font-bold text-[#264065] font-['Poppins'] mb-2">200+</div>
-            <div className="text-[#6c757d] text-sm font-['Poppins']">Industry Partners</div>
+            <div className="text-3xl font-bold text-[#264065] font-['Poppins'] mb-2">100%</div>
+            <div className="text-[#6c757d] text-sm font-['Poppins']">Excellent ROI</div>
           </div>
           <div className="text-center p-6 bg-white rounded-xl shadow-sm border animate-fadeInUp animation-delay-900">
-            <div className="text-3xl font-bold text-[#264065] font-['Poppins'] mb-2">95%</div>
-            <div className="text-[#6c757d] text-sm font-['Poppins']">Satisfaction Rate</div>
+            <div className="text-3xl font-bold text-[#264065] font-['Poppins'] mb-2">365</div>
+            <div className="text-[#6c757d] text-sm font-['Poppins']">Days of Post Event Support</div>
           </div>
         </div>
 
