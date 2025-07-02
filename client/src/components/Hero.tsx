@@ -187,12 +187,10 @@ export default function Hero() {
                  <img src="/assets/quotes.svg" alt="Quote" className="w-full h-full object-contain" />
                </div>
                <span className="flex w-full h-auto justify-start items-start shrink-0 font-['Poppins'] text-[clamp(10px,0.8vw,16px)] font-normal leading-[1.2vw] text-[#070d15] relative text-left">
-                 I have a regular schedule to take treatment from GlowQueen, they gave
-                 me the best service and treatment ever to maintain the beauty and
-                 health of my skin
+               TREx is exactly what our industry needed a focused, high-quality platform that bridges Tier 2 and Tier 3 buyers with top suppliers in a professional, efficient, and truly meaningful way
                </span>
                <span className="h-[1.2vw] min-h-[12px] max-h-[20px] shrink-0 basis-auto font-['Poppins'] text-[clamp(9px,0.7vw,14px)] font-bold leading-[1.2vw] text-[#264065] relative text-left whitespace-nowrap">
-                 Sophia Princeton
+                 Industry Leader
                </span>
              </div>
              <div className="flex w-full h-auto p-[0.8vw] flex-col gap-[0.4vw] items-start flex-nowrap bg-[rgba(255,255,255,0.5)] rounded-[12px] relative mt-[1.5vw] mr-0 mb-0 ml-[-4vw]">
@@ -200,12 +198,10 @@ export default function Hero() {
                  <img src="/assets/quotes.svg" alt="Quote" className="w-full h-full object-contain" />
                </div>
                <span className="flex w-full h-auto justify-start items-start shrink-0 font-['Poppins'] text-[clamp(10px,0.8vw,16px)] font-normal leading-[1.2vw] text-[#070d15] relative text-left">
-                 For the past few years, I've had a hard time finding the right place
-                 for skin care to deal with my complicated skin condition, thank God I
-                 found GlowQueen to treat my skin
+               The TREx event format is a game-changer for India’s regional travel ecosystem. The curated meetings, quality networking, and buyer engagement deliver measurable value that no other trade show in this space matches.
                </span>
                <span className="h-[1.2vw] min-h-[12px] max-h-[20px] shrink-0 basis-auto font-['Poppins'] text-[clamp(9px,0.7vw,14px)] font-bold leading-[1.2vw] text-[#264065] relative text-left whitespace-nowrap">
-                 Tamara Jules
+                 Industry Leader
                </span>
              </div>
            </div>
