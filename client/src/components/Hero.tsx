@@ -61,9 +61,7 @@ export default function Hero() {
                 <span>meet worldwide sellers</span>
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-[18px] text-[#6c757d] leading-relaxed md:leading-relaxed lg:leading-relaxed xl:leading-[28px] mb-8 md:mb-10 lg:mb-8 max-w-[95%] sm:max-w-[90%] md:max-w-[85%] lg:max-w-[500px]">
-                To create India's most impactful regional B2B travel Media 
-                enterprise, focused on unlocking the potential of Tier 2 and Tier 
-                3 cities.
+              Creating India's most impactful regional travel Trade Show, focused on unlocking the potential of Tier 2 and Tier 3 cities.
               </p>
               <div className="flex flex-col sm:flex-row items-center lg:items-start lg:justify-start justify-center gap-5 md:gap-6 lg:gap-6 mb-8 md:mb-8 lg:mb-8">
                 <RegistrationButton className="bg-[#264065] text-white px-8 sm:px-7 md:px-8 lg:px-8 py-4 sm:py-3 md:py-4 rounded-[32px] text-base md:text-lg font-medium hover:bg-[#1a2d47] transition-colors">
@@ -93,51 +91,90 @@ export default function Hero() {
             <img 
               src="/assets/people.png" 
               alt="Professional Business Team" 
-              className="w-[25vw] min-w-[45vw] max-w-[80vw] h-auto object-contain"
+              className="w-[25vw] min-w-[45vw] max-w-[80vw] h-auto object-contain max-h-[70vh]"
             />
           </div>
 
-          {/* Stats Section - Restored Original Responsive Positioning */}
-          <div className="hidden sm:block absolute top-[70vh] left-1/2 lg:left-[35vw] transform -translate-x-1/2 lg:transform-none w-[95%] sm:w-[90%] md:w-[80%] lg:w-[50vw] xl:w-[55vw] z-20">
-            <div className="flex w-full p-3 sm:p-4 md:p-6 lg:pt-[1.5vw] lg:pr-[1.5vw] lg:pb-[1.5vw] lg:pl-[1.5vw] gap-2 sm:gap-3 md:gap-6 lg:gap-[2.5vw] justify-center items-start bg-[rgba(255,255,255,0.8)] rounded-[12px] relative mx-auto">
-              <div className="flex flex-col gap-1 sm:gap-2 md:gap-4 lg:gap-[1vw] justify-center items-center flex-1 min-w-0">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[4vw] lg:h-[4vw] xl:w-[4.5vw] xl:h-[4.5vw] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[80px] lg:max-h-[80px] flex items-center justify-center">
-                  <img src="/assets/globe.svg" alt="Cities" className="w-full h-full object-contain" />
+          {/* Key Features Section - Redesigned to Match Website Theme */}
+          <div className="hidden sm:block absolute top-[68vh] left-1/2 lg:left-[35vw] transform -translate-x-1/2 lg:transform-none w-[90%] sm:w-[85%] md:w-[80%] lg:w-[50vw] xl:w-[52vw] 2xl:w-[48vw] z-20">
+            <div className="relative">
+              {/* Decorative Orange Circles - Following Mobile Hero Pattern */}
+              {/* <div className="absolute -top-6 -left-8 w-16 h-16 bg-[#D2956F] rounded-full opacity-70 animate-pulse"></div>
+              <div className="absolute -bottom-4 -right-6 w-10 h-10 bg-[#D2956F] rounded-full opacity-60"></div>
+              <div className="absolute top-1/2 -right-12 w-6 h-6 bg-[#D2956F] rounded-full opacity-50"></div> */}
+              
+                             {/* Main Features Container */}
+               <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 md:gap-5 lg:gap-[1.5vw] xl:gap-[1.2vw] 2xl:gap-6 relative z-10">
+                
+                                 {/* Pre Fixed Meetings */}
+                 <div className="group flex-1 bg-[rgba(255,255,255,0.92)] backdrop-blur-sm rounded-2xl lg:rounded-[1.2vw] p-5 sm:p-4 md:p-5 lg:p-[1.4vw] xl:p-[1.2vw] 2xl:p-6 shadow-lg hover:shadow-2xl hover:bg-[rgba(255,255,255,0.98)] transition-all duration-500 hover:-translate-y-2 border border-white/30 relative overflow-hidden">
+                   {/* Gradient Overlay on Hover */}
+                   <div className="absolute inset-0 bg-gradient-to-br from-[#D2956F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl lg:rounded-[1.2vw]"></div>
+                   
+                   <div className="relative z-10 flex flex-col items-center text-center space-y-3 lg:space-y-[0.8vw] xl:space-y-[0.6vw] 2xl:space-y-4">
+                     {/* Icon Circle */}
+                     <div className="w-14 h-14 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-[3.5vw] lg:h-[3.5vw] xl:w-[3vw] xl:h-[3vw] 2xl:w-[60px] 2xl:h-[60px] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[70px] lg:max-h-[70px] bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-full flex items-center justify-center group-hover:from-[#D2956F] group-hover:to-[#C88652] transition-all duration-500 group-hover:scale-110 shadow-lg">
+                       <svg className="w-7 h-7 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-[1.8vw] lg:h-[1.8vw] xl:w-[1.5vw] xl:h-[1.5vw] 2xl:w-[30px] 2xl:h-[30px] lg:min-w-[24px] lg:min-h-[24px] lg:max-w-[35px] lg:max-h-[35px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                       </svg>
+                     </div>
+                     
+                     {/* Text */}
+                     <span className="text-base sm:text-sm md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1vw,16px)] 2xl:text-base font-semibold text-[#264065] leading-tight font-['Poppins'] group-hover:text-[#D2956F] transition-colors duration-300">
+                       Pre Fixed Meetings
+                     </span>
+                   </div>
+                  
+                  {/* Subtle decorative dot */}
+                  <div className="absolute top-4 right-4 w-2 h-2 bg-[#D2956F]/30 rounded-full group-hover:bg-[#D2956F]/60 transition-colors duration-300"></div>
                 </div>
-                <div className="flex flex-col gap-1 md:gap-2 lg:gap-[0.5vw] items-center text-center">
-                  <span className="text-sm sm:text-base md:text-2xl lg:text-2xl xl:text-[clamp(20px,2vw,32px)] font-medium text-[#264065]">
-                    15+
-                  </span>
-                  <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1.2vw,20px)] font-normal text-[#909090] leading-tight">
-                    high-growth Tire 2 & 3 cities
-                  </span>
+
+                {/* Networking Lounge */}
+                <div className="group flex-1 bg-[rgba(255,255,255,0.92)] backdrop-blur-sm rounded-2xl lg:rounded-[1.2vw] p-5 sm:p-4 md:p-5 lg:p-[1.4vw] xl:p-[1.2vw] 2xl:p-6 shadow-lg hover:shadow-2xl hover:bg-[rgba(255,255,255,0.98)] transition-all duration-500 hover:-translate-y-2 border border-white/30 relative overflow-hidden">
+                  {/* Gradient Overlay on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D2956F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl lg:rounded-[1.2vw]"></div>
+                  
+                  <div className="relative z-10 flex flex-col items-center text-center space-y-3 lg:space-y-[0.8vw] xl:space-y-[0.6vw] 2xl:space-y-4">
+                    {/* Icon Circle */}
+                    <div className="w-14 h-14 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-[3.5vw] lg:h-[3.5vw] xl:w-[3vw] xl:h-[3vw] 2xl:w-[60px] 2xl:h-[60px] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[70px] lg:max-h-[70px] bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-full flex items-center justify-center group-hover:from-[#D2956F] group-hover:to-[#C88652] transition-all duration-500 group-hover:scale-110 shadow-lg">
+                      <svg className="w-7 h-7 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-[1.8vw] lg:h-[1.8vw] xl:w-[1.5vw] xl:h-[1.5vw] 2xl:w-[30px] 2xl:h-[30px] lg:min-w-[24px] lg:min-h-[24px] lg:max-w-[35px] lg:max-h-[35px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                    
+                    {/* Text */}
+                    <span className="text-base sm:text-sm md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1vw,16px)] 2xl:text-base font-semibold text-[#264065] leading-tight font-['Poppins'] group-hover:text-[#D2956F] transition-colors duration-300">
+                      Networking Lounge
+                    </span>
+                  </div>
+                  
+                  {/* Subtle decorative dot */}
+                  <div className="absolute top-4 right-4 w-2 h-2 bg-[#D2956F]/30 rounded-full group-hover:bg-[#D2956F]/60 transition-colors duration-300"></div>
                 </div>
-              </div>
-              <div className="flex flex-col gap-1 sm:gap-2 md:gap-4 lg:gap-[1vw] justify-center items-center flex-1 min-w-0">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[4vw] lg:h-[4vw] xl:w-[4.5vw] xl:h-[4.5vw] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[80px] lg:max-h-[80px] flex items-center justify-center">
-                  <img src="/assets/badge.svg" alt="Decision Makers" className="w-full h-full object-contain" />
+
+                {/* Open Exhibition Setup */}
+                <div className="group flex-1 bg-[rgba(255,255,255,0.92)] backdrop-blur-sm rounded-2xl lg:rounded-[1.2vw] p-5 sm:p-4 md:p-5 lg:p-[1.4vw] xl:p-[1.2vw] 2xl:p-6 shadow-lg hover:shadow-2xl hover:bg-[rgba(255,255,255,0.98)] transition-all duration-500 hover:-translate-y-2 border border-white/30 relative overflow-hidden">
+                  {/* Gradient Overlay on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D2956F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl lg:rounded-[1.2vw]"></div>
+                  
+                  <div className="relative z-10 flex flex-col items-center text-center space-y-3 lg:space-y-[0.8vw] xl:space-y-[0.6vw] 2xl:space-y-4">
+                    {/* Icon Circle */}
+                    <div className="w-14 h-14 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-[3.5vw] lg:h-[3.5vw] xl:w-[3vw] xl:h-[3vw] 2xl:w-[60px] 2xl:h-[60px] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[70px] lg:max-h-[70px] bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-full flex items-center justify-center group-hover:from-[#D2956F] group-hover:to-[#C88652] transition-all duration-500 group-hover:scale-110 shadow-lg">
+                      <svg className="w-7 h-7 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-[1.8vw] lg:h-[1.8vw] xl:w-[1.5vw] xl:h-[1.5vw] 2xl:w-[30px] 2xl:h-[30px] lg:min-w-[24px] lg:min-h-[24px] lg:max-w-[35px] lg:max-h-[35px] text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                    </div>
+                    
+                    {/* Text */}
+                    <span className="text-base sm:text-sm md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1vw,16px)] 2xl:text-base font-semibold text-[#264065] leading-tight font-['Poppins'] group-hover:text-[#D2956F] transition-colors duration-300">
+                      Open Exhibition Setup
+                    </span>
+                  </div>
+                  
+                  {/* Subtle decorative dot */}
+                  <div className="absolute top-4 right-4 w-2 h-2 bg-[#D2956F]/30 rounded-full group-hover:bg-[#D2956F]/60 transition-colors duration-300"></div>
                 </div>
-                <div className="flex flex-col gap-1 md:gap-2 lg:gap-[0.5vw] items-center text-center">
-                  <span className="text-sm sm:text-base md:text-2xl lg:text-2xl xl:text-[clamp(20px,2vw,32px)] font-medium text-[#264065]">
-                    500+
-                  </span>
-                  <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1.2vw,20px)] font-normal text-[#909090] leading-tight">
-                    verified decision-makers
-                  </span>
-                </div>
-              </div>
-              <div className="flex flex-col gap-1 sm:gap-2 md:gap-4 lg:gap-[1vw] justify-center items-center flex-1 min-w-0">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 lg:w-[4vw] lg:h-[4vw] xl:w-[4.5vw] xl:h-[4.5vw] lg:min-w-[50px] lg:min-h-[50px] lg:max-w-[80px] lg:max-h-[80px] flex items-center justify-center">
-                  <img src="/assets/user.svg" alt="Quality" className="w-full h-full object-contain" />
-                </div>
-                <div className="flex flex-col gap-1 md:gap-2 lg:gap-[0.5vw] items-center text-center">
-                  <span className="text-sm sm:text-base md:text-2xl lg:text-2xl xl:text-[clamp(20px,2vw,32px)] font-medium text-[#264065]">
-                    100%
-                  </span>
-                  <span className="text-xs sm:text-xs md:text-base lg:text-[clamp(14px,1.1vw,18px)] xl:text-[clamp(14px,1.2vw,20px)] font-medium text-[#909090] leading-tight">
-                    happy customers
-                  </span>
-                </div>
+
               </div>
             </div>
           </div>
