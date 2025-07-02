@@ -6,11 +6,12 @@ interface PageHeadingProps {
 
 export default function PageHeading({ heading }: PageHeadingProps) {
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-12 mt-20 sm:mt-24">
-      <div className="bg-[#264065] text-white px-8 sm:px-12 lg:px-16 py-6 sm:py-8 lg:py-10 rounded-2xl h-[25vh] flex items-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-['Poppins'] text-left">
+    <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-24 sm:pt-28 pb-8 sm:pb-12">
+      <div className="text-center">
+        <h1 className="text-4xl sm:text-5xl font-bold text-[#264065] mb-6 font-['Poppins']">
           {heading}
         </h1>
+        <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full"></div>
       </div>
     </div>
   );

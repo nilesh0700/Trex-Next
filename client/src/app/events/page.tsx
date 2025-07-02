@@ -14,7 +14,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
   const actionConfig = getEventActionConfig(event.eventDate);
   
   return (
-    <div className="w-full mt-10">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className={`relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl overflow-hidden bg-black ${stateStyles.container}`}>
           {/* Media Content - Images, Videos, or YouTube */}
@@ -59,14 +59,14 @@ function FeaturedEventSection({ event }: { event: Event }) {
             </div>
           )}
           
-          {/* Overlay Text Section */}
-          <div className="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 md:bottom-16 md:right-16 z-10">
+          {/* Overlay Text Section (hidden for this media) */}
+          {/* <div className="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 md:bottom-16 md:right-16 z-10">
             <div className="relative bg-gradient-to-br from-[#264065]/90 to-[#1a2d47]/90 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 w-full max-w-md sm:max-w-lg md:max-w-xl backdrop-blur-sm">
-              <h2 className={`font-['Poppins'] text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight text-white ${stateStyles.content}`}>
+              <h2 className={`font-['Poppins'] text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight text-white ${stateStyles.content}`}> 
                 {event.overlayText}
               </h2>
             </div>
-          </div>
+          </div> */}
           
           {/* Optional Dark Overlay for Better Text Readability */}
           <div className="absolute inset-0 bg-black/10 rounded-2xl"></div>
@@ -308,9 +308,9 @@ export default async function EventsPage() {
   const regularEvents = regularEventsData.data;
 
   return (
-    <main className="min-h-screen bg-white mt-20">
+    <main className="min-h-screen bg-white pt-30 sm:pt-40 lg:pt-37">
       {/* Page Heading */}
-      <PageHeading heading="Events" />
+      {/* <PageHeading heading="Events" /> */}
       
       {/* Featured Event Section */}
       {featuredEvent && (
