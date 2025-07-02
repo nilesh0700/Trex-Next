@@ -7,12 +7,12 @@ const KeyEventHighlights = () => {
     {
       title: "Hosted Buyer Program",
       description: "Connect with qualified international buyers",
-      backgroundImage: "/assets/buyer-program.jpg",
+      backgroundImage: "/assets/hosted-buyer-program.png",
     },
     {
       title: "TREx Networking Lounge",
       description: "Professional networking opportunities",
-      backgroundImage: "/assets/networking.jpg"
+      backgroundImage: "/assets/trex-networking-lounge.png"
     },
     {
       title: "Business Matchmaking Program",
@@ -22,12 +22,12 @@ const KeyEventHighlights = () => {
     {
       title: "Product Showcases & Presentation",
       description: "Display your latest innovations",
-      backgroundImage: "/assets/product-display.jpg",
+      backgroundImage: "/assets/product-showcases-presentation.png",
     },
     {
       title: "Innovation & Knowledge Sessions",
       description: "Industry insights and expertise",
-      backgroundImage: "/assets/knowledge-sharing.jpeg",
+      backgroundImage: "/assets/innovation-knowledge-sessions.png",
     }
   ];
 
