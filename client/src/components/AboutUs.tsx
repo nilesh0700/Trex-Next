@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import Image from 'next/image';
+import RegistrationButton from './RegistrationButton';
 
 interface AboutUsProps {
   showLearnMore?: boolean;
@@ -56,51 +56,71 @@ export default function AboutUs({ showLearnMore = true }: AboutUsProps) {
             )}
           </div>
           
-          {/* Right Image Section */}
+          {/* Right Side - TREX Impact Animated Card */}
           <div className="relative order-1 lg:order-2">
-            {/* Experience Badge */}
-            <div className="absolute -top-4 sm:-top-6 right-4 sm:right-8 lg:-top-8 lg:-right-4 xl:-top-6 xl:-right-8 z-20 animate-bounceIn animation-delay-600">
-              <div className="bg-gradient-to-br from-[#C88652] to-[#b8763f] text-white p-4 sm:p-6 lg:p-5 xl:p-6 rounded-2xl shadow-xl transform rotate-3 hover:rotate-6 transition-transform duration-300 group">
-                <div className="text-center">
-                  <div className="text-2xl sm:text-3xl lg:text-2xl xl:text-3xl font-bold font-['Poppins'] mb-1">
-                    10+
-                  </div>
-                  <div className="text-xs sm:text-sm lg:text-xs xl:text-sm font-medium opacity-90 leading-tight">
-                    Years Of<br />Experience
-                  </div>
-                </div>
-                
-                {/* Decorative elements */}
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-white/20 rounded-full"></div>
-                <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white/15 rounded-full"></div>
-              </div>
-            </div>
-            
-            {/* Main Image Container */}
-            <div className="relative group animate-slideInRight animation-delay-300">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl transform transition-transform duration-500 group-hover:scale-105">
-                {/* Image */}
-                <div className="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] relative">
-                  <Image
-                    src="/assets/buyer-program.jpg"
-                    alt="Professional business team - TREX Travel Relations & Exhibitions"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                    priority
-                  />
-                  
-                  {/* Overlay for hover effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#264065]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-                
-                {/* Decorative border */}
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10"></div>
+            <div className="bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-2xl p-8 text-white relative overflow-hidden">
+              {/* Animated Background */}
+              <div className="absolute inset-0 opacity-10">
+                <svg viewBox="0 0 200 200" className="w-full h-full">
+                  <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5">
+                    <animateTransform attributeName="transform" type="rotate" dur="10s" values="0 100 100;360 100 100" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3">
+                    <animateTransform attributeName="transform" type="rotate" dur="15s" values="360 100 100;0 100 100" repeatCount="indefinite"/>
+                  </circle>
+                  <circle cx="100" cy="100" r="20" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2">
+                    <animateTransform attributeName="transform" type="rotate" dur="8s" values="0 100 100;360 100 100" repeatCount="indefinite"/>
+                  </circle>
+                </svg>
               </div>
               
-              {/* Floating decorative elements */}
-              <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-[#C88652]/10 rounded-full blur-sm animate-pulse"></div>
-              <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#264065]/10 rounded-full blur-sm animate-pulse animation-delay-1000"></div>
+              <div className="relative z-10">
+                <div className="text-center mb-8">
+                  <h4 className="text-3xl font-bold font-['Poppins']">TREX Impact</h4>
+                  <p className="text-blue-200 text-sm font-['Poppins']">Connecting Travel Industry Nationwide</p>
+                </div>
+                
+                {/* Key Metrics */}
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">500+</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Decision Makers</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">200+</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Exhibitors</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">15+</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">States Covered</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">85%</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Success Rate</p>
+                  </div>
+                </div>
+
+                {/* Market Insights */}
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse"></div>
+                    <p className="text-sm font-['Poppins']">Tier 2/3 cities showing 40% faster growth</p>
+                  </div>
+                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse animation-delay-500"></div>
+                    <p className="text-sm font-['Poppins']">Regional markets driving 60% of new bookings</p>
+                  </div>
+                  <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+                    <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse animation-delay-1000"></div>
+                    <p className="text-sm font-['Poppins']">B2B events generating 3x higher ROI</p>
+                  </div>
+                </div>
+
+                {/* Call to Action */}
+                <div className="text-center">
+                  <p className="text-blue-200 text-sm font-['Poppins']">Seize your opportunity in India's emerging markets. <RegistrationButton variant="link">Register today.</RegistrationButton></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -174,6 +194,10 @@ export default function AboutUs({ showLearnMore = true }: AboutUsProps) {
         
         .animation-delay-600 {
           animation-delay: 0.6s;
+        }
+        
+        .animation-delay-500 {
+          animation-delay: 0.5s;
         }
         
         .animation-delay-1000 {
