@@ -3,23 +3,23 @@ import React from 'react';
 export default function Statistics() {
   const statisticsData = [
     {
-      number: "150+",
-      label: "Pan-India Exhibiters",
+      number: "300+",
+      label: "Regional Buyers",
       accent: "from-[#264065] to-[#1a2d47]"
     },
     {
-      number: "500+",
-      label: "verified B2B buyers",
+      number: "100+",
+      label: "Exhibitors",
       accent: "from-[#264065] to-[#1a2d47]"
     },
     {
       number: "100%",
-      label: "Cities covered",
+      label: "Excellent ROI",
       accent: "from-[#264065] to-[#1a2d47]"
     },
     {
-      number: "98%",
-      label: "happy exhibitors",
+      number: "365",
+      label: "Days of Post Event Support",
       accent: "from-[#264065] to-[#1a2d47]"
     }
   ];
@@ -46,8 +46,7 @@ export default function Statistics() {
               className="group relative"
             >
               {/* Card Background with Hover Effects */}
-              <div className="absolute inset-0 bg-white rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-white group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-gray-50/50 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2"></div>
               
               {/* Content */}
               <div className="relative z-10 flex flex-col items-center justify-center text-center p-8 sm:p-6 md:p-8 lg:p-6 xl:p-8 min-h-[200px] sm:min-h-[180px] md:min-h-[200px]">
