@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,79 +16,193 @@ type EventPageProps = {
 
 // 1. Event Header with Heading, Subheading and Quote
 function EventHeader({ event }: { event: Event }) {
+  const actionConfig = getEventActionConfig(event.eventDate);
+  
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-[#264065] to-[#1a2d47] mt-20 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }}></div>
-      </div>
+    <section className="relative w-full bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-20 left-10 w-64 h-64 bg-[#264065]/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C88652]/5 rounded-full blur-3xl"></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center mb-16">
+          
+          {/* Left Side - Content */}
+          <div className="order-2 lg:order-1 space-y-8">
+            
+            {/* Event Category Badge */}
+            {/* {event.category && (
+              <div className="inline-flex items-center gap-2">
+                <div className="w-2 h-2 bg-[#C88652] rounded-full animate-pulse"></div>
+                <span className="bg-[#C88652] text-white px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide font-['Poppins']">
+                  {event.category.name}
+                </span>
+              </div>
+            )} */}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 flex items-center min-h-screen">
-        <div className="w-full text-center text-white">
-          {/* Event Category Badge */}
-          {event.category && (
-            <div className="inline-block bg-[#C88652] text-white px-6 py-2 rounded-full text-sm font-semibold mb-8 uppercase tracking-wide">
-              {event.category.name}
+            {/* Event Status Badge */}
+            {actionConfig.badgeText && (
+              <div className="flex justify-start">
+                <div className={`
+                  ${actionConfig.badgeColor} text-white px-5 py-2 rounded-full text-base font-semibold font-['Poppins'] 
+                  shadow-lg backdrop-blur-sm bg-opacity-95 border border-white/20
+                  ${actionConfig.state === 'ongoing' ? 'animate-pulse shadow-red-500/30' : ''}
+                `}>
+                  {actionConfig.badgeText}
+                </div>
+              </div>
+            )}
+
+            {/* Main Title */}
+            <div className="space-y-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#264065] leading-tight font-['Poppins']">
+                {event.title}
+              </h1>
+              
+              {/* Decorative Line */}
+              <div className="w-20 h-1 bg-gradient-to-r from-[#C88652] to-[#264065] rounded-full"></div>
             </div>
-          )}
 
-          {/* Main Heading */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 font-['Poppins'] leading-tight">
-            {event.title}
-          </h1>
+            {/* Description */}
+            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-['Poppins'] max-w-2xl">
+              {event.description}
+            </p>
 
-          {/* Subheading */}
-          <p className="text-xl sm:text-2xl md:text-3xl mb-12 text-blue-200 font-['Poppins'] leading-relaxed max-w-4xl mx-auto">
-            {event.description}
-          </p>
+            {/* Event Details Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              {/* Date Card */}
+              <div className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 group">
+                <div className="w-12 h-12 bg-[#C88652]/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-[#C88652]/20 transition-colors">
+                  <svg className="w-6 h-6 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 font-medium font-['Poppins'] uppercase tracking-wide mb-1">Event Date</p>
+                  <p className="text-sm font-semibold text-slate-700 font-['Poppins']">
+                    {new Date(event.eventDate).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </p>
+                </div>
+              </div>
 
-          {/* Inspirational Quote */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-3xl mx-auto mb-12">
-            <div className="flex items-center justify-center mb-4">
-              <svg className="w-8 h-8 text-[#C88652]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
-              </svg>
+              {/* Location Card */}
+              <div className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 group">
+                <div className="w-12 h-12 bg-[#264065]/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-[#264065]/20 transition-colors">
+                  <svg className="w-6 h-6 text-[#264065]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 font-medium font-['Poppins'] uppercase tracking-wide mb-1">Event Location</p>
+                  <p className="text-sm font-semibold text-slate-700 font-['Poppins']">{event.location}</p>
+                </div>
+              </div>
             </div>
-            <blockquote className="text-lg sm:text-xl italic font-['Poppins'] text-center">
-              "Your Success Story Begins With The Right Connections. Let TREX Be Your Gateway To India's Next Growth Frontier."
-            </blockquote>
+
+            {/* CTA Button */}
+            <div className="flex justify-center w-full">
+              <SmartEventButton
+                eventDate={event.eventDate}
+                eventSlug={event.slug}
+                registrationLink={event.registrationLink}
+                showSecondaryAction={false}
+                size="lg"
+                className="w-full justify-center"
+              />
+              {/* <Link 
+                href="#event-details"
+                className="w-full px-6 py-3 bg-white text-[#264065] border-2 border-[#264065] rounded-xl font-semibold font-['Poppins'] text-center hover:bg-[#264065] hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center"
+              >
+                View Details
+              </Link> */}
+            </div>
           </div>
 
-          {/* Event Details */}
-          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center mb-12">
-            <div className="flex items-center gap-3 bg-white/10 rounded-full px-6 py-3">
-              <svg className="w-6 h-6 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
-              <span className="text-lg font-['Poppins']">
-                {new Date(event.eventDate).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </span>
-            </div>
-            <div className="flex items-center gap-3 bg-white/10 rounded-full px-6 py-3">
-              <svg className="w-6 h-6 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-              </svg>
-              <span className="text-lg font-['Poppins']">{event.location}</span>
+          {/* Right Side - Hero Image */}
+          <div className="order-1 lg:order-2">
+            <div className="relative group">
+              
+              {/* Main Image Container */}
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#264065] to-[#1a2d47] shadow-2xl">
+                
+                {/* Event Image */}
+                {event.image ? (
+                  <Image
+                    src={event.image}
+                    alt={event.imageAlt || event.title}
+                    fill
+                    className="object-cover transition-all duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
+                  />
+                ) : (
+                  /* Fallback gradient with icon */
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center text-white space-y-4">
+                      <div className="w-24 h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center">
+                        <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <p className="text-lg font-semibold font-['Poppins']">Event Visual</p>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Subtle Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                
+                {/* Floating Badge */}
+                <div className="absolute top-6 left-6">
+                  <div className="bg-white/90 backdrop-blur-sm text-[#264065] px-4 py-2 rounded-full text-sm font-semibold font-['Poppins'] shadow-lg">
+                    Featured Event
+                  </div>
+                </div>
+              </div>
+              
+              {/* Decorative Elements */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-[#C88652]/20 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-[#264065]/20 rounded-full blur-3xl"></div>
+              
+              {/* Floating Stats Cards */}
+              <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg p-4 border border-slate-200">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-medium font-['Poppins']">Expected</p>
+                    <p className="text-sm font-bold text-slate-700 font-['Poppins']">{event.participantsCount}+ Attendees</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Premium Smart CTA Button */}
-          <SmartEventButton
-            eventDate={event.eventDate}
-            eventSlug={event.slug}
-            registrationLink={event.registrationLink}
-            variant="hero"
-            size="xl"
-          />
+        {/* Inspirational Quote Card - Bottom Center spanning both sections */}
+        <div className="w-full">
+          <div className="bg-gradient-to-r from-[#264065]/5 to-[#C88652]/5 rounded-2xl p-8 border border-[#264065]/10 max-w-4xl mx-auto">
+            <div className="flex flex-col items-center text-center gap-6">
+              <div className="w-12 h-12 bg-[#C88652]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-[#C88652]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                </svg>
+              </div>
+              <blockquote className="text-lg sm:text-xl italic font-['Poppins'] text-[#264065] leading-relaxed">
+                "Your Success Story Begins With The Right Connections. Let TREX Be Your Gateway To India's Next Growth Frontier."
+              </blockquote>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
