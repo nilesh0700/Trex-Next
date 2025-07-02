@@ -83,20 +83,20 @@ export default function AboutUs({ showLearnMore = true }: AboutUsProps) {
                 {/* Key Metrics */}
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
-                    <div className="text-2xl font-bold text-[#C88652] mb-1">500+</div>
-                    <p className="text-xs text-blue-200 font-['Poppins']">Decision Makers</p>
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">300+</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Regional Buyers</p>
                   </div>
                   <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
-                    <div className="text-2xl font-bold text-[#C88652] mb-1">200+</div>
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">100+</div>
                     <p className="text-xs text-blue-200 font-['Poppins']">Exhibitors</p>
                   </div>
                   <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
-                    <div className="text-2xl font-bold text-[#C88652] mb-1">15+</div>
-                    <p className="text-xs text-blue-200 font-['Poppins']">States Covered</p>
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">100%</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Excellent ROI</p>
                   </div>
                   <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm text-center">
-                    <div className="text-2xl font-bold text-[#C88652] mb-1">85%</div>
-                    <p className="text-xs text-blue-200 font-['Poppins']">Success Rate</p>
+                    <div className="text-2xl font-bold text-[#C88652] mb-1">365</div>
+                    <p className="text-xs text-blue-200 font-['Poppins']">Days of post event support</p>
                   </div>
                 </div>
 
