@@ -53,8 +53,8 @@ const Footer = () => {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="font-['Plus_Jakarta_Sans'] text-lg xl:text-xl font-semibold text-[#264065] capitalize">
-                Need any support for your Tourism business?
+              <span className="font-['Poppins'] text-lg xl:text-xl font-medium text-[#264065] capitalize">
+                Bridge New Markets, Build Bigger Business
               </span>
             </div>
             
@@ -71,8 +71,8 @@ const Footer = () => {
                   className="w-full h-full object-contain"
                 />
               </div>
-              <span className="font-['Plus_Jakarta_Sans'] text-lg xl:text-xl font-semibold text-[#264065] capitalize">
-                Are you ready to get started travelling?
+              <span className="font-['Poppins'] text-lg xl:text-xl font-medium text-[#264065] capitalize">
+                Where Regional Buyers Meet Global Sellers
               </span>
             </div>
           </div>
@@ -122,13 +122,15 @@ const Footer = () => {
                     href="#" 
                     className="w-10 h-10 bg-[#264065] hover:bg-[#1a2d47] rounded-full flex items-center justify-center transition-colors duration-300"
                     aria-label="Youtube"
+                    target="_blank"
                   >
                     <FaYoutube className="text-white text-base" />
                   </a>
                   <a 
-                    href="#" 
+                    href="https://www.instagram.com/trex.events/" 
                     className="w-10 h-10 bg-[#264065] hover:bg-[#1a2d47] rounded-full flex items-center justify-center transition-colors duration-300"
                     aria-label="Instagram"
+                    target="_blank"
                   >
                     <FaInstagram className="text-white text-base" />
                   </a>
@@ -140,9 +142,10 @@ const Footer = () => {
                     <FaTwitter className="text-white text-base" />
                   </a> */}
                   <a 
-                    href="#" 
+                    href="https://www.linkedin.com/company/trex-eventss/" 
                     className="w-10 h-10 bg-[#264065] hover:bg-[#1a2d47] rounded-full flex items-center justify-center transition-colors duration-300"
                     aria-label="LinkedIn"
+                    target="_blank"
                   >
                     <FaLinkedinIn className="text-white text-base" />
                   </a>
@@ -283,7 +286,7 @@ const Footer = () => {
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
                       <p className="text-[#264065] text-sm lg:text-base">
-                      +91 98113 30099
+                        +91 8484839177
                       </p>
                     </div>
                     
@@ -293,7 +296,7 @@ const Footer = () => {
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                       </svg>
                       <p className="text-[#264065] text-sm lg:text-base break-words">
-                        team@trexevents.com
+                        team.netraevents@gmail.com
                       </p>
                     </div>
                   </div>

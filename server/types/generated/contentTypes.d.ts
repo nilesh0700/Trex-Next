@@ -567,7 +567,6 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     event_subheading: Schema.Attribute.Text;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     featured_image: Schema.Attribute.Media<'images' | 'videos'>;
-    event_hero_image: Schema.Attribute.Media<'images'>;
     featured_video_url: Schema.Attribute.String;
     google_maps_embed_url: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

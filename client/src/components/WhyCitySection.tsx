@@ -162,18 +162,14 @@ const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName }) => {
           ))}
         </div>
 
-        {/* City Image Placeholder - Add your city hero image here */}
+        {/* City Image Section */}
         <div className="relative mb-16 lg:mb-20 rounded-3xl overflow-hidden shadow-2xl">
-          <div className="aspect-[21/9] bg-gradient-to-r from-[#264065] via-[#1a2d47] to-[#264065] flex items-center justify-center">
-            <div className="text-center text-white">
-              <div className="text-6xl mb-4">🏙️</div>
-              <p className="text-xl font-['Poppins']">
-                [Add stunning {cityName} cityscape or business district image here]
-              </p>
-              <p className="text-sm opacity-75 mt-2">
-                Recommended: High-quality panoramic view of {cityName}&apos;s business district or iconic landmarks
-              </p>
-            </div>
+          <div className="aspect-[21/9] relative">
+            <img 
+              src="/assets/pune.jpeg" 
+              alt={`${cityName} cityscape`}
+              className="w-full h-full object-cover"
+            />
           </div>
           {/* Overlay Elements */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
