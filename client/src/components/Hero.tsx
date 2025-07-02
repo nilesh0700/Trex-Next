@@ -96,7 +96,7 @@ export default function Hero() {
           </div>
 
           {/* Key Features Section - Redesigned to Match Website Theme */}
-          <div className="hidden sm:block absolute top-[68vh] left-1/2 lg:left-[35vw] transform -translate-x-1/2 lg:transform-none w-[90%] sm:w-[85%] md:w-[80%] lg:w-[50vw] xl:w-[52vw] 2xl:w-[48vw] z-20">
+          <div className="hidden sm:block absolute top-[73vh] left-1/2 lg:left-[35vw] transform -translate-x-1/2 lg:transform-none w-[90%] sm:w-[85%] md:w-[80%] lg:w-[50vw] xl:w-[52vw] 2xl:w-[48vw] z-20">
             <div className="relative">
               {/* Decorative Orange Circles - Following Mobile Hero Pattern */}
               {/* <div className="absolute -top-6 -left-8 w-16 h-16 bg-[#D2956F] rounded-full opacity-70 animate-pulse"></div>
