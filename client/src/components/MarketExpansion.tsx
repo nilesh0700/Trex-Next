@@ -59,7 +59,7 @@ const MarketExpansion = () => {
       bgColor: "",
       iconUrl: "",
       isImageCard: true,
-      imageUrl: "/assets/last.png"
+      imageUrl: "/assets/expand-your-reach.png"
     }
   ];
 
@@ -77,14 +77,20 @@ const MarketExpansion = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Title positioned as first grid item */}
           <div className="flex items-center justify-start h-64 sm:h-72 lg:h-80">
+            
             <h2 
-              className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#C88652] leading-tight animate-fadeInUp"
+              className="text-xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#C88652] leading-tight animate-fadeInUp"
               style={{
                 animationDelay: '0.1s',
                 animationFillMode: 'both'
               }}
             >
-              Expand Your Reach into High-Growth Travel Markets
+              <span className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#264065] leading-tight animate-fadeInUp"
+              style={{
+                animationDelay: '0.1s',
+                animationFillMode: 'both'
+              }}> Why TREX - </span>
+              <span className="block text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#C88652] leading-tight">Expand Your Reach into High-Growth Travel Markets</span>
             </h2>
           </div>
 
