@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { getNewsArticleBySlug, getRelatedNews, getNewsCategories } from '@/lib/strapi';
 import { NewsArticle } from '@/types/strapi';
 import NewsContentBlock from '@/components/NewsContentBlock';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 type NewsArticlePageProps = {
   params: Promise<{
@@ -82,10 +83,9 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
                 <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-800 prose-strong:text-gray-900 prose-em:text-gray-700 prose-li:text-gray-800 prose-blockquote:text-gray-700">
                   {/* Rich text content */}
                   {article.content && (
-                    <div 
-                      className="mb-8"
-                      dangerouslySetInnerHTML={{ __html: article.content }}
-                    />
+                    <div className="mb-8">
+                      <MarkdownRenderer content={article.content} />
+                    </div>
                   )}
                   
                   {/* Content Blocks */}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { NewsContentBlock as NewsContentBlockType } from '@/types/strapi';
+import MarkdownRenderer from './MarkdownRenderer';
 
 interface NewsContentBlockProps {
   block: NewsContentBlockType;
@@ -40,10 +41,9 @@ export default function NewsContentBlock({ block }: NewsContentBlockProps) {
   switch (block.type) {
     case 'text':
       return (
-        <div 
-          className="prose prose-lg max-w-none mb-6 prose-headings:text-gray-900 prose-p:text-gray-800 prose-strong:text-gray-900 prose-em:text-gray-700 prose-li:text-gray-800 prose-blockquote:text-gray-700"
-          dangerouslySetInnerHTML={{ __html: block.content || '' }}
-        />
+        <div className="prose prose-lg max-w-none mb-6 prose-headings:text-gray-900 prose-p:text-gray-800 prose-strong:text-gray-900 prose-em:text-gray-700 prose-li:text-gray-800 prose-blockquote:text-gray-700">
+          <MarkdownRenderer content={block.content || ''} />
+        </div>
       );
 
     case 'image':

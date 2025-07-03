@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, getRelatedBlogPosts, getBlogPosts } from '@/lib/strapi';
 import { BlogPost } from '@/types/strapi';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -122,11 +123,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.excerpt}
               </div>
               
-              {/* Content - In a real implementation, you'd want to use a rich text renderer */}
-              <div 
-                className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              {/* Content - Properly rendered markdown */}
+              <div className="prose prose-lg max-w-none">
+                <MarkdownRenderer content={post.content} />
+              </div>
             </div>
           </div>
           
