@@ -6,7 +6,7 @@ import RegistrationButton from '@/components/RegistrationButton';
 import SmartEventButton from '@/components/SmartEventButton';
 import { getFeaturedEvents, getRegularEvents } from '@/lib/strapi';
 import { Event } from '@/types/strapi';
-import { formatEventDateWithStatus, getEventStateStyles, getEventActionConfig, formatDateSimple } from '@/utils/eventUtils';
+import { getEventStateStyles, getEventActionConfig, formatDateSimple, parseEventDate } from '@/utils/eventUtils';
 
 // Featured Event Component
 function FeaturedEventSection({ event }: { event: Event }) {

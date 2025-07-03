@@ -12,8 +12,8 @@ export function formatDateSimple(dateString: string): string {
     return dateString;
   }
   
-  // Parse the date string (assuming YYYY-MM-DD format from CMS)
-  const date = new Date(dateString);
+  // Parse the date string using our consistent parser to avoid timezone issues
+  const date = parseEventDate(dateString);
   
   // Check if date is valid
   if (isNaN(date.getTime())) {
