@@ -2,12 +2,14 @@
 
 import React from 'react';
 import RegistrationButton from './RegistrationButton';
+import { useRouter } from 'next/navigation';
 
 interface AboutUsProps {
   showLearnMore?: boolean;
 }
 
 export default function AboutUs({ showLearnMore = true }: AboutUsProps) {
+  const router = useRouter();
   return (
     <section className="w-full py-12 sm:py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
       {/* Background Elements */}
@@ -39,7 +41,7 @@ export default function AboutUs({ showLearnMore = true }: AboutUsProps) {
             {/* Learn More Button */}
             {showLearnMore && (
               <div className="animate-fadeInUp animation-delay-400">
-                <button className="group bg-[#264065] hover:bg-[#1a2d47] text-white px-8 sm:px-10 py-3 sm:py-4 rounded-xl font-medium text-base sm:text-lg font-['Poppins'] transition-all duration-300 ease-out transform hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#264065]/20">
+                <button className="group bg-[#264065] hover:bg-[#1a2d47] text-white px-8 sm:px-10 py-3 sm:py-4 rounded-xl font-medium text-base sm:text-lg font-['Poppins'] transition-all duration-300 ease-out transform hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#264065]/20" onClick={() =>router.push('/about')}>
                   <span className="flex items-center gap-2">
                     Learn more
                     <svg 
