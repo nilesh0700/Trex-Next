@@ -130,7 +130,7 @@ function EventHeader({ event }: { event: Event }) {
             <div className="relative group">
               
               {/* Main Image Container */}
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#264065] to-[#1a2d47] shadow-2xl">
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#264065] to-[#1a2d47] shadow-2xl transition-all duration-700 group-hover:scale-105 group-hover:shadow-3xl">
                 
                 {/* Event Hero Image */}
                 {event.heroImage ? (
@@ -138,7 +138,7 @@ function EventHeader({ event }: { event: Event }) {
                     src={event.heroImage}
                     alt={event.heroImageAlt || event.title}
                     fill
-                    className="object-cover transition-all duration-700 group-hover:scale-105"
+                    className="object-contain transition-all duration-700"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                   />
                 ) : event.image ? (
@@ -146,7 +146,7 @@ function EventHeader({ event }: { event: Event }) {
                     src={event.image}
                     alt={event.imageAlt || event.title}
                     fill
-                    className="object-cover transition-all duration-700 group-hover:scale-105"
+                    className="object-contain transition-all duration-700"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                   />
                 ) : (
