@@ -57,21 +57,21 @@ export default function FloatingShareButton({ url, title, description }: Floatin
       name: 'WhatsApp',
       icon: FaWhatsapp,
       color: 'bg-green-500 hover:bg-green-600',
-      href: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${fullUrl}`)}`,
+      href: `https://wa.me/?text=${encodeURIComponent(`Check out this event: ${title}\n\n${fullUrl}`)}`,
       position: { x: 0, y: -70 }, // Straight up - first
     },
     {
       name: 'X (Twitter)',
       icon: FaXTwitter,
       color: 'bg-black hover:bg-gray-800',
-      href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(fullUrl)}`,
+      href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out this event: ${title}`)}&url=${encodeURIComponent(fullUrl)}`,
       position: { x: 0, y: -130 }, // Straight up - second
     },
     {
       name: 'LinkedIn',
       icon: FaLinkedinIn,
       color: 'bg-blue-600 hover:bg-blue-700',
-      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(fullUrl)}`,
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(fullUrl)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description || title)}`,
       position: { x: 0, y: -190 }, // Straight up - third
     },
   ];
