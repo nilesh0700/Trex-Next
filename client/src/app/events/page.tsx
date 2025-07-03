@@ -364,6 +364,107 @@ function EventCard({ event }: { event: Event }) {
   );
 }
 
+// To Be Announced Card Component
+function ToBeAnnouncedCard() {
+  return (
+    <div className="group relative h-full">
+      {/* Premium Card Container with Consistent Height */}
+      <div className={`
+        h-full bg-white rounded-2xl overflow-hidden 
+        shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]
+        border border-slate-200/60 hover:border-slate-300/60
+        transition-all duration-500 ease-out
+        transform hover:-translate-y-1 hover:scale-[1.02]
+        flex flex-col
+      `}>
+        
+        {/* Media Section with Fixed Aspect Ratio */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-[#264065] to-[#1a2d47] flex-shrink-0">
+          {/* Placeholder Content */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center text-white/80">
+              <div className="w-16 h-16 mx-auto mb-4 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <svg className="w-8 h-8 text-white/70" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <p className="text-sm font-medium font-['Poppins'] opacity-70">Event Details</p>
+              <p className="text-xs font-['Poppins'] opacity-50 mt-1">Coming Soon</p>
+            </div>
+          </div>
+          
+          {/* Premium State Badge */}
+          <div className="absolute top-4 left-4 z-10">
+            <div className={`
+              bg-[#C88652] text-white px-3 py-1.5 rounded-lg text-xs font-semibold font-['Poppins'] 
+              shadow-lg backdrop-blur-sm bg-opacity-95 border border-white/20
+              transform transition-all duration-300 animate-pulse
+            `}>
+              Coming Soon
+            </div>
+          </div>
+        </div>
+        
+        {/* Content Section with Flexible Structure */}
+        <div className="p-6 flex flex-col flex-grow min-h-0">
+          
+          {/* Title Section */}
+          <div className="mb-4 flex-shrink-0">
+            <h3 className={`
+              text-xl font-bold font-['Poppins'] leading-tight mb-2
+              transition-colors duration-300 line-clamp-2
+              text-[#264065] group-hover:text-[#C88652]
+            `}>
+              To Be Announced
+            </h3>
+          </div>
+
+          {/* Event Details - Flexible Space */}
+          <div className="space-y-3 mb-4 flex-grow">
+            {/* Date */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#C88652]/10">
+                <svg className="w-4 h-4 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <span className="text-sm font-medium font-['Poppins'] text-slate-500">
+                Date TBA
+              </span>
+            </div>
+            
+            {/* Participants */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#264065]/10">
+                <svg className="w-4 h-4 text-[#264065]" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                </svg>
+              </div>
+              <span className="text-sm font-medium font-['Poppins'] text-slate-500">
+                Registration Opening Soon
+              </span>
+            </div>
+          </div>
+          
+          {/* CTA Section - Always at Bottom */}
+          <div className="mt-auto pt-4 border-t border-slate-100 flex-shrink-0">
+            <button
+              disabled
+              className={`
+                w-full px-4 py-3 rounded-xl font-semibold font-['Poppins'] text-sm
+                bg-slate-100 text-slate-400 cursor-not-allowed
+                transition-all duration-300
+              `}
+            >
+              Stay Tuned
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Main Events Page Component
 export default async function EventsPage() {
   // Fetch data
@@ -374,6 +475,10 @@ export default async function EventsPage() {
 
   const featuredEvent = featuredEventsData.data[0];
   const regularEvents = regularEventsData.data;
+
+  // Calculate number of "To Be Announced" cards to show
+  // Start with 4, reduce by 1 for each regular event, minimum 0
+  const toBeAnnouncedCount = Math.max(0, 4 - regularEvents.length);
 
   return (
     <main className="min-h-screen bg-white pt-30 sm:pt-40 lg:pt-37">
@@ -388,7 +493,7 @@ export default async function EventsPage() {
       )}
       
       {/* Past/Regular Events Section */}
-      {regularEvents.length > 0 && (
+      {(regularEvents.length > 0 || toBeAnnouncedCount > 0) && (
         <div className="w-full py-16 sm:py-20 md:py-24" style={{backgroundColor: '#FAF8F5'}}>
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             
@@ -402,8 +507,14 @@ export default async function EventsPage() {
 
             {/* Premium Events Grid with Consistent Heights */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 auto-rows-fr">
+              {/* Regular Events from CMS */}
               {regularEvents.map((event) => (
                 <EventCard key={event.id} event={event} />
+              ))}
+              
+              {/* To Be Announced Cards */}
+              {Array.from({ length: toBeAnnouncedCount }, (_, index) => (
+                <ToBeAnnouncedCard key={`tba-${index}`} />
               ))}
             </div>
           </div>
@@ -411,7 +522,7 @@ export default async function EventsPage() {
       )}
 
       {/* No Events Message */}
-      {!featuredEvent && regularEvents.length === 0 && (
+      {!featuredEvent && regularEvents.length === 0 && toBeAnnouncedCount === 0 && (
         <div className="w-full py-16 sm:py-20 md:py-24">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#264065] mb-4 font-['Poppins']">
