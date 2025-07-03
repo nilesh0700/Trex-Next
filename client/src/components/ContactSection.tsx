@@ -33,13 +33,13 @@ export default function ContactSection() {
 
   // Company office information
   const officeInfo = {
-    address: "4-12-872, Sandesh Nagar, Vishalnagar, Nyay Nagar, Chhatrapati Sambhajinagar, Maharashtra 431001",
-    phone: "+91 98113 30099",
-    email: "team@trexevents.in",
-    hours: "Monday - Friday: 9:00 AM - 6:00 PM IST"
+    address: "Office No-307, B-1, Gera Gardens, 7A-Koregaon Rd, Koregaon Park, Near St. Mira's Girls College, Pune - 411001",
+    phone: "+91 8484839177",
+    email: "team.netraevents@gmail.com",
+    hours: "Monday - Saturday: 9:00 AM - 6:00 PM IST"
   };
 
-  const googleMapsEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d234.5189082644324!2d75.35199565257594!3d19.869443282958947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdba28584d492d1%3A0x4933039b70e84bf3!2s4-12-872%2C%20Sandesh%20Nagar%2C%20Vishalnagar%2C%20Nyay%20Nagar%2C%20Chhatrapati%20Sambhajinagar%2C%20Maharashtra%20431001!5e0!3m2!1sen!2sin!4v1751094298107!5m2!1sen!2sin";
+  const googleMapsEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15131.149888298085!2d73.86651428715818!3d18.538503800000008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c0ffa9356657%3A0x7e9f3b63b42b7cca!2sGera%20Gardens%20Condominium!5e0!3m2!1sen!2sin!4v1751541312120!5m2!1sen!2sin";
 
   return (
     <section className="w-full py-16 sm:py-20 md:py-24 bg-gray-50">
@@ -202,13 +202,13 @@ export default function ContactSection() {
               </h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="font-['Poppins'] text-gray-600">Monday - Friday</span>
+                  <span className="font-['Poppins'] text-gray-600">Monday - Saturday</span>
                   <span className="font-['Poppins'] font-semibold text-[#264065]">9:00 AM - 6:00 PM IST</span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                {/* <div className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="font-['Poppins'] text-gray-600">Saturday</span>
                   <span className="font-['Poppins'] font-semibold text-[#264065]">10:00 AM - 4:00 PM IST</span>
-                </div>
+                </div> */}
                 <div className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="font-['Poppins'] text-gray-600">Sunday</span>
                   <span className="font-['Poppins'] font-semibold text-gray-500">Closed</span>
@@ -233,7 +233,7 @@ export default function ContactSection() {
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                   <div>
                     <h4 className="font-semibold text-[#264065] font-['Poppins']">Siddharth Jain</h4>
-                    <p className="text-sm text-gray-600 font-['Poppins']">Director</p>
+                    <p className="text-sm text-gray-600 font-['Poppins']">Sales and Marketing</p>
                   </div>
                   <a
                     href="tel:+919811330099"
@@ -245,7 +245,7 @@ export default function ContactSection() {
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                   <div>
                     <h4 className="font-semibold text-[#264065] font-['Poppins']">Mehboob Shaikh</h4>
-                    <p className="text-sm text-gray-600 font-['Poppins']">Operations Head</p>
+                    <p className="text-sm text-gray-600 font-['Poppins']">Operations</p>
                   </div>
                   <a
                     href="tel:+919850080120"
@@ -257,7 +257,7 @@ export default function ContactSection() {
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                   <div>
                     <h4 className="font-semibold text-[#264065] font-['Poppins']">Krishna Gopalan</h4>
-                    <p className="text-sm text-gray-600 font-['Poppins']">Business Development</p>
+                    <p className="text-sm text-gray-600 font-['Poppins']">Advisor</p>
                   </div>
                   <a
                     href="tel:+919822030908"
