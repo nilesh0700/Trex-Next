@@ -863,21 +863,22 @@ export default async function EventPage({ params }: EventPageProps) {
         
         {/* 2. Why City Section */}
         <WhyCitySection cityName={cityName} />
+
+        {/* 3. Event Flow Section */}
+        <EventFlowSection event={event} />
         
-        {/* 3. Why Exhibit at TREX Section */}
+        {/* 4. Why Exhibit at TREX Section */}
         <WhyExhibitSection />
         
-        {/* 4. Target Markets Map Section */}
+        {/* 5. Target Markets Map Section */}
         {/* <TargetMarketsSection event={event} /> */}
         
-        {/* 5. Who Should Exhibit Section */}
+        {/* 6. Who Should Exhibit Section */}
         <WhoShouldExhibitSection />
         
-        {/* 6. Space and Proposal Section */}
+        {/* 7. Space and Proposal Section */}
         <SpaceProposalSection event={event} />
         
-        {/* 7. Event Flow Section */}
-        <EventFlowSection event={event} />
         
         {/* 8. Google Maps Location Section */}
         <GoogleMapsSection event={event} />
