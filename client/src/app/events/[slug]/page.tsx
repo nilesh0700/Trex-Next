@@ -7,6 +7,7 @@ import { Event } from '@/types/strapi';
 import RegistrationButton from '@/components/RegistrationButton';
 import SmartEventButton from '@/components/SmartEventButton';
 import WhyCitySection from '@/components/WhyCitySection';
+import EventFlowSection from '@/components/EventFlowSection';
 import { shouldShowRegistration, getEventActionConfig } from '@/utils/eventUtils';
 
 type EventPageProps = {
@@ -20,7 +21,7 @@ function EventHeader({ event }: { event: Event }) {
   const actionConfig = getEventActionConfig(event.eventDate);
   
   return (
-    <section className="relative w-full bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
+    <section className="relative w-full mt-25 bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-[#264065]/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#C88652]/5 rounded-full blur-3xl"></div>
@@ -196,7 +197,7 @@ function EventHeader({ event }: { event: Event }) {
         </div>
 
         {/* Inspirational Quote Card - Bottom Center spanning both sections */}
-        <div className="w-full">
+        {/* <div className="w-full">
           <div className="bg-gradient-to-r from-[#264065]/5 to-[#C88652]/5 rounded-2xl p-8 border border-[#264065]/10 max-w-4xl mx-auto">
             <div className="flex flex-col items-center text-center gap-6">
               <div className="w-12 h-12 bg-[#C88652]/20 rounded-full flex items-center justify-center flex-shrink-0">
@@ -209,7 +210,7 @@ function EventHeader({ event }: { event: Event }) {
               </blockquote>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
@@ -736,139 +737,7 @@ function SpaceProposalSection({ event }: { event: Event }) {
 }
 
 // 7. Event Flow Section
-function EventFlowSection({ event }: { event: Event }) {
-  // Use CMS data if available, otherwise fall back to defaults
-  const eventFlow = event.eventFlowItems.length > 0 ? event.eventFlowItems : [
-    {
-      id: 1,
-      time: "13:00 - 15:00 Hrs",
-      title: "Registration & Welcome",
-      description: "Check-In, Networking Breakfast, And Welcome Reception",
-      day: 1,
-      icon: "📝"
-    },
-    {
-      time: "15:00 - 15:30 Hrs",
-      title: "Tea Coffee Break",
-      description: "Networking Refreshments For All Attendees",
-      day: 1,
-      icon: "☕"
-    },
-    {
-      time: "15:30 - 16:30 Hrs",
-      title: "Presentation Showcase",
-      description: "Featured Presentations From Key Industry Leaders",
-      day: 1,
-      icon: "🎤"
-    },
-    {
-      time: "16:30 - 19:00 Hrs",
-      title: "Rotational Table Meetings",
-      description: "1:1 B2B Buyers From Tier 3 Cities",
-      day: 1,
-      icon: "🤝"
-    },
-    {
-      time: "19:00 - 20:00 Hrs",
-      title: "Dinner Preparation",
-      description: "Break To Get Ready For Dinner",
-      day: 1,
-      icon: "🍽️"
-    },
-    {
-      time: "20:00 - 22:00 Hrs",
-      title: "Networking Lounge",
-      description: "Cocktails, Dinner, And Informal Networking Opportunities",
-      day: 1,
-      icon: "🥂"
-    },
-    {
-      time: "17:00 - 20:00 Hrs",
-      title: "Day 2 Registration",
-      description: "Check In For Day 2 Exhibitors",
-      day: 2,
-      icon: "📋"
-    }
-  ];
 
-  return (
-    <section className="w-full py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#264065] mb-6 font-['Poppins']">
-            {event.eventFlowTitle}
-          </h2>
-          <p className="text-xl text-gray-600 font-['Poppins']">
-            {event.eventFlowDescription}
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full mt-6"></div>
-        </div>
-
-        {/* Timeline */}
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#264065] to-[#C88652] rounded-full"></div>
-
-          {/* Timeline Items */}
-          <div className="space-y-12">
-                         {eventFlow.map((item, index) => (
-               <div key={item.id || index} className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
-                {/* Content Card */}
-                <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
-                  <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200 hover:border-[#C88652]">
-                    <div className={`flex items-center gap-4 mb-4 ${index % 2 === 0 ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`${index % 2 !== 0 ? 'order-first' : ''}`}>
-                        <span className="text-3xl">{item.icon}</span>
-                      </div>
-                      <div className={`${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                        <div className="bg-[#C88652] text-white px-4 py-2 rounded-full text-sm font-bold font-['Poppins'] inline-block mb-2">
-                          Day {item.day}
-                        </div>
-                        <div className="text-[#264065] font-semibold font-['Poppins']">
-                          {item.time}
-                        </div>
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-bold text-[#264065] mb-3 font-['Poppins']">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 font-['Poppins']">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Timeline Node */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-[#C88652] border-4 border-white rounded-full shadow-lg z-10"></div>
-
-                {/* Spacer */}
-                <div className="w-5/12"></div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-[#264065] to-[#1a2d47] rounded-2xl p-12 text-white">
-            <h3 className="text-3xl font-bold mb-4 font-['Poppins']">Ready to Join This Exclusive Event?</h3>
-            <p className="text-xl mb-8 text-blue-200 font-['Poppins']">
-              Secure your spot at India's premier regional travel networking summit
-            </p>
-            <SmartEventButton
-              eventDate={event.eventDate}
-              eventSlug={event.slug}
-              registrationLink={event.registrationLink}
-              showSecondaryAction={false}
-              size="md"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // 8. Google Maps Location Section
 function GoogleMapsSection({ event }: { event: Event }) {
@@ -880,54 +749,6 @@ function GoogleMapsSection({ event }: { event: Event }) {
   return (
     <section className="w-full py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#264065] mb-6 font-['Poppins']">
-            Event Location
-          </h2>
-          <p className="text-xl text-gray-600 font-['Poppins'] mb-4">
-            Find us at {event.location}
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto rounded-full"></div>
-        </div>
-
-        {/* Location Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {/* Address Card */}
-          <div className="bg-gradient-to-br from-[#264065] to-[#1a2d47] rounded-2xl p-8 text-white text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-            <div className="w-16 h-16 bg-[#C88652] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-3 font-['Poppins']">Location</h3>
-            <p className="text-blue-200 font-['Poppins']">{event.location}</p>
-          </div>
-
-          {/* Contact Card */}
-          <div className="bg-gradient-to-br from-[#C88652] to-[#b8763f] rounded-2xl p-8 text-white text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-            <div className="w-16 h-16 bg-[#264065] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-3 font-['Poppins']">Contact</h3>
-            <p className="text-orange-100 font-['Poppins']">{event.contactEmail}</p>
-          </div>
-
-          {/* Time Card */}
-          <div className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-8 text-white text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-            <div className="w-16 h-16 bg-[#C88652] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-3 font-['Poppins']">Timing</h3>
-            <p className="text-gray-300 font-['Poppins']">{event.contactTime}</p>
-          </div>
-        </div>
-
         {/* Google Maps Embed */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
           <div className="bg-gradient-to-r from-[#264065] to-[#1a2d47] p-6 text-white">

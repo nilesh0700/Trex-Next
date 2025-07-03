@@ -163,7 +163,7 @@ const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName }) => {
         </div>
 
         {/* City Image Section */}
-        <div className="relative mb-16 lg:mb-20 rounded-3xl overflow-hidden shadow-2xl">
+        {/* <div className="relative mb-16 lg:mb-20 rounded-3xl overflow-hidden shadow-2xl">
           <div className="aspect-[21/9] relative">
             <img 
               src="/assets/pune.jpeg" 
@@ -171,9 +171,7 @@ const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName }) => {
               className="w-full h-full object-cover"
             />
           </div>
-          {/* Overlay Elements */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-        </div>
+        </div> */}
 
         {/* Main Advantages Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
