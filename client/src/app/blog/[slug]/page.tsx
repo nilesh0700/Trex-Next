@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, getRelatedBlogPosts, getBlogPosts } from '@/lib/strapi';
 import { BlogPost } from '@/types/strapi';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import ShareButtons from '@/components/ShareButtons';
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -29,6 +30,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound();
   }
+
+  // Get current URL for sharing
+  const currentUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://trex-next.vercel.app'}/blog/${post.slug}`;
 
   return (
     <main className="min-h-screen">
@@ -150,20 +154,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Share Section */}
           <div className="mt-8 pt-8 border-t border-gray-200">
             <h3 className="text-lg font-semibold text-[#264065] mb-4 font-['Poppins']">Share this article</h3>
-            <div className="flex gap-4">
-              <button className="bg-[#1877f2] text-white px-4 py-2 rounded-lg font-['Poppins'] text-sm hover:bg-[#166fe5] transition-colors">
-                Facebook
-              </button>
-              <button className="bg-[#1da1f2] text-white px-4 py-2 rounded-lg font-['Poppins'] text-sm hover:bg-[#1a91da] transition-colors">
-                Twitter
-              </button>
-              <button className="bg-[#0077b5] text-white px-4 py-2 rounded-lg font-['Poppins'] text-sm hover:bg-[#006aa1] transition-colors">
-                LinkedIn
-              </button>
-              <button className="bg-[#25d366] text-white px-4 py-2 rounded-lg font-['Poppins'] text-sm hover:bg-[#22c55e] transition-colors">
-                WhatsApp
-              </button>
-            </div>
+            <ShareButtons url={currentUrl} title={post.title} />
           </div>
         </div>
       </div>
