@@ -56,7 +56,7 @@ export function formatEventDate(dateString: string, options?: Intl.DateTimeForma
  * Event state utilities for determining event status and appropriate actions
  */
 
-export type EventState = 'upcoming' | 'ongoing' | 'past';
+export type EventState = 'upcoming' | 'live' | 'completed';
 
 export interface EventActionConfig {
   state: EventState;
@@ -88,17 +88,18 @@ export function getEventState(eventDate: string): EventState {
   if (eventDay > today) {
     return 'upcoming';
   } else if (eventDay.getTime() === today.getTime()) {
-    return 'ongoing';
+    return 'live';
   } else {
-    return 'past';
+    return 'completed';
   }
 }
 
 /**
- * Gets the appropriate action configuration for an event based on its state
+ * Gets the appropriate action configuration for an event based on its status
  */
-export function getEventActionConfig(eventDate: string): EventActionConfig {
-  const state = getEventState(eventDate);
+export function getEventActionConfig(eventDate: string, eventStatus?: 'upcoming' | 'live' | 'completed'): EventActionConfig {
+  // If eventStatus is provided, use it; otherwise fall back to date-based logic
+  const state = eventStatus || getEventState(eventDate);
   
   switch (state) {
     case 'upcoming':
@@ -113,10 +114,12 @@ export function getEventActionConfig(eventDate: string): EventActionConfig {
           text: 'View Details',
           variant: 'details',
           icon: 'arrow-right'
-        }
+        },
+        badgeText: 'UPCOMING',
+        badgeColor: 'bg-gradient-to-r from-[#C88652] to-[#b77a4a]'
       };
       
-    case 'ongoing':
+    case 'live':
       return {
         state,
         primaryAction: {
@@ -133,7 +136,7 @@ export function getEventActionConfig(eventDate: string): EventActionConfig {
         badgeColor: 'bg-gradient-to-r from-red-500 to-red-600'
       };
       
-    case 'past':
+    case 'completed':
       return {
         state,
         primaryAction: {
@@ -171,9 +174,9 @@ export function formatEventDateWithStatus(eventDate: string): string {
   switch (state) {
     case 'upcoming':
       return formattedDate;
-    case 'ongoing':
+    case 'live':
       return `${formattedDate} - Live Now!`;
-    case 'past':
+    case 'completed':
       return `${formattedDate} - Completed`;
     default:
       return formattedDate;
@@ -183,8 +186,8 @@ export function formatEventDateWithStatus(eventDate: string): string {
 /**
  * Checks if an event should show registration functionality
  */
-export function shouldShowRegistration(eventDate: string): boolean {
-  return getEventState(eventDate) === 'upcoming';
+export function shouldShowRegistration(eventDate: string, eventStatus?: 'upcoming' | 'live' | 'completed'): boolean {
+  return eventStatus ? eventStatus === 'upcoming' : getEventState(eventDate) === 'upcoming';
 }
 
 /**
@@ -200,13 +203,13 @@ export function getEventStateStyles(eventDate: string) {
         image: 'relative overflow-hidden',
         content: 'text-slate-900'
       };
-    case 'ongoing':
+    case 'live':
       return {
         container: 'ring-2 ring-red-500/30 ring-offset-2 shadow-red-500/20 shadow-xl hover:shadow-2xl transition-all duration-300',
         image: 'relative overflow-hidden',
         content: 'text-slate-900'
       };
-    case 'past':
+    case 'completed':
       return {
         container: 'opacity-75 hover:opacity-90 transition-all duration-300 grayscale hover:grayscale-0',
         image: 'relative overflow-hidden',

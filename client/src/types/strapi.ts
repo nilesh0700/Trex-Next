@@ -105,6 +105,7 @@ export interface StrapiEvent {
   description: string;
   content: string;
   featured: boolean;
+  event_status: 'upcoming' | 'live' | 'completed';
   event_date: string;
   location: string;
   participants_count: string;
@@ -260,6 +261,7 @@ export interface Event {
   description: string;
   content: string;
   featured: boolean;
+  eventStatus: 'upcoming' | 'live' | 'completed';
   eventDate: string;
   location: string;
   participantsCount: string;

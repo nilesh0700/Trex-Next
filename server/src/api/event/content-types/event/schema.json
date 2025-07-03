@@ -21,6 +21,17 @@
       "targetField": "title",
       "required": true
     },
+    "event_status": {
+      "type": "enumeration",
+      "enum": [
+        "upcoming",
+        "live",
+        "completed"
+      ],
+      "default": "upcoming",
+      "required": true,
+      "pluginOptions": {}
+    },
     "description": {
       "type": "text"
     },

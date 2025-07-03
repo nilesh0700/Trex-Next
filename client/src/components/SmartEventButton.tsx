@@ -15,6 +15,7 @@ interface SmartEventButtonProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   customText?: string;
   forceDisabled?: boolean;
+  eventStatus?: 'upcoming' | 'live' | 'completed';
 }
 
 const SmartEventButton: React.FC<SmartEventButtonProps> = ({
@@ -26,11 +27,12 @@ const SmartEventButton: React.FC<SmartEventButtonProps> = ({
   showSecondaryAction = false,
   size = 'md',
   customText,
-  forceDisabled = false
+  forceDisabled = false,
+  eventStatus
 }) => {
   const [isNotifyModalOpen, setIsNotifyModalOpen] = useState(false);
-  const actionConfig = getEventActionConfig(eventDate);
-  const showRegistration = shouldShowRegistration(eventDate);
+  const actionConfig = getEventActionConfig(eventDate, eventStatus);
+  const showRegistration = shouldShowRegistration(eventDate, eventStatus);
 
   const handlePrimaryAction = (e?: React.MouseEvent) => {
     // Prevent event propagation to avoid multiple modals
@@ -151,7 +153,7 @@ const SmartEventButton: React.FC<SmartEventButtonProps> = ({
         border border-[#C88652]/20 hover:border-[#C88652]/30
         ${variant === 'hero' ? 'shadow-[0_8px_40px_rgba(200,134,82,0.3)]' : ''}
       `;
-    } else if (actionConfig.state === 'ongoing' && isPrimary) {
+    } else if (actionConfig.state === 'live' && isPrimary) {
       return `
         ${baseStyles} ${sizeClasses} ${variantStyles}
         bg-gradient-to-r from-red-500 via-red-600 to-red-500
@@ -163,7 +165,7 @@ const SmartEventButton: React.FC<SmartEventButtonProps> = ({
         border border-red-500/20 hover:border-red-500/30
         animate-pulse ${variant === 'hero' ? 'shadow-[0_8px_40px_rgba(239,68,68,0.3)]' : ''}
       `;
-    } else if (actionConfig.state === 'past' && isPrimary) {
+    } else if (actionConfig.state === 'completed' && isPrimary) {
       return `
         ${baseStyles} ${sizeClasses} ${variantStyles}
         bg-gradient-to-r from-slate-600 via-slate-700 to-slate-600

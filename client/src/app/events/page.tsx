@@ -10,9 +10,6 @@ import { getEventStateStyles, getEventActionConfig, formatDateSimple, parseEvent
 
 // Featured Event Component
 function FeaturedEventSection({ event }: { event: Event }) {
-  const stateStyles = getEventStateStyles(event.eventDate);
-  const actionConfig = getEventActionConfig(event.eventDate);
-  
   return (
     <div className="w-full">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -38,7 +35,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
                 </svg>
               </div>
               <span className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base font-bold text-[#034833] truncate">
-                {formatDateSimple(event.eventDate)}
+                {event.eventDate}
               </span>
             </div>
 
@@ -66,7 +63,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
 
           {/* Right Side - Media (More than half width) */}
           <div className="w-full lg:w-[80%]">
-            <div className={`relative w-full h-[300px] sm:h-[300px] lg:h-[300px] xl:h-[450px] rounded-2xl overflow-hidden bg-black ${stateStyles.container}`}>
+            <div className="relative w-full h-[300px] sm:h-[300px] lg:h-[300px] xl:h-[450px] rounded-2xl overflow-hidden bg-black">
               {/* Media Content - Images, Videos, or YouTube */}
               {event.mediaType === 'video' && event.image ? (
                 <video
@@ -74,7 +71,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
                   loop
                   muted
                   playsInline
-                  className={`absolute inset-0 w-full h-full object-cover ${stateStyles.image}`}
+                  className="absolute inset-0 w-full h-full object-cover"
                 >
                   <source src={event.image} type="video/mp4" />
                   Your browser does not support the video tag.
@@ -82,7 +79,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
               ) : event.mediaType === 'video_url' && event.videoUrl ? (
                 <iframe
                   src={event.videoUrl}
-                  className={`absolute inset-0 w-full h-full border-0 scale-125 ${stateStyles.image}`}
+                  className="absolute inset-0 w-full h-full border-0 scale-125"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
@@ -91,23 +88,17 @@ function FeaturedEventSection({ event }: { event: Event }) {
                   src={event.image}
                   alt={event.imageAlt}
                   fill
-                  className={`object-cover ${stateStyles.image}`}
+                  className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 80vw"
                 />
               )}
               
-              {/* Premium Event State Badge */}
-              {actionConfig.badgeText && (
-                <div className="absolute top-6 left-6 z-20">
-                  <div className={`
-                    ${actionConfig.badgeColor} text-white px-4 py-2 rounded-full text-sm font-semibold font-['Inter'] 
-                    shadow-lg backdrop-blur-sm bg-opacity-90 border border-white/20
-                    ${actionConfig.state === 'ongoing' ? 'animate-pulse shadow-red-500/30' : ''}
-                  `}>
-                    {actionConfig.badgeText}
-                  </div>
+              {/* Featured Event Badge */}
+              <div className="absolute top-6 left-6 z-20">
+                <div className="bg-white/90 backdrop-blur-sm text-[#264065] px-4 py-2 rounded-full text-sm font-semibold font-['Poppins'] shadow-lg">
+                  Featured Event
                 </div>
-              )}
+              </div>
               
               {/* Optional Dark Overlay for Better Text Readability */}
               <div className="absolute inset-0 bg-black/10 rounded-2xl"></div>
@@ -116,7 +107,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
 
         </div>
 
-        {/* Section Header - Commented out as requested */}
+        {/* Section Header */}
         <div className="text-center mt-12 sm:mt-16 md:mt-20">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#C88652] mb-6 sm:mb-8 font-['Poppins']">
             {event.eventHeading}
@@ -128,14 +119,23 @@ function FeaturedEventSection({ event }: { event: Event }) {
 
         {/* Bottom Buttons Section */}
         <div className="text-center mt-8 sm:mt-12 lg:mt-16">
-          <SmartEventButton
-            eventDate={event.eventDate}
-            eventSlug={event.slug}
-            registrationLink={event.registrationLink}
-            showSecondaryAction={true}
-            size="lg"
-            className="mb-10 sm:mb-12 md:mb-14"
-          />
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10 sm:mb-12 md:mb-14 items-center">
+            <SmartEventButton
+              eventDate={event.eventDate}
+              eventSlug={event.slug}
+              registrationLink={event.registrationLink}
+              showSecondaryAction={true}
+              size="lg"
+              className="w-full sm:w-auto"
+              eventStatus={event.eventStatus}
+            />
+            {/* <Link 
+              href={`/events/${event.slug}`}
+              className="w-full sm:w-auto px-8 py-3 bg-white text-[#264065] border-2 border-[#264065] rounded-xl font-semibold font-['Poppins'] hover:bg-[#264065] hover:text-white transition-all duration-300 items-center justify-center"
+            >
+              View Details
+            </Link> */}
+          </div>
           
           <div className="w-full h-[1px] bg-gray-400 mx-auto"></div>
         </div>
@@ -211,8 +211,33 @@ function FeaturedEventSection({ event }: { event: Event }) {
 
 // Premium Professional Event Card Component
 function EventCard({ event }: { event: Event }) {
-  const stateStyles = getEventStateStyles(event.eventDate);
-  const actionConfig = getEventActionConfig(event.eventDate);
+  // Get badge configuration based on status
+  const getBadgeConfig = (status: 'upcoming' | 'live' | 'completed') => {
+    switch (status) {
+      case 'live':
+        return {
+          text: 'LIVE NOW',
+          color: 'bg-gradient-to-r from-red-500 to-red-600',
+          buttonStyle: 'bg-red-500 text-white hover:bg-red-600'
+        };
+      case 'completed':
+        return {
+          text: 'COMPLETED',
+          color: 'bg-gradient-to-r from-slate-500 to-slate-600',
+          buttonStyle: 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+        };
+      case 'upcoming':
+        return {
+          text: 'UPCOMING',
+          color: 'bg-gradient-to-r from-[#C88652] to-[#b77a4a]',
+          buttonStyle: 'bg-[#C88652] text-white hover:bg-[#b77a4a]'
+        };
+      default:
+        return null;
+    }
+  };
+
+  const badgeConfig = getBadgeConfig(event.eventStatus);
 
   return (
     <Link href={`/events/${event.slug}`} className="group relative h-full">
@@ -224,7 +249,7 @@ function EventCard({ event }: { event: Event }) {
         transition-all duration-500 ease-out
         transform hover:-translate-y-1 hover:scale-[1.02]
         flex flex-col
-        ${stateStyles.container}
+        ${event.eventStatus === 'completed' ? 'opacity-75 hover:opacity-90' : ''}
       `}>
         
         {/* Media Section with Fixed Aspect Ratio */}
@@ -259,14 +284,14 @@ function EventCard({ event }: { event: Event }) {
           )}
           
           {/* Event State Badge */}
-          {actionConfig.badgeText && (
+          {badgeConfig && (
             <div className="absolute top-4 left-4 z-10">
               <div className={`
-                ${actionConfig.badgeColor} text-white px-3 py-1.5 rounded-lg text-xs font-semibold font-['Poppins'] 
+                ${badgeConfig.color} text-white px-3 py-1.5 rounded-lg text-xs font-semibold font-['Poppins'] 
                 shadow-lg backdrop-blur-sm bg-opacity-95 border border-white/20
-                ${actionConfig.state === 'ongoing' ? 'animate-pulse' : ''}
+                ${event.eventStatus === 'live' ? 'animate-pulse' : ''}
               `}>
-                {actionConfig.badgeText}
+                {badgeConfig.text}
               </div>
             </div>
           )}
@@ -299,7 +324,7 @@ function EventCard({ event }: { event: Event }) {
                 </svg>
               </div>
               <span className="text-sm font-medium font-['Poppins'] text-slate-500">
-                {formatDateSimple(event.eventDate)}
+                {event.eventDate}
               </span>
             </div>
             
@@ -333,13 +358,13 @@ function EventCard({ event }: { event: Event }) {
             <button
               className={`
                 w-full px-4 py-3 rounded-xl font-semibold font-['Poppins'] text-sm
-                ${actionConfig.state === 'upcoming' ? 'bg-[#C88652] text-white hover:bg-[#b77a4a]' : 
-                  actionConfig.state === 'ongoing' ? 'bg-red-500 text-white hover:bg-red-600' :
-                  'bg-slate-100 text-slate-600 hover:bg-slate-200'}
+                ${badgeConfig?.buttonStyle}
                 transition-all duration-300
               `}
             >
-              {actionConfig.primaryAction.text}
+              {event.eventStatus === 'upcoming' ? 'Register Now' : 
+               event.eventStatus === 'live' ? 'Join Live' : 
+               'View Summary'}
             </button>
           </div>
         </div>

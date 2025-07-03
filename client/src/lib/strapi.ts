@@ -214,6 +214,7 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
     description: strapiEvent.description,
     content: strapiEvent.content,
     featured: strapiEvent.featured,
+    eventStatus: strapiEvent.event_status,
     eventDate: strapiEvent.event_date,
     location: strapiEvent.location,
     participantsCount: strapiEvent.participants_count,
@@ -513,6 +514,7 @@ export async function getEvents(options: {
       pricing_packages: "*",
       event_flow_items: "*",
     },
+    fields: ["id", "documentId", "title", "slug", "description", "content", "featured", "event_date", "location", "participants_count", "registration_link", "contact_email", "contact_time", "contact_location", "event_heading", "event_subheading", "media_type", "featured_video_url", "overlay_text", "event_status"],
     filters: {} as any,
   };
 
@@ -586,6 +588,7 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
       pricing_packages: "*",
       event_flow_items: "*",
     },
+    fields: ["id", "documentId", "title", "slug", "description", "content", "featured", "event_date", "location", "participants_count", "registration_link", "contact_email", "contact_time", "contact_location", "event_heading", "event_subheading", "media_type", "featured_video_url", "overlay_text", "event_status"],
   };
 
   url.search = qs.stringify(queryParams, { encodeValuesOnly: true });
@@ -648,6 +651,7 @@ export async function getRelatedEvents(
         fields: ["name", "email"],
       },
     },
+    fields: ["id", "documentId", "title", "slug", "description", "content", "featured", "event_date", "location", "participants_count", "registration_link", "contact_email", "contact_time", "contact_location", "event_heading", "event_subheading", "media_type", "featured_video_url", "overlay_text", "event_status"],
     filters: {
       slug: { $ne: currentSlug }, // Exclude current event
       ...(categorySlug && {

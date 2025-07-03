@@ -19,7 +19,7 @@ type EventPageProps = {
 
 // 1. Event Header with Heading, Subheading and Quote
 function EventHeader({ event }: { event: Event }) {
-  const actionConfig = getEventActionConfig(event.eventDate);
+  const actionConfig = getEventActionConfig(event.eventDate, event.eventStatus);
   
   return (
     <section className="relative w-full mt-25 bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-20 sm:pt-24 lg:pt-28 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
@@ -49,7 +49,7 @@ function EventHeader({ event }: { event: Event }) {
                 <div className={`
                   ${actionConfig.badgeColor} text-white px-5 py-2 rounded-full text-base font-semibold font-['Poppins'] 
                   shadow-lg backdrop-blur-sm bg-opacity-95 border border-white/20
-                  ${actionConfig.state === 'ongoing' ? 'animate-pulse shadow-red-500/30' : ''}
+                  ${actionConfig.state === 'live' ? 'animate-pulse shadow-red-500/30' : ''}
                 `}>
                   {actionConfig.badgeText}
                 </div>
@@ -112,13 +112,8 @@ function EventHeader({ event }: { event: Event }) {
                 showSecondaryAction={false}
                 size="lg"
                 className="w-full justify-center"
+                eventStatus={event.eventStatus}
               />
-              {/* <Link 
-                href="#event-details"
-                className="w-full px-6 py-3 bg-white text-[#264065] border-2 border-[#264065] rounded-xl font-semibold font-['Poppins'] text-center hover:bg-[#264065] hover:text-white transition-all duration-300 shadow-sm flex items-center justify-center"
-              >
-                View Details
-              </Link> */}
             </div>
           </div>
 
@@ -162,13 +157,6 @@ function EventHeader({ event }: { event: Event }) {
                 
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-                
-                {/* Floating Badge */}
-                <div className="absolute top-6 left-6">
-                  <div className="bg-white/90 backdrop-blur-sm text-[#264065] px-4 py-2 rounded-full text-sm font-semibold font-['Poppins'] shadow-lg">
-                    Featured Event
-                  </div>
-                </div>
               </div>
               
               {/* Decorative Elements */}
@@ -723,6 +711,8 @@ function SpaceProposalSection({ event }: { event: Event }) {
                   variant="pricing"
                   size="md"
                   className="w-full"
+                  showSecondaryAction={false}
+                  eventStatus={event.eventStatus}
                 />
               </div>
             </div>
