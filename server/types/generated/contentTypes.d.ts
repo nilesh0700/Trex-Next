@@ -553,7 +553,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    event_date: Schema.Attribute.DateTime;
+    event_date: Schema.Attribute.String;
     event_flow_description: Schema.Attribute.Text &
       Schema.Attribute.DefaultTo<'Two Days of Intensive Networking and Business Development'>;
     event_flow_items: Schema.Attribute.Component<

@@ -32,7 +32,8 @@
       "default": false
     },
     "event_date": {
-      "type": "datetime"
+      "type": "string",
+      "description": "Enter the event date in a display-friendly format (e.g., '14th & 15th November 2025')"
     },
     "location": {
       "type": "string"

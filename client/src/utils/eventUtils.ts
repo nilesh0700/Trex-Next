@@ -3,76 +3,39 @@
  */
 
 /**
- * Simple date formatting that displays dates like "13th July, 2025"
- * No timezone considerations, just direct formatting
+ * Simple date formatting that returns the pre-formatted date string from CMS
+ * No formatting needed as the date is already in display format
  */
 export function formatDateSimple(dateString: string): string {
-  // If it's already in a readable format, return as-is
-  if (dateString.includes(',') || dateString.includes('th') || dateString.includes('st') || dateString.includes('nd') || dateString.includes('rd')) {
-    return dateString;
-  }
-  
-  // Parse the date string using our consistent parser to avoid timezone issues
-  const date = parseEventDate(dateString);
-  
-  // Check if date is valid
-  if (isNaN(date.getTime())) {
-    return dateString; // Return original if parsing fails
-  }
-  
-  // Get day with ordinal suffix
-  const day = date.getDate();
-  const getOrdinalSuffix = (day: number) => {
-    if (day > 3 && day < 21) return 'th';
-    switch (day % 10) {
-      case 1: return 'st';
-      case 2: return 'nd';
-      case 3: return 'rd';
-      default: return 'th';
-    }
-  };
-  
-  // Get month name
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-  
-  const month = months[date.getMonth()];
-  const year = date.getFullYear();
-  
-  return `${day}${getOrdinalSuffix(day)} ${month}, ${year}`;
+  return dateString;
 }
 
 /**
- * Parse date string safely without timezone issues
- * Ensures consistent date display across all components
- * Enhanced to handle both date and datetime formats from Strapi
+ * Parse date string safely, extracting the last date mentioned in the string
+ * For strings like "14th & 15th November 2025", it will use "15th November 2025"
  */
 export function parseEventDate(dateString: string): Date {
-  console.log('🔍 parseEventDate input:', dateString);
+  // Extract all numbers from the string
+  const numbers = dateString.match(/\d+/g);
+  if (!numbers) return new Date(); // Return current date if no numbers found
   
-  // If the date string is in ISO format (YYYY-MM-DD), treat it as local date
-  if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
-    const [year, month, day] = dateString.split('-').map(Number);
-    const result = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
-    console.log('🔍 parseEventDate: parsed as date only:', result);
-    return result;
-  }
+  // Extract month name from the string
+  const months = ['january', 'february', 'march', 'april', 'may', 'june',
+                 'july', 'august', 'september', 'october', 'november', 'december'];
+  const monthMatch = months.find(month => 
+    dateString.toLowerCase().includes(month)
+  );
   
-  // If it's a datetime string (YYYY-MM-DDTHH:mm:ss.sssZ), extract just the date part
-  if (dateString.match(/^\d{4}-\d{2}-\d{2}T/)) {
-    const dateOnly = dateString.split('T')[0];
-    const [year, month, day] = dateOnly.split('-').map(Number);
-    const result = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
-    console.log('🔍 parseEventDate: extracted date from datetime:', result);
-    return result;
-  }
+  // Extract year (assuming it's the last number in the string)
+  const year = numbers[numbers.length - 1];
   
-  // For other formats, use standard parsing
-  const result = new Date(dateString);
-  console.log('🔍 parseEventDate: standard parsing result:', result);
-  return result;
+  // Extract day (assuming it's the last number before the month/year)
+  const day = numbers[numbers.length - 2];
+  
+  if (!monthMatch || !year || !day) return new Date();
+  
+  const monthIndex = months.indexOf(monthMatch);
+  return new Date(parseInt(year), monthIndex, parseInt(day));
 }
 
 /**
