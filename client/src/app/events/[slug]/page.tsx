@@ -9,7 +9,7 @@ import SmartEventButton from '@/components/SmartEventButton';
 import WhyCitySection from '@/components/WhyCitySection';
 import EventFlowSection from '@/components/EventFlowSection';
 import FloatingShareButton from '@/components/FloatingShareButton';
-import { shouldShowRegistration, getEventActionConfig, formatEventDate } from '@/utils/eventUtils';
+import { getEventActionConfig, formatEventDate } from '@/utils/eventUtils';
 
 type EventPageProps = {
   params: Promise<{

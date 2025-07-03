@@ -6,7 +6,7 @@ import RegistrationButton from '@/components/RegistrationButton';
 import SmartEventButton from '@/components/SmartEventButton';
 import { getFeaturedEvents, getRegularEvents } from '@/lib/strapi';
 import { Event } from '@/types/strapi';
-import { formatEventDateWithStatus, getEventStateStyles, getEventActionConfig, formatEventDate } from '@/utils/eventUtils';
+import { getEventStateStyles, getEventActionConfig, formatEventDate } from '@/utils/eventUtils';
 
 // Featured Event Component
 function FeaturedEventSection({ event }: { event: Event }) {
@@ -38,7 +38,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
                 </svg>
               </div>
               <span className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base font-bold text-[#034833] truncate">
-                {formatEventDate(event.eventDate, { month: 'short', day: 'numeric', year: 'numeric' })}
+                {formatEventDate(event.eventDate)}
               </span>
             </div>
 
@@ -215,152 +215,72 @@ function EventCard({ event }: { event: Event }) {
   const actionConfig = getEventActionConfig(event.eventDate);
 
   return (
-    <div className="group relative h-full">
-      {/* Premium Card Container with Consistent Height */}
-      <div className={`
-        h-full bg-white rounded-2xl overflow-hidden 
-        shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]
-        border border-slate-200/60 hover:border-slate-300/60
-        transition-all duration-500 ease-out
-        transform hover:-translate-y-1 hover:scale-[1.02]
-        ${stateStyles.container}
-        flex flex-col
-      `}>
-        
-        {/* Media Section with Fixed Aspect Ratio */}
-        <div className="relative aspect-[16/10] overflow-hidden bg-black flex-shrink-0">
-          {event.mediaType === 'video' && event.image ? (
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className={`
-                absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out
-                group-hover:scale-110 group-hover:brightness-105
-                ${actionConfig.state === 'past' ? 'grayscale group-hover:grayscale-0' : ''}
-              `}
-            >
-              <source src={event.image} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-                     ) : event.mediaType === 'video_url' && event.videoUrl ? (
-            <iframe
-              src={event.videoUrl}
-              className={`
-                absolute inset-0 w-full h-full border-0 scale-125 transition-all duration-700 ease-out
-                ${actionConfig.state === 'past' ? 'grayscale' : ''}
-              `}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : (
-            <Image
-              src={event.image}
-              alt={event.imageAlt}
-              fill
-              className={`
-                object-cover transition-all duration-700 ease-out
-                group-hover:scale-110 group-hover:brightness-105
-                ${actionConfig.state === 'past' ? 'grayscale group-hover:grayscale-0' : ''}
-              `}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-          )}
-          
-          {/* Subtle Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent opacity-60"></div>
-          
-          {/* Premium State Badge */}
-          {actionConfig.badgeText && (
-            <div className="absolute top-4 left-4 z-10">
-              <div className={`
-                ${actionConfig.badgeColor} text-white px-3 py-1.5 rounded-lg text-xs font-semibold font-['Poppins'] 
-                shadow-lg backdrop-blur-sm bg-opacity-95 border border-white/20
-                ${actionConfig.state === 'ongoing' ? 'animate-pulse shadow-red-500/30' : 'shadow-black/20'}
-                transform transition-all duration-300
-              `}>
-                {actionConfig.badgeText}
-              </div>
-            </div>
-          )}
-        </div>
-        
-        {/* Content Section with Flexible Structure */}
-        <div className="p-6 flex flex-col flex-grow min-h-0">
-          
-          {/* Title Section */}
-          <div className="mb-4 flex-shrink-0">
-            <h3 className={`
-              text-xl font-bold font-['Poppins'] leading-tight mb-2
-              transition-colors duration-300 line-clamp-2
-              ${actionConfig.state === 'past' 
-                ? 'text-slate-600 group-hover:text-slate-700' 
-                : 'text-[#264065] group-hover:text-[#C88652]'
-              }
-            `}>
-              <Link 
-                href={`/events/${event.slug}`} 
-                className="hover:underline decoration-[#C88652] decoration-2 underline-offset-2"
-              >
-                {event.title}
-              </Link>
-            </h3>
-          </div>
+    <Link href={`/events/${event.slug}`} className={`block group ${stateStyles.container}`}>
+      <div className="relative w-full h-[300px] sm:h-[350px] rounded-2xl overflow-hidden bg-black">
+        {/* Media Content */}
+        {event.mediaType === 'video' && event.image ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={`absolute inset-0 w-full h-full object-cover ${stateStyles.image}`}
+          >
+            <source src={event.image} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : event.mediaType === 'video_url' && event.videoUrl ? (
+          <iframe
+            src={event.videoUrl}
+            className={`absolute inset-0 w-full h-full border-0 scale-125 ${stateStyles.image}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <Image
+            src={event.image}
+            alt={event.imageAlt}
+            fill
+            className={`object-cover ${stateStyles.image}`}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        )}
 
-          {/* Event Details - Flexible Space */}
-          <div className="space-y-3 mb-4 flex-grow">
-            {/* Date */}
-            <div className="flex items-center gap-3">
-              <div className={`
-                w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
-                ${actionConfig.state === 'past' ? 'bg-slate-100' : 'bg-[#C88652]/10'}
-              `}>
-                <svg className={`w-4 h-4 ${actionConfig.state === 'past' ? 'text-slate-400' : 'text-[#C88652]'}`} fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <span className={`
-                text-sm font-medium font-['Poppins']
-                ${actionConfig.state === 'past' ? 'text-slate-500' : 'text-slate-700'}
-              `}>
-                {formatEventDateWithStatus(event.eventDate)}
-              </span>
-            </div>
-            
-            {/* Participants */}
-            <div className="flex items-center gap-3">
-              <div className={`
-                w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
-                ${actionConfig.state === 'past' ? 'bg-slate-100' : 'bg-[#264065]/10'}
-              `}>
-                <svg className={`w-4 h-4 ${actionConfig.state === 'past' ? 'text-slate-400' : 'text-[#264065]'}`} fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                </svg>
-              </div>
-              <span className={`
-                text-sm font-medium font-['Poppins']
-                ${actionConfig.state === 'past' ? 'text-slate-500' : 'text-slate-700'}
-              `}>
-                {event.participantsCount}
-              </span>
+        {/* Event State Badge */}
+        {actionConfig.badgeText && (
+          <div className="absolute top-4 left-4 z-20">
+            <div className={`
+              ${actionConfig.badgeColor} text-white px-3 py-1 rounded-full text-sm font-semibold font-['Inter'] 
+              shadow-lg backdrop-blur-sm bg-opacity-90 border border-white/20
+              ${actionConfig.state === 'ongoing' ? 'animate-pulse shadow-red-500/30' : ''}
+            `}>
+              {actionConfig.badgeText}
             </div>
           </div>
-          
-          {/* CTA Section - Always at Bottom */}
-          <div className="mt-auto pt-4 border-t border-slate-100 flex-shrink-0">
-            <SmartEventButton
-              eventDate={event.eventDate}
-              eventSlug={event.slug}
-              registrationLink={event.registrationLink}
-              variant="card"
-              size="md"
-              className="w-full"
-            />
+        )}
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent transition-opacity group-hover:opacity-75"></div>
+
+        {/* Content */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm">
+              <svg className="w-4 h-4 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+              </svg>
+              <span className="font-medium">{formatEventDate(event.eventDate)}</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-bold font-['Poppins'] leading-tight group-hover:text-[#C88652] transition-colors">
+              {event.title}
+            </h3>
+            <p className="text-sm text-gray-300 line-clamp-2">
+              {event.description}
+            </p>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
