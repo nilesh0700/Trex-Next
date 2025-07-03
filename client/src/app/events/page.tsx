@@ -6,7 +6,7 @@ import RegistrationButton from '@/components/RegistrationButton';
 import SmartEventButton from '@/components/SmartEventButton';
 import { getFeaturedEvents, getRegularEvents } from '@/lib/strapi';
 import { Event } from '@/types/strapi';
-import { formatEventDateWithStatus, getEventStateStyles, getEventActionConfig } from '@/utils/eventUtils';
+import { formatEventDateWithStatus, getEventStateStyles, getEventActionConfig, formatEventDate } from '@/utils/eventUtils';
 
 // Featured Event Component
 function FeaturedEventSection({ event }: { event: Event }) {
@@ -38,7 +38,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
                 </svg>
               </div>
               <span className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base font-bold text-[#034833] truncate">
-                {new Date(event.eventDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                {formatEventDate(event.eventDate, { month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
             </div>
 

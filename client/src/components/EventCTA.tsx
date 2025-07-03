@@ -4,20 +4,13 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Event } from '@/types/strapi';
+import { formatEventDate } from '@/utils/eventUtils';
 
 interface EventCTAProps {
   event: Event;
 }
 
 const EventCTA = ({ event }: EventCTAProps) => {
-  const formatEventDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
 
   return (
     <section className="w-full py-12 sm:py-16 lg:py-20 bg-white relative overflow-hidden">

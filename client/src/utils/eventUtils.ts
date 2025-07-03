@@ -1,4 +1,37 @@
 /**
+ * Event utilities for date formatting, state management, and styling
+ */
+
+/**
+ * Parse date string safely without timezone issues
+ * Ensures consistent date display across all components
+ */
+export function parseEventDate(dateString: string): Date {
+  // If the date string is in ISO format (YYYY-MM-DD), treat it as local date
+  if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+  }
+  
+  // For other formats, use standard parsing
+  return new Date(dateString);
+}
+
+/**
+ * Format date for display consistently across the app
+ */
+export function formatEventDate(dateString: string, options?: Intl.DateTimeFormatOptions): string {
+  const date = parseEventDate(dateString);
+  const defaultOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
+  
+  return date.toLocaleDateString('en-US', options || defaultOptions);
+}
+
+/**
  * Event state utilities for determining event status and appropriate actions
  */
 
@@ -25,7 +58,7 @@ export interface EventActionConfig {
  */
 export function getEventState(eventDate: string): EventState {
   const now = new Date();
-  const eventDateTime = new Date(eventDate);
+  const eventDateTime = parseEventDate(eventDate);
   
   // Reset time to compare dates only
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -112,12 +145,7 @@ export function getEventActionConfig(eventDate: string): EventActionConfig {
  */
 export function formatEventDateWithStatus(eventDate: string): string {
   const state = getEventState(eventDate);
-  const date = new Date(eventDate);
-  const formattedDate = date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
+  const formattedDate = formatEventDate(eventDate);
   
   switch (state) {
     case 'upcoming':

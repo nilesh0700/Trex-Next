@@ -9,7 +9,7 @@ import SmartEventButton from '@/components/SmartEventButton';
 import WhyCitySection from '@/components/WhyCitySection';
 import EventFlowSection from '@/components/EventFlowSection';
 import FloatingShareButton from '@/components/FloatingShareButton';
-import { shouldShowRegistration, getEventActionConfig } from '@/utils/eventUtils';
+import { shouldShowRegistration, getEventActionConfig, formatEventDate } from '@/utils/eventUtils';
 
 type EventPageProps = {
   params: Promise<{
@@ -84,11 +84,7 @@ function EventHeader({ event }: { event: Event }) {
                 <div>
                   <p className="text-xs text-slate-500 font-medium font-['Poppins'] uppercase tracking-wide mb-1">Event Date</p>
                   <p className="text-sm font-semibold text-slate-700 font-['Poppins']">
-                    {new Date(event.eventDate).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
+                    {formatEventDate(event.eventDate)}
                   </p>
                 </div>
               </div>
