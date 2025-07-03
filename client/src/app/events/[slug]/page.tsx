@@ -8,6 +8,7 @@ import RegistrationButton from '@/components/RegistrationButton';
 import SmartEventButton from '@/components/SmartEventButton';
 import WhyCitySection from '@/components/WhyCitySection';
 import EventFlowSection from '@/components/EventFlowSection';
+import FloatingShareButton from '@/components/FloatingShareButton';
 import { shouldShowRegistration, getEventActionConfig } from '@/utils/eventUtils';
 
 type EventPageProps = {
@@ -882,6 +883,13 @@ export default async function EventPage({ params }: EventPageProps) {
         
         {/* 8. Google Maps Location Section */}
         <GoogleMapsSection event={event} />
+        
+        {/* Floating Share Button */}
+        <FloatingShareButton 
+          url={`/events/${event.slug}`}
+          title={event.title}
+          description={event.description}
+        />
       </main>
     );
   } catch (error) {
