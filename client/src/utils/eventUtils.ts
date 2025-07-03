@@ -47,16 +47,32 @@ export function formatDateSimple(dateString: string): string {
 /**
  * Parse date string safely without timezone issues
  * Ensures consistent date display across all components
+ * Enhanced to handle both date and datetime formats from Strapi
  */
 export function parseEventDate(dateString: string): Date {
+  console.log('🔍 parseEventDate input:', dateString);
+  
   // If the date string is in ISO format (YYYY-MM-DD), treat it as local date
   if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
     const [year, month, day] = dateString.split('-').map(Number);
-    return new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+    const result = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+    console.log('🔍 parseEventDate: parsed as date only:', result);
+    return result;
+  }
+  
+  // If it's a datetime string (YYYY-MM-DDTHH:mm:ss.sssZ), extract just the date part
+  if (dateString.match(/^\d{4}-\d{2}-\d{2}T/)) {
+    const dateOnly = dateString.split('T')[0];
+    const [year, month, day] = dateOnly.split('-').map(Number);
+    const result = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+    console.log('🔍 parseEventDate: extracted date from datetime:', result);
+    return result;
   }
   
   // For other formats, use standard parsing
-  return new Date(dateString);
+  const result = new Date(dateString);
+  console.log('🔍 parseEventDate: standard parsing result:', result);
+  return result;
 }
 
 /**
