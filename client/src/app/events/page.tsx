@@ -20,41 +20,41 @@ function FeaturedEventSection({ event }: { event: Event }) {
           <div className="w-full lg:w-[30%] flex flex-col justify-center space-y-4 lg:space-y-6">
             
             {/* Location Card */}
-            <div className="w-full h-[70px] rounded-xl border-2 border-[#264065] bg-white flex items-center gap-3 px-3 hover:shadow-md transition-shadow duration-300">
+            <div className="w-full h-[70px] rounded-xl border-2 border-[#264065] bg-white flex items-center gap-4 px-4 hover:shadow-md transition-shadow duration-300">
               <Image src="/assets/location-orange.jpg" alt="Location" width={32} height={32} unoptimized className="w-8 h-8 flex-shrink-0"/>
-              <span className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base font-bold text-[#034833] truncate">
+              <span className="font-['Poppins'] text-base sm:text-lg font-bold text-[#034833] truncate">
                 {event.location || event.contactLocation}
               </span>
             </div>
 
             {/* Date Card */}
-            <div className="w-full h-[70px] rounded-xl border-2 border-[#264065] bg-white flex items-center gap-3 px-3 hover:shadow-md transition-shadow duration-300">
+            <div className="w-full h-[70px] rounded-xl border-2 border-[#264065] bg-white flex items-center gap-4 px-4 hover:shadow-md transition-shadow duration-300">
               <div className="w-8 h-8 bg-[#C88652] rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                 </svg>
               </div>
-              <span className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base font-bold text-[#034833] truncate">
+              <span className="font-['Poppins'] text-base sm:text-lg font-bold text-[#034833] truncate">
                 {event.eventDate}
               </span>
             </div>
 
             {/* Time Card */}
-            <div className="w-full h-[70px] rounded-xl border-2 border-[#264065] bg-white flex items-center gap-3 px-3 hover:shadow-md transition-shadow duration-300">
+            <div className="w-full h-[70px] rounded-xl border-2 border-[#264065] bg-white flex items-center gap-4 px-4 hover:shadow-md transition-shadow duration-300">
               <Image src="/assets/clock-orange.jpg" alt="Time" width={32} height={32} unoptimized className="w-8 h-8 flex-shrink-0"/>
-              <span className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base font-bold text-[#034833] truncate">
+              <span className="font-['Poppins'] text-base sm:text-lg font-bold text-[#034833] truncate">
                 {event.contactTime || 'TBA'}
               </span>
             </div>
 
             {/* Participants Card */}
-            <div className="w-full h-[70px] rounded-xl border-2 border-[#264065] bg-white flex items-center gap-3 px-3 hover:shadow-md transition-shadow duration-300">
+            <div className="w-full h-[70px] rounded-xl border-2 border-[#264065] bg-white flex items-center gap-4 px-4 hover:shadow-md transition-shadow duration-300">
               <div className="w-8 h-8 bg-[#264065] rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                 </svg>
               </div>
-              <span className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base font-bold text-[#034833] truncate">
+              <span className="font-['Poppins'] text-base sm:text-lg font-bold text-[#034833] truncate">
                 {event.participantsCount || '200+'} Attendees
               </span>
             </div>
@@ -92,13 +92,6 @@ function FeaturedEventSection({ event }: { event: Event }) {
                   sizes="(max-width: 1024px) 100vw, 80vw"
                 />
               )}
-              
-              {/* Featured Event Badge */}
-              <div className="absolute top-6 left-6 z-20">
-                <div className="bg-white/90 backdrop-blur-sm text-[#264065] px-4 py-2 rounded-full text-sm font-semibold font-['Poppins'] shadow-lg">
-                  Featured Event
-                </div>
-              </div>
               
               {/* Optional Dark Overlay for Better Text Readability */}
               <div className="absolute inset-0 bg-black/10 rounded-2xl"></div>
