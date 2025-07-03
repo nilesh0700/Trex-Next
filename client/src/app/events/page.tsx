@@ -215,68 +215,132 @@ function EventCard({ event }: { event: Event }) {
   const actionConfig = getEventActionConfig(event.eventDate);
 
   return (
-    <Link href={`/events/${event.slug}`} className={`block group ${stateStyles.container}`}>
-      <div className="relative w-full h-[300px] sm:h-[350px] rounded-2xl overflow-hidden bg-black">
-        {/* Media Content */}
-        {event.mediaType === 'video' && event.image ? (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={`absolute inset-0 w-full h-full object-cover ${stateStyles.image}`}
-          >
-            <source src={event.image} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        ) : event.mediaType === 'video_url' && event.videoUrl ? (
-          <iframe
-            src={event.videoUrl}
-            className={`absolute inset-0 w-full h-full border-0 scale-125 ${stateStyles.image}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          <Image
-            src={event.image}
-            alt={event.imageAlt}
-            fill
-            className={`object-cover ${stateStyles.image}`}
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        )}
-
-        {/* Event State Badge */}
-        {actionConfig.badgeText && (
-          <div className="absolute top-4 left-4 z-20">
-            <div className={`
-              ${actionConfig.badgeColor} text-white px-3 py-1 rounded-full text-sm font-semibold font-['Inter'] 
-              shadow-lg backdrop-blur-sm bg-opacity-90 border border-white/20
-              ${actionConfig.state === 'ongoing' ? 'animate-pulse shadow-red-500/30' : ''}
+    <Link href={`/events/${event.slug}`} className="group relative h-full">
+      {/* Premium Card Container with Consistent Height */}
+      <div className={`
+        h-full bg-white rounded-2xl overflow-hidden 
+        shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]
+        border border-slate-200/60 hover:border-slate-300/60
+        transition-all duration-500 ease-out
+        transform hover:-translate-y-1 hover:scale-[1.02]
+        flex flex-col
+        ${stateStyles.container}
+      `}>
+        
+        {/* Media Section with Fixed Aspect Ratio */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-[#264065] to-[#1a2d47] flex-shrink-0">
+          {/* Event Image/Media */}
+          {event.mediaType === 'video' && event.image ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src={event.image} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : event.mediaType === 'video_url' && event.videoUrl ? (
+            <iframe
+              src={event.videoUrl}
+              className="absolute inset-0 w-full h-full border-0 scale-125"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <Image
+              src={event.image}
+              alt={event.imageAlt || event.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          )}
+          
+          {/* Event State Badge */}
+          {actionConfig.badgeText && (
+            <div className="absolute top-4 left-4 z-10">
+              <div className={`
+                ${actionConfig.badgeColor} text-white px-3 py-1.5 rounded-lg text-xs font-semibold font-['Poppins'] 
+                shadow-lg backdrop-blur-sm bg-opacity-95 border border-white/20
+                ${actionConfig.state === 'ongoing' ? 'animate-pulse' : ''}
+              `}>
+                {actionConfig.badgeText}
+              </div>
+            </div>
+          )}
+        </div>
+        
+        {/* Content Section with Flexible Structure */}
+        <div className="p-6 flex flex-col flex-grow min-h-0">
+          
+          {/* Title Section */}
+          <div className="mb-4 flex-shrink-0">
+            <h3 className={`
+              text-xl font-bold font-['Poppins'] leading-tight mb-2
+              transition-colors duration-300 line-clamp-2
+              text-[#264065] group-hover:text-[#C88652]
             `}>
-              {actionConfig.badgeText}
-            </div>
-          </div>
-        )}
-
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent transition-opacity group-hover:opacity-75"></div>
-
-        {/* Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-sm">
-              <svg className="w-4 h-4 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
-              <span className="font-medium">{formatDateSimple(event.eventDate)}</span>
-            </div>
-            <h3 className="text-xl sm:text-2xl font-bold font-['Poppins'] leading-tight group-hover:text-[#C88652] transition-colors">
               {event.title}
             </h3>
-            <p className="text-sm text-gray-300 line-clamp-2">
+            <p className="text-sm text-slate-500 line-clamp-2">
               {event.description}
             </p>
+          </div>
+
+          {/* Event Details - Flexible Space */}
+          <div className="space-y-3 mb-4 flex-grow">
+            {/* Date */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#C88652]/10">
+                <svg className="w-4 h-4 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <span className="text-sm font-medium font-['Poppins'] text-slate-500">
+                {formatDateSimple(event.eventDate)}
+              </span>
+            </div>
+            
+            {/* Location */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#264065]/10">
+                <svg className="w-4 h-4 text-[#264065]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <span className="text-sm font-medium font-['Poppins'] text-slate-500">
+                {event.location || 'Location TBA'}
+              </span>
+            </div>
+
+            {/* Participants */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#264065]/10">
+                <svg className="w-4 h-4 text-[#264065]" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                </svg>
+              </div>
+              <span className="text-sm font-medium font-['Poppins'] text-slate-500">
+                {event.participantsCount ? `${event.participantsCount} Attendees` : 'Registration Opening Soon'}
+              </span>
+            </div>
+          </div>
+          
+          {/* CTA Section - Always at Bottom */}
+          <div className="mt-auto pt-4 border-t border-slate-100 flex-shrink-0">
+            <button
+              className={`
+                w-full px-4 py-3 rounded-xl font-semibold font-['Poppins'] text-sm
+                ${actionConfig.state === 'upcoming' ? 'bg-[#C88652] text-white hover:bg-[#b77a4a]' : 
+                  actionConfig.state === 'ongoing' ? 'bg-red-500 text-white hover:bg-red-600' :
+                  'bg-slate-100 text-slate-600 hover:bg-slate-200'}
+                transition-all duration-300
+              `}
+            >
+              {actionConfig.primaryAction.text}
+            </button>
           </div>
         </div>
       </div>
