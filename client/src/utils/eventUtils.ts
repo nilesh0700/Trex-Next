@@ -3,6 +3,48 @@
  */
 
 /**
+ * Simple date formatting that displays dates like "13th July, 2025"
+ * No timezone considerations, just direct formatting
+ */
+export function formatDateSimple(dateString: string): string {
+  // If it's already in a readable format, return as-is
+  if (dateString.includes(',') || dateString.includes('th') || dateString.includes('st') || dateString.includes('nd') || dateString.includes('rd')) {
+    return dateString;
+  }
+  
+  // Parse the date string (assuming YYYY-MM-DD format from CMS)
+  const date = new Date(dateString);
+  
+  // Check if date is valid
+  if (isNaN(date.getTime())) {
+    return dateString; // Return original if parsing fails
+  }
+  
+  // Get day with ordinal suffix
+  const day = date.getDate();
+  const getOrdinalSuffix = (day: number) => {
+    if (day > 3 && day < 21) return 'th';
+    switch (day % 10) {
+      case 1: return 'st';
+      case 2: return 'nd';
+      case 3: return 'rd';
+      default: return 'th';
+    }
+  };
+  
+  // Get month name
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  
+  return `${day}${getOrdinalSuffix(day)} ${month}, ${year}`;
+}
+
+/**
  * Parse date string safely without timezone issues
  * Ensures consistent date display across all components
  */

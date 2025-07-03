@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Event } from '@/types/strapi';
-import { formatEventDate } from '@/utils/eventUtils';
+import { formatEventDate, formatDateSimple } from '@/utils/eventUtils';
 
 interface EventCTAProps {
   event: Event;
@@ -103,7 +103,7 @@ const EventCTA = ({ event }: EventCTAProps) => {
                     </svg>
                   </div>
                   <span className="text-white font-medium text-sm sm:text-base lg:text-lg">
-                    {formatEventDate(event.eventDate)}
+                    {formatDateSimple(event.eventDate)}
                   </span>
                 </div>
               </div>

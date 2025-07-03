@@ -6,7 +6,7 @@ import RegistrationButton from '@/components/RegistrationButton';
 import SmartEventButton from '@/components/SmartEventButton';
 import { getFeaturedEvents, getRegularEvents } from '@/lib/strapi';
 import { Event } from '@/types/strapi';
-import { getEventStateStyles, getEventActionConfig, formatEventDate } from '@/utils/eventUtils';
+import { formatEventDateWithStatus, getEventStateStyles, getEventActionConfig, formatDateSimple } from '@/utils/eventUtils';
 
 // Featured Event Component
 function FeaturedEventSection({ event }: { event: Event }) {
@@ -38,7 +38,7 @@ function FeaturedEventSection({ event }: { event: Event }) {
                 </svg>
               </div>
               <span className="font-['Plus_Jakarta_Sans'] text-sm sm:text-base font-bold text-[#034833] truncate">
-                {formatEventDate(event.eventDate)}
+                {formatDateSimple(event.eventDate)}
               </span>
             </div>
 
@@ -269,7 +269,7 @@ function EventCard({ event }: { event: Event }) {
               <svg className="w-4 h-4 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
               </svg>
-              <span className="font-medium">{formatEventDate(event.eventDate)}</span>
+              <span className="font-medium">{formatDateSimple(event.eventDate)}</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold font-['Poppins'] leading-tight group-hover:text-[#C88652] transition-colors">
               {event.title}
