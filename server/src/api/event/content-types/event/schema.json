@@ -149,6 +149,38 @@
     "google_maps_embed_url": {
       "type": "text",
       "required": false
+    },
+    "why_city_section_title": {
+      "type": "string",
+      "default": "Why {city_name}?",
+      "description": "Main heading for the Why City section. Use {city_name} placeholder for dynamic replacement"
+    },
+    "why_city_section_badge_text": {
+      "type": "string",
+      "default": "Market Opportunity",
+      "description": "Text displayed in the orange badge above the main heading"
+    },
+    "why_city_section_description": {
+      "type": "text",
+      "default": "Discover India's fastest-growing business destination where opportunity meets infrastructure",
+      "description": "Description text below the main heading"
+    },
+    "city_statistics": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.city-statistic",
+      "description": "Key statistics about the city (displayed in the top row of cards)"
+    },
+    "city_advantages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.city-advantage",
+      "description": "Detailed advantages of the city (displayed in the main advantage grid)"
+    },
+    "why_city_section_enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable/disable the Why City section for this event"
     }
   }
 } 

@@ -849,7 +849,7 @@ export default async function EventPage({ params }: EventPageProps) {
         <EventHeader event={event} />
         
         {/* 2. Why City Section */}
-        <WhyCitySection cityName={cityName} />
+        {event.whyCitySection && <WhyCitySection cityName={cityName} data={event.whyCitySection} />}
 
         {/* 3. Event Flow Section */}
         <EventFlowSection event={event} />

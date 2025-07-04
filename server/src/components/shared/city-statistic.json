@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_shared_city_statistics",
+  "info": {
+    "displayName": "City Statistic Card",
+    "description": "Individual statistic card for city data (e.g., Population, Income Rank, etc.)"
+  },
+  "options": {},
+  "attributes": {
+    "statistic_display_number": {
+      "type": "string",
+      "required": true,
+      "description": "The main number/value to display (e.g., '7.53M', '6th', '2nd')"
+    },
+    "statistic_description_label": {
+      "type": "string",
+      "required": true,
+      "description": "Description of what this statistic represents (e.g., 'Population by 2025', 'Highest Per Capita Income')"
+    },
+    "growth_or_rank_indicator": {
+      "type": "string",
+      "required": true,
+      "description": "Growth percentage or ranking context (e.g., '+40%', 'in India')"
+    },
+    "statistic_icon": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"],
+      "description": "Icon image for this statistic (PNG/SVG recommended)"
+    },
+    "icon_alt_text": {
+      "type": "string",
+      "description": "Alternative text for the icon for accessibility"
+    },
+    "display_order": {
+      "type": "integer",
+      "default": 1,
+      "description": "Order in which this statistic should appear (1, 2, 3, etc.)"
+    }
+  }
+} 

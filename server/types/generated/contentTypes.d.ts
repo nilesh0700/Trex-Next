@@ -545,6 +545,8 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::event-category.event-category'
     >;
+    city_advantages: Schema.Attribute.Component<'shared.city-advantage', true>;
+    city_statistics: Schema.Attribute.Component<'shared.city-statistic', true>;
     contact_email: Schema.Attribute.Email;
     contact_location: Schema.Attribute.String;
     contact_time: Schema.Attribute.String;
@@ -606,6 +608,14 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    why_city_section_badge_text: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Market Opportunity'>;
+    why_city_section_description: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<"Discover India's fastest-growing business destination where opportunity meets infrastructure">;
+    why_city_section_enabled: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    why_city_section_title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Why {city_name}?'>;
   };
 }
 

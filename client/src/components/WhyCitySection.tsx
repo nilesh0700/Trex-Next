@@ -1,81 +1,15 @@
 import React from 'react';
+import { WhyCitySection as WhyCitySectionType } from '@/types/strapi';
 
 interface WhyCitySectionProps {
   cityName: string;
+  data: WhyCitySectionType;
 }
 
-const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName }) => {
-  const cityStats = [
-    {
-      number: "7.53M",
-      label: "Population by 2025",
-      growth: "+40%",
-      icon: "/assets/globe-people.png"
-    },
-    {
-      number: "6th",
-      label: "Highest Per Capita Income",
-      growth: "in India",
-      icon: "/assets/currency.svg"
-    },
-    {
-      number: "2nd",
-      label: "Largest IT Hub",
-      growth: "in India",
-      icon: "/assets/graph-up.png"
-    }
-  ];
-
-  const cityAdvantages = [
-    {
-      title: "Strategic Market Position",
-      description: `${cityName} serves as the gateway to fast-rising Tier 3 hubs including Kolhapur, Satara, Nashik, Ahmednagar and Aurangabad.`,
-      detailedInfo: "Connect with 15+ emerging markets within 3-hour radius",
-      iconUrl: "/assets/globe.svg",
-      bgColor: "bg-gradient-to-br from-blue-50 to-indigo-100",
-      category: "location"
-    },
-    {
-      title: "Explosive Growth Demographics",
-      description: `Projected to become India's 7th largest metro by 2031 with unprecedented 40% per decade growth rate.`,
-      detailedInfo: "Young population with 65% under age 35 driving innovation",
-      iconUrl: "/assets/graph-up.png",
-      bgColor: "bg-gradient-to-br from-green-50 to-emerald-100",
-      category: "growth"
-    },
-    {
-      title: "Enhanced Air Connectivity",
-      description: `${cityName} Airport's expanding network plus proximity to Mumbai creates unparalleled accessibility for business growth.`,
-      detailedInfo: "Direct flights to 40+ domestic and 12+ international destinations",
-      iconUrl: "/assets/flight-globe.svg",
-      bgColor: "bg-gradient-to-br from-orange-50 to-amber-100",
-      category: "connectivity"
-    },
-    {
-      title: "Thriving Business Ecosystem",
-      description: "Strong manufacturing base in automobile and engineering sectors creates robust employment and economic foundation.",
-      detailedInfo: "Home to 500+ Fortune companies and growing startup ecosystem",
-      iconUrl: "/assets/hand-bond.png",
-      bgColor: "bg-gradient-to-br from-purple-50 to-violet-100",
-      category: "business"
-    },
-    {
-      title: "Rising Travel Market",
-      description: "Thousands of growing travel agents, tour operators, and institutional buyers with increasing disposable income.",
-      detailedInfo: "Travel spend growing 25% annually with focus on premium experiences",
-      iconUrl: "/assets/user-tick.png",
-      bgColor: "bg-gradient-to-br from-teal-50 to-cyan-100",
-      category: "market"
-    },
-    {
-      title: "Infrastructure Excellence",
-      description: `World-class hospitality services, exhibition infrastructure, and seamless road connectivity position ${cityName} as the ideal business destination.`,
-      detailedInfo: "5-star venues, modern conference facilities, and premium accommodations",
-      iconUrl: "/assets/badge.svg",
-      bgColor: "bg-gradient-to-br from-rose-50 to-pink-100",
-      category: "infrastructure"
-    }
-  ];
+const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName, data }) => {
+  // Use dynamic data from CMS, sorted by display order
+  const cityStats = data.cityStatistics.sort((a, b) => (a.order || 0) - (b.order || 0));
+  const cityAdvantages = data.cityAdvantages.sort((a, b) => (a.order || 0) - (b.order || 0));
 
   return (
     <section className="w-full py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
@@ -101,16 +35,23 @@ const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName }) => {
         {/* Hero Introduction */}
         <div className="text-center mb-16 lg:mb-20">
           <div className="inline-block bg-[#C88652] text-white px-6 py-2 rounded-full text-sm font-bold mb-6 uppercase tracking-wide animate-pulse">
-            Market Opportunity
+            {data.badgeText}
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#264065] mb-6 font-['Poppins'] leading-tight">
-            Why <span className="text-[#C88652] relative">
-              {cityName}
-              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-[#C88652] to-[#264065] rounded-full"></div>
-            </span> ?
+            {data.title.replace('{city_name}', cityName).split(cityName).map((part, index) => (
+              index === 0 ? part : (
+                <span key={index}>
+                  <span className="text-[#C88652] relative">
+                    {cityName}
+                    <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-[#C88652] to-[#264065] rounded-full"></div>
+                  </span>
+                  {part}
+                </span>
+              )
+            ))}
           </h2>
           <p className="text-xl lg:text-2xl text-gray-600 font-['Poppins'] max-w-4xl mx-auto leading-relaxed">
-            Discover India's fastest-growing business destination where opportunity meets infrastructure
+            {data.description}
           </p>
         </div>
 

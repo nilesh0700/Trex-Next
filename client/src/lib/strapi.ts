@@ -17,7 +17,12 @@ import {
   StrapiNewsContentBlock,
   NewsContentBlock,
   StrapiRegistrationConfig,
-  RegistrationConfig
+  RegistrationConfig,
+  StrapiCityStatistic,
+  StrapiCityAdvantage,
+  CityStatistic,
+  CityAdvantage,
+  WhyCitySection
 } from "@/types/strapi";
 
 const BASE_URL = getStrapiURL();
@@ -55,6 +60,68 @@ function transformEventFlowItem(strapiItem: any): EventFlowItem {
     description: strapiItem.description,
     day: strapiItem.day,
     icon: strapiItem.icon
+  };
+}
+
+// Transform Why City Section components
+function transformCityStatistic(strapiStat: StrapiCityStatistic): CityStatistic {
+  const iconUrl = strapiStat.statistic_icon?.url 
+    ? (strapiStat.statistic_icon.url.startsWith('http') 
+        ? strapiStat.statistic_icon.url 
+        : `${BASE_URL}${strapiStat.statistic_icon.url}`)
+    : "/assets/globe-people.png"; // Fallback icon
+
+  return {
+    id: strapiStat.id,
+    number: strapiStat.statistic_display_number,
+    label: strapiStat.statistic_description_label,
+    growth: strapiStat.growth_or_rank_indicator,
+    icon: iconUrl,
+    iconAlt: strapiStat.icon_alt_text,
+    order: strapiStat.display_order
+  };
+}
+
+function transformCityAdvantage(strapiAdvantage: StrapiCityAdvantage): CityAdvantage {
+  const iconUrl = strapiAdvantage.advantage_icon?.url 
+    ? (strapiAdvantage.advantage_icon.url.startsWith('http') 
+        ? strapiAdvantage.advantage_icon.url 
+        : `${BASE_URL}${strapiAdvantage.advantage_icon.url}`)
+    : "/assets/globe.svg"; // Fallback icon
+
+  return {
+    id: strapiAdvantage.id,
+    title: strapiAdvantage.advantage_title,
+    description: strapiAdvantage.advantage_main_description,
+    detailedInfo: strapiAdvantage.advantage_detailed_info,
+    iconUrl: iconUrl,
+    iconAlt: strapiAdvantage.icon_alt_text,
+    bgColor: strapiAdvantage.card_background_color,
+    category: strapiAdvantage.advantage_category_tag,
+    order: strapiAdvantage.display_order
+  };
+}
+
+function transformWhyCitySection(strapiEvent: StrapiEvent): WhyCitySection | undefined {
+  if (!strapiEvent.why_city_section_enabled) {
+    return undefined;
+  }
+
+  const cityStatistics = (strapiEvent.city_statistics || [])
+    .map(transformCityStatistic)
+    .sort((a, b) => (a.order || 0) - (b.order || 0));
+
+  const cityAdvantages = (strapiEvent.city_advantages || [])
+    .map(transformCityAdvantage)
+    .sort((a, b) => (a.order || 0) - (b.order || 0));
+
+  return {
+    title: strapiEvent.why_city_section_title,
+    badgeText: strapiEvent.why_city_section_badge_text,
+    description: strapiEvent.why_city_section_description,
+    cityStatistics,
+    cityAdvantages,
+    enabled: strapiEvent.why_city_section_enabled
   };
 }
 
@@ -256,6 +323,7 @@ function transformEvent(strapiEvent: StrapiEvent): Event {
     eventFlowTitle: strapiEvent.event_flow_title || "Event Flow",
     eventFlowDescription: strapiEvent.event_flow_description || "Two Days of Intensive Networking and Business Development",
     googleMapsEmbedUrl: strapiEvent.google_maps_embed_url,
+    whyCitySection: transformWhyCitySection(strapiEvent),
     publishedAt: strapiEvent.publishedAt,
     createdAt: strapiEvent.createdAt,
     updatedAt: strapiEvent.updatedAt,
@@ -587,8 +655,22 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
       target_cities: "*",
       pricing_packages: "*",
       event_flow_items: "*",
+      city_statistics: {
+        populate: {
+          statistic_icon: {
+            fields: ["url", "alternativeText", "name"],
+          },
+        },
+      },
+      city_advantages: {
+        populate: {
+          advantage_icon: {
+            fields: ["url", "alternativeText", "name"],
+          },
+        },
+      },
     },
-    fields: ["id", "documentId", "title", "slug", "description", "content", "featured", "event_date", "location", "participants_count", "registration_link", "contact_email", "contact_time", "contact_location", "event_heading", "event_subheading", "media_type", "featured_video_url", "overlay_text", "event_status"],
+    fields: ["id", "documentId", "title", "slug", "description", "content", "featured", "event_date", "location", "participants_count", "registration_link", "contact_email", "contact_time", "contact_location", "event_heading", "event_subheading", "media_type", "featured_video_url", "overlay_text", "event_status", "why_city_section_title", "why_city_section_badge_text", "why_city_section_description", "why_city_section_enabled"],
   };
 
   url.search = qs.stringify(queryParams, { encodeValuesOnly: true });

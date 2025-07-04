@@ -97,6 +97,29 @@ export interface StrapiEventFlowItem {
   icon: string;
 }
 
+// Why City Section component interfaces
+export interface StrapiCityStatistic {
+  id: number;
+  statistic_display_number: string;
+  statistic_description_label: string;
+  growth_or_rank_indicator: string;
+  statistic_icon: StrapiImage | null;
+  icon_alt_text?: string;
+  display_order?: number;
+}
+
+export interface StrapiCityAdvantage {
+  id: number;
+  advantage_title: string;
+  advantage_main_description: string;
+  advantage_detailed_info: string;
+  advantage_icon: StrapiImage | null;
+  icon_alt_text?: string;
+  card_background_color: string;
+  advantage_category_tag: string;
+  display_order?: number;
+}
+
 export interface StrapiEvent {
   id: number;
   documentId: string;
@@ -132,6 +155,12 @@ export interface StrapiEvent {
   event_flow_title: string;
   event_flow_description: string;
   google_maps_embed_url?: string;
+  why_city_section_title: string;
+  why_city_section_badge_text: string;
+  why_city_section_description: string;
+  city_statistics: StrapiCityStatistic[];
+  city_advantages: StrapiCityAdvantage[];
+  why_city_section_enabled: boolean;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -253,6 +282,38 @@ export interface EventFlowItem {
   icon: string;
 }
 
+// Why City Section frontend interfaces  
+export interface CityStatistic {
+  id: number;
+  number: string;
+  label: string;
+  growth: string;
+  icon: string;
+  iconAlt?: string;
+  order?: number;
+}
+
+export interface CityAdvantage {
+  id: number;
+  title: string;
+  description: string;
+  detailedInfo: string;
+  iconUrl: string;
+  iconAlt?: string;
+  bgColor: string;
+  category: string;
+  order?: number;
+}
+
+export interface WhyCitySection {
+  title: string;
+  badgeText: string;
+  description: string;
+  cityStatistics: CityStatistic[];
+  cityAdvantages: CityAdvantage[];
+  enabled: boolean;
+}
+
 export interface Event {
   id: number;
   documentId: string;
@@ -298,6 +359,7 @@ export interface Event {
   eventFlowTitle: string;
   eventFlowDescription: string;
   googleMapsEmbedUrl?: string;
+  whyCitySection?: WhyCitySection;
   publishedAt: string;
   createdAt: string;
   updatedAt: string;

@@ -28,6 +28,70 @@ export interface ContentNewsContentBlock extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedCityAdvantage extends Struct.ComponentSchema {
+  collectionName: 'components_shared_city_advantages';
+  info: {
+    description: 'Individual advantage card highlighting city benefits (e.g., Strategic Position, Growth, etc.)';
+    displayName: 'City Advantage Card';
+  };
+  attributes: {
+    advantage_category_tag: Schema.Attribute.Enumeration<
+      [
+        'location',
+        'growth',
+        'connectivity',
+        'business',
+        'market',
+        'infrastructure',
+        'technology',
+        'economy',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'business'>;
+    advantage_detailed_info: Schema.Attribute.Text & Schema.Attribute.Required;
+    advantage_icon: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.Required;
+    advantage_main_description: Schema.Attribute.Text &
+      Schema.Attribute.Required;
+    advantage_title: Schema.Attribute.String & Schema.Attribute.Required;
+    card_background_color: Schema.Attribute.Enumeration<
+      [
+        'bg-gradient-to-br from-blue-50 to-indigo-100',
+        'bg-gradient-to-br from-green-50 to-emerald-100',
+        'bg-gradient-to-br from-orange-50 to-amber-100',
+        'bg-gradient-to-br from-purple-50 to-violet-100',
+        'bg-gradient-to-br from-teal-50 to-cyan-100',
+        'bg-gradient-to-br from-rose-50 to-pink-100',
+        'bg-gradient-to-br from-yellow-50 to-orange-100',
+        'bg-gradient-to-br from-cyan-50 to-blue-100',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'bg-gradient-to-br from-blue-50 to-indigo-100'>;
+    display_order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    icon_alt_text: Schema.Attribute.String;
+  };
+}
+
+export interface SharedCityStatistic extends Struct.ComponentSchema {
+  collectionName: 'components_shared_city_statistics';
+  info: {
+    description: 'Individual statistic card for city data (e.g., Population, Income Rank, etc.)';
+    displayName: 'City Statistic Card';
+  };
+  attributes: {
+    display_order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    growth_or_rank_indicator: Schema.Attribute.String &
+      Schema.Attribute.Required;
+    icon_alt_text: Schema.Attribute.String;
+    statistic_description_label: Schema.Attribute.String &
+      Schema.Attribute.Required;
+    statistic_display_number: Schema.Attribute.String &
+      Schema.Attribute.Required;
+    statistic_icon: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.Required;
+  };
+}
+
 export interface SharedEventFlowItem extends Struct.ComponentSchema {
   collectionName: 'components_shared_event_flow_items';
   info: {
@@ -88,6 +152,8 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.news-content-block': ContentNewsContentBlock;
+      'shared.city-advantage': SharedCityAdvantage;
+      'shared.city-statistic': SharedCityStatistic;
       'shared.event-flow-item': SharedEventFlowItem;
       'shared.pricing-package': SharedPricingPackage;
       'shared.target-city': SharedTargetCity;

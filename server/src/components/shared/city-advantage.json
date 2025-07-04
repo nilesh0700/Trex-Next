@@ -1,0 +1,71 @@
+{
+  "collectionName": "components_shared_city_advantages",
+  "info": {
+    "displayName": "City Advantage Card",
+    "description": "Individual advantage card highlighting city benefits (e.g., Strategic Position, Growth, etc.)"
+  },
+  "options": {},
+  "attributes": {
+    "advantage_title": {
+      "type": "string",
+      "required": true,
+      "description": "Main title of the advantage (e.g., 'Strategic Market Position', 'Explosive Growth Demographics')"
+    },
+    "advantage_main_description": {
+      "type": "text",
+      "required": true,
+      "description": "Primary description text explaining this advantage"
+    },
+    "advantage_detailed_info": {
+      "type": "text",
+      "required": true,
+      "description": "Additional detailed information shown on hover (e.g., 'Connect with 15+ emerging markets within 3-hour radius')"
+    },
+    "advantage_icon": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"],
+      "description": "Icon image for this advantage (PNG/SVG recommended)"
+    },
+    "icon_alt_text": {
+      "type": "string",
+      "description": "Alternative text for the icon for accessibility"
+    },
+    "card_background_color": {
+      "type": "enumeration",
+      "enum": [
+        "bg-gradient-to-br from-blue-50 to-indigo-100",
+        "bg-gradient-to-br from-green-50 to-emerald-100",
+        "bg-gradient-to-br from-orange-50 to-amber-100",
+        "bg-gradient-to-br from-purple-50 to-violet-100",
+        "bg-gradient-to-br from-teal-50 to-cyan-100",
+        "bg-gradient-to-br from-rose-50 to-pink-100",
+        "bg-gradient-to-br from-yellow-50 to-orange-100",
+        "bg-gradient-to-br from-cyan-50 to-blue-100"
+      ],
+      "default": "bg-gradient-to-br from-blue-50 to-indigo-100",
+      "description": "Background gradient color for the advantage card"
+    },
+    "advantage_category_tag": {
+      "type": "enumeration",
+      "enum": [
+        "location",
+        "growth",
+        "connectivity",
+        "business",
+        "market",
+        "infrastructure",
+        "technology",
+        "economy"
+      ],
+      "default": "business",
+      "description": "Category tag displayed on the advantage card"
+    },
+    "display_order": {
+      "type": "integer",
+      "default": 1,
+      "description": "Order in which this advantage should appear (1, 2, 3, etc.)"
+    }
+  }
+} 
