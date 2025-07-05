@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Card, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import useEmblaCarousel from 'embla-carousel-react';
-import { EmblaOptionsType } from 'embla-carousel';
-import { Testimonial as StrapiTestimonial } from '@/types/strapi';
+import { useState, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Card, CardContent } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import useEmblaCarousel from "embla-carousel-react";
+import { EmblaOptionsType } from "embla-carousel";
+import { Testimonial as StrapiTestimonial } from "@/types/strapi";
 
 interface TestimonialsSectionProps {
   data: {
@@ -17,25 +17,29 @@ interface TestimonialsSectionProps {
   };
 }
 
-const TestimonialsSection = ({ 
-  data,
-}: TestimonialsSectionProps) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { 
-      loop: true,
-      align: 'start',
-      skipSnaps: false,
-      dragFree: false,
-    } as EmblaOptionsType
-  );
+const TestimonialsSection = ({ data }: TestimonialsSectionProps) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "start",
+    skipSnaps: false,
+    dragFree: false,
+    containScroll: "keepSnaps",
+    startIndex: 0
+  } as EmblaOptionsType);
 
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+  const scrollPrev = useCallback(
+    () => emblaApi && emblaApi.scrollPrev(),
+    [emblaApi]
+  );
+  const scrollNext = useCallback(
+    () => emblaApi && emblaApi.scrollNext(),
+    [emblaApi]
+  );
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -47,8 +51,8 @@ const TestimonialsSection = ({
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
-    emblaApi.on('select', onSelect);
-    emblaApi.on('reInit', onSelect);
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
   }, [emblaApi, onSelect]);
 
   // Autoplay functionality
@@ -68,26 +72,38 @@ const TestimonialsSection = ({
 
   return (
     <div className="relative w-full max-w-7xl mx-auto px-6 py-16">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          {data.title}
+      {/* Section Title */}
+      <div className="text-center mb-8 sm:mb-12 lg:mb-16 flex flex-col items-center justify-center gap-4">
+        <h2
+          className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold text-[#264065] mb-4 animate-fadeInUp"
+          style={{
+            animationDelay: "0.1s",
+            animationFillMode: "both",
+          }}
+        >
+          Our Happy Customers
         </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          {data.description}
-        </p>
+        <div
+          className=" mt- w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-[#264065] to-[#C88652] mx-auto animate-slideInLeft"
+          style={{
+            animationDelay: "0.3s",
+            animationFillMode: "both",
+          }}
+        ></div>
       </div>
 
-      <div 
-        className="relative px-12 py-16"
+      <div
+        className="relative px-6 py-16"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex -ml-6">
+          <div className="flex">
             {data.testimonials.map((testimonial) => (
-              <div 
-                key={testimonial.id} 
+              <div
+                key={testimonial.id}
                 className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 pl-6 pb-8"
+                style={{ paddingRight: "14px" }}
               >
                 <Card className="h-full bg-white shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 group">
                   <CardContent className="p-8 h-full flex flex-col">
@@ -95,7 +111,7 @@ const TestimonialsSection = ({
                     <div className="flex-grow mb-8">
                       <div className="mb-6">
                         <svg
-                          className="w-10 h-10 text-blue-600 mb-6 opacity-80"
+                          className="w-10 h-10 text-[#C88652] mb-6 opacity-80"
                           fill="currentColor"
                           viewBox="0 0 24 24"
                         >
@@ -116,7 +132,10 @@ const TestimonialsSection = ({
                         {testimonial.authorImage && (
                           <img
                             src={testimonial.authorImage}
-                            alt={testimonial.authorImageAlt || testimonial.authorName}
+                            alt={
+                              testimonial.authorImageAlt ||
+                              testimonial.authorName
+                            }
                             className="w-16 h-16 rounded-full object-cover border-2 border-gray-100"
                           />
                         )}
@@ -125,7 +144,7 @@ const TestimonialsSection = ({
                         <h4 className="font-bold text-gray-900 text-lg mb-1 truncate">
                           {testimonial.authorName}
                         </h4>
-                        <p className="text-blue-600 font-semibold text-sm mb-1 truncate">
+                        <p className="text-[#C88652] font-semibold text-sm mb-1 truncate">
                           {testimonial.authorTitle}
                         </p>
                         <p className="text-gray-500 text-sm truncate">
@@ -168,21 +187,23 @@ const TestimonialsSection = ({
       {/* Dots Indicator */}
       {showNavigation && (
         <div className="flex justify-center space-x-3 mt-8">
-          {data.testimonials.slice(0, Math.ceil(data.testimonials.length / 3)).map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                Math.floor(selectedIndex / 3) === index
-                  ? 'bg-blue-600 scale-125 shadow-md'
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-              onClick={() => emblaApi && emblaApi.scrollTo(index * 3)}
-            />
-          ))}
+          {data.testimonials
+            .slice(0, Math.ceil(data.testimonials.length / 3))
+            .map((_, index) => (
+              <button
+                key={index}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  Math.floor(selectedIndex / 3) === index
+                    ? "bg-[#264065] scale-125 shadow-md"
+                    : "bg-gray-200 hover:bg-gray-300"
+                }`}
+                onClick={() => emblaApi && emblaApi.scrollTo(index * 3)}
+              />
+            ))}
         </div>
       )}
     </div>
   );
 };
 
-export default TestimonialsSection; 
+export default TestimonialsSection;
