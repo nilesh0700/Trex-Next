@@ -115,7 +115,6 @@ export interface StrapiCityAdvantage {
   advantage_detailed_info: string;
   advantage_icon: StrapiImage | null;
   icon_alt_text?: string;
-  card_background_color: string;
   advantage_category_tag: string;
   display_order?: number;
 }
@@ -300,7 +299,6 @@ export interface CityAdvantage {
   detailedInfo: string;
   iconUrl: string;
   iconAlt?: string;
-  bgColor: string;
   category: string;
   order?: number;
 }

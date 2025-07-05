@@ -11,6 +11,21 @@ const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName, data }) => {
   const cityStats = data.cityStatistics.sort((a, b) => (a.order || 0) - (b.order || 0));
   const cityAdvantages = data.cityAdvantages.sort((a, b) => (a.order || 0) - (b.order || 0));
 
+  // Hardcoded gradient colors for city advantage cards
+  const getGradientColor = (index: number): string => {
+    const gradients = [
+      'bg-gradient-to-br from-blue-50 to-indigo-100',
+      'bg-gradient-to-br from-green-50 to-emerald-100',
+      'bg-gradient-to-br from-orange-50 to-amber-100',
+      'bg-gradient-to-br from-purple-50 to-violet-100',
+      'bg-gradient-to-br from-teal-50 to-cyan-100',
+      'bg-gradient-to-br from-rose-50 to-pink-100',
+      'bg-gradient-to-br from-yellow-50 to-orange-100',
+      'bg-gradient-to-br from-cyan-50 to-blue-100'
+    ];
+    return gradients[index % gradients.length];
+  };
+
   return (
     <section className="w-full py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
       {/* Background Elements */}
@@ -119,7 +134,7 @@ const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName, data }) => {
           {cityAdvantages.map((advantage, index) => (
             <div
               key={index}
-              className={`group ${advantage.bgColor} rounded-3xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-white/50 hover:border-[#C88652]/30 relative overflow-hidden`}
+              className={`group ${getGradientColor(index)} rounded-3xl p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-white/50 hover:border-[#C88652]/30 relative overflow-hidden`}
               style={{
                 animationDelay: `${0.5 + index * 0.15}s`
               }}
@@ -160,7 +175,7 @@ const WhyCitySection: React.FC<WhyCitySectionProps> = ({ cityName, data }) => {
                 </p>
 
                 {/* Detailed Info - Shows on Hover */}
-                <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-[#C88652]/20">
                     <div className="flex items-center gap-2 text-[#264065] font-semibold">
                       <svg className="w-5 h-5 text-[#C88652]" fill="currentColor" viewBox="0 0 20 20">

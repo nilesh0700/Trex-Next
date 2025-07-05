@@ -54,19 +54,6 @@ export interface SharedCityAdvantage extends Struct.ComponentSchema {
     advantage_main_description: Schema.Attribute.Text &
       Schema.Attribute.Required;
     advantage_title: Schema.Attribute.String & Schema.Attribute.Required;
-    card_background_color: Schema.Attribute.Enumeration<
-      [
-        'bg-gradient-to-br from-blue-50 to-indigo-100',
-        'bg-gradient-to-br from-green-50 to-emerald-100',
-        'bg-gradient-to-br from-orange-50 to-amber-100',
-        'bg-gradient-to-br from-purple-50 to-violet-100',
-        'bg-gradient-to-br from-teal-50 to-cyan-100',
-        'bg-gradient-to-br from-rose-50 to-pink-100',
-        'bg-gradient-to-br from-yellow-50 to-orange-100',
-        'bg-gradient-to-br from-cyan-50 to-blue-100',
-      ]
-    > &
-      Schema.Attribute.DefaultTo<'bg-gradient-to-br from-blue-50 to-indigo-100'>;
     display_order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     icon_alt_text: Schema.Attribute.String;
   };

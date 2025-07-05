@@ -96,7 +96,6 @@ function transformCityAdvantage(strapiAdvantage: StrapiCityAdvantage): CityAdvan
     detailedInfo: strapiAdvantage.advantage_detailed_info,
     iconUrl: iconUrl,
     iconAlt: strapiAdvantage.icon_alt_text,
-    bgColor: strapiAdvantage.card_background_color,
     category: strapiAdvantage.advantage_category_tag,
     order: strapiAdvantage.display_order
   };
