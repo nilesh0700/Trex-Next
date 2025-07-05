@@ -7,7 +7,7 @@ import MarketExpansion from '../components/MarketExpansion';
 import TestimonialsSection from '../components/TestimonialsSection';
 import EventCTA from '../components/EventCTA';
 import { getFeaturedEvents, getTestimonials } from '@/lib/strapi';
-
+import LogoMarquee from '@/components/LogoMarquee';
 export default async function Home() {
   // Fetch featured events and testimonials data
   const [featuredEventsData, testimonialsData] = await Promise.all([
@@ -22,7 +22,7 @@ export default async function Home() {
     <main className="min-h-screen">
       {/* Hero Section */}
       <Hero />
-      
+      <LogoMarquee />
       {/* Statistics Section */}
       <section className="bg-white">
         <Statistics />
