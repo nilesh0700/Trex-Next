@@ -22,7 +22,9 @@ import {
   StrapiCityAdvantage,
   CityStatistic,
   CityAdvantage,
-  WhyCitySection
+  WhyCitySection,
+  StrapiTestimonial,
+  Testimonial
 } from "@/types/strapi";
 
 const BASE_URL = getStrapiURL();
@@ -121,6 +123,27 @@ function transformWhyCitySection(strapiEvent: StrapiEvent): WhyCitySection | und
     cityStatistics,
     cityAdvantages,
     enabled: strapiEvent.why_city_section_enabled
+  };
+}
+
+// Transform Testimonial for standalone testimonials
+function transformTestimonial(strapiTestimonial: StrapiTestimonial): Testimonial {
+  const authorImageUrl = strapiTestimonial.author_image?.url 
+    ? (strapiTestimonial.author_image.url.startsWith('http') 
+        ? strapiTestimonial.author_image.url 
+        : `${BASE_URL}${strapiTestimonial.author_image.url}`)
+    : undefined;
+
+  return {
+    id: strapiTestimonial.id,
+    quote: strapiTestimonial.quote,
+    authorName: strapiTestimonial.author_name,
+    authorTitle: strapiTestimonial.author_title,
+    authorCompany: strapiTestimonial.author_company,
+    authorImage: authorImageUrl,
+    authorImageAlt: strapiTestimonial.author_image?.alternativeText || `${strapiTestimonial.author_name} profile`,
+    rating: strapiTestimonial.rating,
+    order: strapiTestimonial.display_order
   };
 }
 
@@ -1097,4 +1120,67 @@ export async function getRegistrationConfig(): Promise<RegistrationConfig | null
     console.error("Error fetching registration config:", error);
     return null;
   }
+}
+
+// ============= TESTIMONIALS FUNCTIONS =============
+
+// Get testimonials with pagination and filtering
+export async function getTestimonials(options: {
+  page?: number;
+  pageSize?: number;
+  featured?: boolean;
+  sort?: string;
+} = {}) {
+  const {
+    page = 1,
+    pageSize = 10,
+    featured,
+    sort = "display_order:asc"
+  } = options;
+
+  const url = new URL("/api/testimonials", BASE_URL);
+
+  const queryParams = {
+    sort: [sort],
+    pagination: {
+      page,
+      pageSize,
+    },
+    populate: {
+      author_image: {
+        fields: ["url", "alternativeText", "name"],
+      },
+    },
+    filters: {} as any,
+  };
+
+  // Add filters
+  if (featured !== undefined) {
+    queryParams.filters.featured = { $eq: featured };
+  }
+
+  url.search = qs.stringify(queryParams, { encodeValuesOnly: true });
+
+  try {
+    const response = await fetchAPI(url.href, { 
+      method: "GET",
+      next: { revalidate: 60 }
+    }) as StrapiCollectionResponse<StrapiTestimonial>;
+
+    return {
+      data: response.data.map(transformTestimonial),
+      meta: response.meta,
+    };
+  } catch (error) {
+    console.error("Error fetching testimonials:", error);
+    return {
+      data: [],
+      meta: { pagination: { page: 1, pageSize: 0, pageCount: 0, total: 0 } },
+    };
+  }
+}
+
+// Get featured testimonials for home page
+export async function getFeaturedTestimonials(limit: number = 6) {
+  return getTestimonials({ featured: true, pageSize: limit });
 }

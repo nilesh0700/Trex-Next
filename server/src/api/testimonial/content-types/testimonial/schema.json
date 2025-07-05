@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testimonials",
+  "info": {
+    "singularName": "testimonial",
+    "pluralName": "testimonials",
+    "displayName": "Testimonial",
+    "description": "Client testimonials and success stories"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quote": {
+      "type": "text",
+      "required": true,
+      "description": "The testimonial quote text"
+    },
+    "author_name": {
+      "type": "string",
+      "required": true,
+      "description": "Name of the person giving the testimonial"
+    },
+    "author_title": {
+      "type": "string",
+      "required": true,
+      "description": "Job title or position of the author"
+    },
+    "author_company": {
+      "type": "string",
+      "required": true,
+      "description": "Company or organization name"
+    },
+    "author_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Profile image of the testimonial author"
+    },
+    "rating": {
+      "type": "integer",
+      "required": false,
+      "min": 1,
+      "max": 5,
+      "default": 5,
+      "description": "Star rating (1-5 stars)"
+    },
+    "display_order": {
+      "type": "integer",
+      "default": 1,
+      "description": "Order in which this testimonial should appear"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this testimonial is featured on the home page"
+    }
+  }
+} 

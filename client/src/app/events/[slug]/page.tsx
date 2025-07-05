@@ -866,7 +866,6 @@ export default async function EventPage({ params }: EventPageProps) {
         {/* 7. Space and Proposal Section */}
         <SpaceProposalSection event={event} />
         
-        
         {/* 8. Google Maps Location Section */}
         <GoogleMapsSection event={event} />
         

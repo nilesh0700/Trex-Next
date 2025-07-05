@@ -119,6 +119,22 @@ export interface StrapiCityAdvantage {
   display_order?: number;
 }
 
+export interface StrapiTestimonial {
+  id: number;
+  documentId: string;
+  quote: string;
+  author_name: string;
+  author_title: string;
+  author_company: string;
+  author_image: StrapiImage | null;
+  rating?: number;
+  display_order?: number;
+  featured: boolean;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 export interface StrapiEvent {
   id: number;
   documentId: string;
@@ -310,6 +326,18 @@ export interface WhyCitySection {
   cityStatistics: CityStatistic[];
   cityAdvantages: CityAdvantage[];
   enabled: boolean;
+}
+
+export interface Testimonial {
+  id: number;
+  quote: string;
+  authorName: string;
+  authorTitle: string;
+  authorCompany: string;
+  authorImage?: string;
+  authorImageAlt?: string;
+  rating?: number;
+  order?: number;
 }
 
 export interface Event {

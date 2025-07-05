@@ -4,13 +4,19 @@ import Statistics from '../components/Statistics';
 import AboutUs from '../components/AboutUs';
 import KeyEventHighlights from '../components/KeyEventHighlights';
 import MarketExpansion from '../components/MarketExpansion';
+import TestimonialsSection from '../components/TestimonialsSection';
 import EventCTA from '../components/EventCTA';
-import { getFeaturedEvents } from '@/lib/strapi';
+import { getFeaturedEvents, getTestimonials } from '@/lib/strapi';
 
 export default async function Home() {
-  // Fetch featured events data
-  const featuredEventsData = await getFeaturedEvents(1);
+  // Fetch featured events and testimonials data
+  const [featuredEventsData, testimonialsData] = await Promise.all([
+    getFeaturedEvents(1),
+    getTestimonials({ pageSize: 10, sort: "display_order:asc" }) // Fetch all testimonials, not just featured ones
+  ]);
+  
   const featuredEvent = featuredEventsData.data[0];
+  const testimonials = testimonialsData.data;
 
   return (
     <main className="min-h-screen">
@@ -30,6 +36,16 @@ export default async function Home() {
 
       {/* Market Expansion Section */}
       <MarketExpansion />
+
+      {/* Testimonials Section */}
+      <TestimonialsSection
+        data={{
+          title: "What Our Clients Say",
+          description: "Hear from industry leaders who have experienced the power of our platform",
+          testimonials,
+          enabled: true
+        }}
+      />
 
       {/* Event CTA Section - Only show if there's a featured event */}
       {featuredEvent && <EventCTA event={featuredEvent} />}
