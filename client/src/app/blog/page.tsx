@@ -175,12 +175,14 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                                 <span className="text-sm font-medium text-[#264065] uppercase tracking-wide">
                                   Featured
                                 </span>
-                                <span className="text-gray-300">•</span>
                               </>
                             )}
-                            <span className="text-sm text-[#264065] font-medium">
-                              {post.category.name}
-                            </span>
+                            {post.category.name.toLowerCase() !== 'uncategorized' && (
+                              <span className="text-sm text-[#264065] font-medium">
+                                <span className="text-gray-300">•</span>
+                                {post.category.name}
+                              </span>
+                            )}
                             <span className="text-gray-300">•</span>
                             <span className="text-sm text-gray-500">
                               {new Date(post.publishedAt).toLocaleDateString('en-US', { 
@@ -252,6 +254,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                     {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                       const pageNum = i + 1;
                       return (
+                        
                         <Link key={pageNum} href={`/blog?page=${pageNum}${category ? `&category=${category}` : ''}${search ? `&search=${search}` : ''}`}>
                           <button
                             className={`w-10 h-10 rounded-lg font-medium transition-colors ${

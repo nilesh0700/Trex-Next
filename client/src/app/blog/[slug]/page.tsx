@@ -40,8 +40,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="w-full py-16 sm:py-20 md:py-24 mt-20" style={{backgroundColor: '#FAF8F5'}}>
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
           
-          {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-sm font-['Poppins'] mb-8">
+          {/* Mobile Back Button */}
+          <div className="block md:hidden mb-6">
+            <Link href="/blog" className="text-[#264065] hover:text-[#1a2d47] font-medium text-sm flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Blog
+            </Link>
+          </div>
+
+          {/* Desktop Breadcrumbs */}
+          <nav className="hidden md:flex items-center gap-2 text-sm font-['Poppins'] mb-8">
             <Link href="/" className="text-[#6c757d] hover:text-[#264065] transition-colors">
               Home
             </Link>
@@ -50,14 +60,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               Blog
             </Link>
             <span className="text-[#6c757d]">/</span>
-            <span className="text-[#264065] font-medium">{post.title}</span>
+            <span className="text-[#264065] font-medium truncate max-w-[300px]">{post.title}</span>
           </nav>
 
           {/* Post Meta */}
           <div className="flex items-center gap-4 mb-6">
-            <span className="bg-[#264065] text-white px-4 py-2 rounded-full text-sm font-medium font-['Poppins']">
-              {post.category.name}
-            </span>
+            {post.category.name.toLowerCase() !== 'uncategorized' && (
+              <span className="bg-[#264065] text-white px-4 py-2 rounded-full text-sm font-medium font-['Poppins']">
+                {post.category.name}
+              </span>
+            )}
             <span className="text-[#6c757d] text-sm font-['Poppins']">
               {new Date(post.publishedAt).toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -182,9 +194,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       </div>
                       <div className="p-6">
                         <div className="flex items-center justify-between mb-3">
-                          <span className="bg-[#264065] text-white px-3 py-1 rounded-full text-xs font-medium font-['Poppins']">
-                            {relatedPost.category.name}
-                          </span>
+                          {relatedPost.category.name.toLowerCase() !== 'uncategorized' && (
+                            <span className="bg-[#264065] text-white px-3 py-1 rounded-full text-xs font-medium font-['Poppins']">
+                              {relatedPost.category.name}
+                            </span>
+                          )}
                           <span className="text-[#6c757d] text-xs font-['Poppins']">{relatedPost.readTime}</span>
                         </div>
                         <h3 className="text-lg font-bold text-[#264065] mb-3 font-['Poppins'] group-hover:text-[#C88652] transition-colors duration-300 line-clamp-2">

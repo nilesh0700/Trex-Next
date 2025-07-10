@@ -37,8 +37,11 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
       <div className="w-full bg-gray-50 py-8 mt-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           <div className="mb-4">
-            <Link href="/news" className="text-[#264065] hover:text-[#1a2d47] font-medium text-sm">
-              ← Back to News
+            <Link href="/news" className="text-[#264065] hover:text-[#1a2d47] font-medium text-sm flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to News
             </Link>
           </div>
           
@@ -46,9 +49,11 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
             <div className="lg:col-span-3">
               <div className="bg-white rounded-lg p-8 shadow-sm">
                 <div className="mb-6">
-                  <span className="inline-block bg-[#264065] text-white px-3 py-1 rounded-full text-sm font-medium mb-4">
-                    {article.category.name}
-                  </span>
+                  {article.category.name.toLowerCase() !== 'uncategorized' && (
+                    <span className="inline-block bg-[#264065] text-white px-3 py-1 rounded-full text-sm font-medium mb-4">
+                      {article.category.name}
+                    </span>
+                  )}
                   <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-['Poppins'] leading-tight">
                     {article.title}
                   </h1>
