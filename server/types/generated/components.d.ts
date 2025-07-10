@@ -122,19 +122,6 @@ export interface SharedPricingPackage extends Struct.ComponentSchema {
   };
 }
 
-export interface SharedTargetCity extends Struct.ComponentSchema {
-  collectionName: 'components_shared_target_cities';
-  info: {
-    description: 'Individual target city information';
-    displayName: 'Target City';
-  };
-  attributes: {
-    category: Schema.Attribute.String & Schema.Attribute.Required;
-    is_host: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -143,7 +130,6 @@ declare module '@strapi/strapi' {
       'shared.city-statistic': SharedCityStatistic;
       'shared.event-flow-item': SharedEventFlowItem;
       'shared.pricing-package': SharedPricingPackage;
-      'shared.target-city': SharedTargetCity;
     }
   }
 }

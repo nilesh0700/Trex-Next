@@ -67,13 +67,37 @@ const TestimonialCard: React.FC<{ text: string; className?: string }> = ({ text,
  * VideoButton component for the hero section
  */
 const VideoButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-  <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={onClick}>
-    <div className="w-[44px] h-[44px] sm:w-[40px] sm:h-[40px] md:w-[44px] md:h-[44px] bg-white rounded-full flex items-center justify-center shadow-md">
-      <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-        <path d="M3 2.5L13 8L3 13.5V2.5Z" fill="#264065" />
-      </svg>
+  <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity py-2 sm:py-2 md:py-2 group" onClick={onClick}>
+    <div className="w-[44px] h-[44px] sm:w-[40px] sm:h-[40px] md:w-[44px] md:h-[44px] bg-white rounded-full flex items-center justify-center shadow-md transition-all duration-300 group-hover:shadow-lg relative overflow-hidden">
+      <div className="relative">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+          <path d="M3 2.5L13 8L3 13.5V2.5Z" fill="#264065" />
+        </svg>
+        <div 
+          className="absolute top-0 left-0 w-full h-full transition-all duration-500 ease-out"
+          style={{
+            background: '#D2956F',
+            clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0 100%)',
+            maskImage: 'url("data:image/svg+xml,%3Csvg width=\'18\' height=\'18\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M3 2.5L13 8L3 13.5V2.5Z\' fill=\'%23000\'/%3E%3C/svg%3E")',
+            maskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg width=\'18\' height=\'18\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M3 2.5L13 8L3 13.5V2.5Z\' fill=\'%23000\'/%3E%3C/svg%3E")',
+            WebkitMaskSize: 'contain',
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'center'
+          }}
+        />
+      </div>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .group:hover div[style*="clip-path"] {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
+          }
+        `
+      }} />
     </div>
-    <span className="text-[#264065] text-base md:text-lg font-medium">
+    <span className="text-[#264065] text-base md:text-lg font-medium leading-none">
       Watch Video
     </span>
   </div>
