@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import RegistrationButton from "./RegistrationButton";
+import VideoModal from "./VideoModal";
 import Image from "next/image";
 
 /**
@@ -63,8 +66,8 @@ const TestimonialCard: React.FC<{ text: string; className?: string }> = ({ text,
 /**
  * VideoButton component for the hero section
  */
-const VideoButton: React.FC = () => (
-  <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+const VideoButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
+  <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onClick={onClick}>
     <div className="w-[44px] h-[44px] sm:w-[40px] sm:h-[40px] md:w-[44px] md:h-[44px] bg-white rounded-full flex items-center justify-center shadow-md">
       <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
         <path d="M3 2.5L13 8L3 13.5V2.5Z" fill="#264065" />
@@ -86,6 +89,12 @@ const VideoButton: React.FC = () => (
  * - Call-to-action buttons
  */
 export default function Hero() {
+  // Video modal state
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  
+  const openVideoModal = () => setIsVideoModalOpen(true);
+  const closeVideoModal = () => setIsVideoModalOpen(false);
+
   // Feature cards data
   const features = [
     {
@@ -185,7 +194,7 @@ export default function Hero() {
               <RegistrationButton className="bg-[#264065] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#1a2d47] transition-colors">
                 Register
               </RegistrationButton>
-              <VideoButton />
+              <VideoButton onClick={openVideoModal} />
             </div>
           </div>
         </div>
@@ -210,7 +219,7 @@ export default function Hero() {
                 <RegistrationButton className="bg-[#264065] text-white px-8 sm:px-7 md:px-8 lg:px-8 py-4 sm:py-3 md:py-4 rounded-[32px] text-base md:text-lg font-medium hover:bg-[#1a2d47] transition-colors">
                   Register Now
                 </RegistrationButton>
-                <VideoButton />
+                <VideoButton onClick={openVideoModal} />
               </div>
             </div>
           </div>
@@ -266,6 +275,13 @@ export default function Hero() {
           </div>
         </div>
       </section>
+
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={closeVideoModal}
+        videoSrc="/assets/trex-logo-animation.mp4"
+      />
     </main>
   );
 }
