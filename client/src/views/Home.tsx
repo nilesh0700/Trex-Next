@@ -22,7 +22,7 @@ export default async function Home() {
     <main className="min-h-screen">
       {/* Hero Section */}
       <Hero />
-      <LogoMarquee />
+      {/* <LogoMarquee /> */}
       {/* Statistics Section */}
       <section className="bg-white">
         <Statistics />

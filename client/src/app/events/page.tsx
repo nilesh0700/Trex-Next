@@ -232,6 +232,11 @@ function EventCard({ event }: { event: Event }) {
 
   const badgeConfig = getBadgeConfig(event.eventStatus);
 
+  // For all event cards in "Our Events" section, use heroImage if available, otherwise use regular image
+  // This matches what appears on the individual event page hero section
+  const cardImage = event.heroImage || event.image;
+  const cardImageAlt = event.heroImageAlt || event.imageAlt;
+
   return (
     <Link href={`/events/${event.slug}`} className="group relative h-full">
       {/* Premium Card Container with Consistent Height */}
@@ -247,34 +252,14 @@ function EventCard({ event }: { event: Event }) {
         
         {/* Media Section with Fixed Aspect Ratio */}
         <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-[#264065] to-[#1a2d47] flex-shrink-0">
-          {/* Event Image/Media */}
-          {event.mediaType === 'video' && event.image ? (
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            >
-              <source src={event.image} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          ) : event.mediaType === 'video_url' && event.videoUrl ? (
-            <iframe
-              src={event.videoUrl}
-              className="absolute inset-0 w-full h-full border-0 scale-125"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : (
-            <Image
-              src={event.image}
-              alt={event.imageAlt || event.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-          )}
+          {/* Event Image - Always show image like on individual event page */}
+          <Image
+            src={cardImage}
+            alt={cardImageAlt || event.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
           
           {/* Event State Badge */}
           {badgeConfig && (
@@ -478,9 +463,12 @@ export default async function EventsPage() {
   const featuredEvent = featuredEventsData.data[0];
   const regularEvents = regularEventsData.data;
 
+  // Create events array with featured event as first card (if it exists)
+  const eventsForGrid = featuredEvent ? [featuredEvent, ...regularEvents] : regularEvents;
+
   // Calculate number of "To Be Announced" cards to show
-  // Start with 4, reduce by 1 for each regular event, minimum 0
-  const toBeAnnouncedCount = Math.max(0, 4 - regularEvents.length);
+  // Start with 4, reduce by 1 for each event in grid, minimum 0
+  const toBeAnnouncedCount = Math.max(0, 4 - eventsForGrid.length);
 
   return (
     <main className="min-h-screen bg-white pt-30 sm:pt-40 lg:pt-37">
@@ -495,7 +483,7 @@ export default async function EventsPage() {
       )}
       
       {/* Past/Regular Events Section */}
-      {(regularEvents.length > 0 || toBeAnnouncedCount > 0) && (
+      {(eventsForGrid.length > 0 || toBeAnnouncedCount > 0) && (
         <div className="w-full py-16 sm:py-20 md:py-24" style={{backgroundColor: '#FAF8F5'}}>
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             
@@ -509,8 +497,8 @@ export default async function EventsPage() {
 
             {/* Premium Events Grid with Consistent Heights */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 auto-rows-fr">
-              {/* Regular Events from CMS */}
-              {regularEvents.map((event) => (
+              {/* Events from CMS (Featured event first, then regular events) */}
+              {eventsForGrid.map((event) => (
                 <EventCard key={event.id} event={event} />
               ))}
               
@@ -524,7 +512,7 @@ export default async function EventsPage() {
       )}
 
       {/* No Events Message */}
-      {!featuredEvent && regularEvents.length === 0 && toBeAnnouncedCount === 0 && (
+      {!featuredEvent && eventsForGrid.length === 0 && toBeAnnouncedCount === 0 && (
         <div className="w-full py-16 sm:py-20 md:py-24">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#264065] mb-4 font-['Poppins']">
