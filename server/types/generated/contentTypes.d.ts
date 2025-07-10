@@ -600,7 +600,6 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     registration_link: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
-    target_cities: Schema.Attribute.Component<'shared.target-city', true>;
     target_markets_description: Schema.Attribute.Text;
     target_markets_title: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Target Markets Across India'>;

@@ -68,12 +68,7 @@ export interface StrapiOrganizer {
 }
 
 // Component interfaces
-export interface StrapiTargetCity {
-  id: number;
-  name: string;
-  category: string;
-  is_host: boolean;
-}
+
 
 export interface StrapiPricingPackage {
   id: number;
@@ -160,7 +155,7 @@ export interface StrapiEvent {
   event_subheading: string;
   category: StrapiEventCategory | null;
   organizer: StrapiOrganizer | null;
-  target_cities: StrapiTargetCity[];
+
   target_markets_title: string;
   target_markets_description?: string;
   pricing_packages: StrapiPricingPackage[];
@@ -268,12 +263,6 @@ export interface StrapiCollectionResponse<T> extends StrapiResponse<T[]> {}
 export interface StrapiSingleResponse<T> extends StrapiResponse<T> {}
 
 // Frontend-friendly interfaces (transformed from Strapi)
-export interface TargetCity {
-  id: number;
-  name: string;
-  category: string;
-  isHost: boolean;
-}
 
 export interface PricingPackage {
   id: number;
@@ -375,7 +364,7 @@ export interface Event {
     bio?: string;
     avatar?: string;
   };
-  targetCities: TargetCity[];
+
   targetMarketsTitle: string;
   targetMarketsDescription?: string;
   pricingPackages: PricingPackage[];

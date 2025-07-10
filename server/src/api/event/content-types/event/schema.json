@@ -108,11 +108,6 @@
       "target": "api::organizer.organizer",
       "inversedBy": "events"
     },
-    "target_cities": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.target-city"
-    },
     "target_markets_title": {
       "type": "string",
       "default": "Target Markets Across India"
